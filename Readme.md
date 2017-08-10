@@ -1,4 +1,4 @@
-Barracuda WAF for Azure
+## **Barracuda WAF for Azure**
 
 The Barracuda Web Application Firewall (WAF) provides proven application security and data loss prevention for your applications on Microsoft Azure, including:
   •	Detecting and blocking attacks including SQL injections, Cross-Site Scripting, malware uploads, and volumetric or application DDoS.
@@ -14,7 +14,7 @@ To meet a variety of performance requirements, the A1, A2, A3 and A4 instance ty
 
 The Barracuda Web Application Firewall is available on Microsoft Azure with the Bring Your Own License (BYOL) and Hourly / Metered option:
 
-Bring Your Own License (BYOL)
+### Bring Your Own License (BYOL)****
 
 With the Bring Your Own License (BYOL) option, you are required to get the Barracuda Web Application Firewall license token, either by:
   •	Providing the required information for a free evaluation at https://www.barracuda.com/purchase/evaluation OR
@@ -24,7 +24,7 @@ With this license option, there will be no Barracuda Web Application Firewall So
 
 You can add multiple Barracuda Web Application Firewall instances under one cloud service and load balance the traffic between the deployed instances to increase the throughput. For more information on load balancing, see the Load Balancing For Clustered Barracuda Web Application Firewall Instances in the Old Microsoft Azure Management Portal article.
 
-Hourly / Metered
+### Hourly / Metered****
 
 With the Hourly/Metered licensing option, you complete the purchase or evaluation of the Barracuda Web Application Firewall entirely within the Microsoft Azure gallery. After the instance is launched, it is provisioned automatically. You are charged hourly for both the Barracuda Web Application Firewall Software and Microsoft Azure usage on Microsoft.
 
@@ -32,9 +32,8 @@ Hourly / Metered Model and Instance Types For more information on supported inst
 
 If you want to increase the performance of an existing VM, configure it with a larger instance type on Microsoft Azure and you will be charged accordingly by Microsoft. The VM will automatically be reconfigured by Microsoft with the resources and capabilities of the larger instance type.
 
-Copyright 2003-2017 Barracuda Networks, Inc. All rights reserved
+### Copyright 2003-2017 Barracuda Networks, Inc. All rights reserved
 
 ALL OF THE SOURCE CODE ON THIS REPOSITORY IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
 
 NONINFRINGEMENT. IN NO EVENT SHALL BARRACUDA BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOURCE CODE.
-
