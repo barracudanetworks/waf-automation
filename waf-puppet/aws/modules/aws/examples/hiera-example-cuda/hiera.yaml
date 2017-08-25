@@ -1,0 +1,9 @@
+:hierarchy:
+  - %{::region}
+
+  - common
+
+:backends:
+  - yaml
+:yaml:
+  :datadir: 'hieradata'

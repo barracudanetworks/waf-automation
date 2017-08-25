@@ -1,0 +1,5 @@
+debug.log
+terraform.*
+Use Case-1/terraform.tfstate
+Use Case-2/terraform.tfstate Use Case-2/terraform.tfstate.backup
+Use Case-2/terraformrefresh.tfstate

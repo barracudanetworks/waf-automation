@@ -1,0 +1,7 @@
+:hierarchy:
+  - common
+
+:backends:
+  - yaml
+:yaml:
+  :datadir: '/etc/puppetlabs/code/environments/staging/hieradata'

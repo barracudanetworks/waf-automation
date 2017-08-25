@@ -1,0 +1,113 @@
+--- 
+  http_interactions: 
+    - request: 
+        method: post
+        uri: "https://ec2.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeVpcs&Version=2014-09-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.0.0 universal.x86_64-darwin14"
+          X-Amz-Date: 
+            - "20150511T081254Z"
+          Host: 
+            - ec2.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - a5f2916dc835304d35fa21090cbec3b88c7389b76b81e560905ce762a499b8c1
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=redacted/20150511/sa-east-1/ec2/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=f368f89f9e6248ff6d50b018bb01e6ab48793aeff7a22649b0cdf520a5a4dc63"
+          Content-Length: 
+            - "38"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          Content-Type: 
+            - "text/xml;charset=UTF-8"
+          Transfer-Encoding: 
+            - chunked
+          Vary: 
+            - Accept-Encoding
+          Date: 
+            - "Mon, 11 May 2015 08:12:53 GMT"
+          Server: 
+            - AmazonEC2
+        body: 
+          encoding: UTF-8
+          string: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <DescribeVpcsResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+                <requestId>f1c9fde4-0fdf-4f9a-8ca1-341d0cc733f9</requestId>
+                <vpcSet>
+                </vpcSet>
+            </DescribeVpcsResponse>
+        http_version: 
+      recorded_at: "Mon, 11 May 2015 08:12:55 GMT"
+    - request: 
+        method: post
+        uri: "https://ec2.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeSecurityGroups&Version=2014-09-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.0.0 universal.x86_64-darwin14"
+          X-Amz-Date: 
+            - "20150511T081255Z"
+          Host: 
+            - ec2.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - "5d21a760e19d65e1362145b2d52df2569bac924f2eaee44aefe25f75ead4e7e2"
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=redacted/20150511/sa-east-1/ec2/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=070674801bc51a13f598ff5f67b95a56bed15ae8799a3f2215d086cb95b9a5e9"
+          Content-Length: 
+            - "48"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          Content-Type: 
+            - "text/xml;charset=UTF-8"
+          Transfer-Encoding: 
+            - chunked
+          Vary: 
+            - Accept-Encoding
+          Date: 
+            - "Mon, 11 May 2015 08:12:55 GMT"
+          Server: 
+            - AmazonEC2
+        body: 
+          encoding: UTF-8
+          string: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <DescribeSecurityGroupsResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+                <requestId>a71b19a6-71b3-44a1-b0f2-40db5a9706f1</requestId>
+                <securityGroupInfo>
+                    <item>
+                        <ownerId>x</ownerId>
+                        <groupId>sg-x</groupId>
+                        <groupName></groupName>
+                        <groupDescription>group for testing autoscaling group</groupDescription>
+                        <ipPermissions/>
+                        <ipPermissionsEgress/>
+                    </item>
+                </securityGroupInfo>
+            </DescribeSecurityGroupsResponse>
+        http_version: 
+      recorded_at: "Mon, 11 May 2015 08:12:57 GMT"
+  recorded_with: "VCR 2.9.3"

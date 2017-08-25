@@ -1,0 +1,205 @@
+--- 
+  http_interactions: 
+    - request: 
+        method: post
+        uri: "https://ec2.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeSubnets&Version=2014-09-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.1.4 x86_64-darwin14.0"
+          X-Amz-Date: 
+            - "20150507T104713Z"
+          Host: 
+            - ec2.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - "3a82620a58eb8a58f422b0762600796f48166b8ce93cb23e176e8d65d498f8c8"
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=AKIAJKFCLZAZQRFMXDAA/20150507/sa-east-1/ec2/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=7cae871d925abb2199b7183de9e03b0317e0ba0255f078c267ad5a2c47cd64cb"
+          Content-Length: 
+            - "41"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          Content-Type: 
+            - "text/xml;charset=UTF-8"
+          Transfer-Encoding: 
+            - chunked
+          Vary: 
+            - Accept-Encoding
+          Date: 
+            - "Thu, 07 May 2015 10:47:14 GMT"
+          Server: 
+            - AmazonEC2
+        body: 
+          encoding: UTF-8
+          string: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <DescribeSubnetsResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+                <requestId>bccc46f1-93a5-48cf-91c3-5e8812cb04a4</requestId>
+                <subnetSet>
+                </subnetSet>
+            </DescribeSubnetsResponse>
+        http_version: 
+      recorded_at: "Thu, 07 May 2015 10:47:15 GMT"
+    - request: 
+        method: post
+        uri: "https://ec2.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeInstances&Filter.1.Name=instance-state-name&Filter.1.Value.1=pending&Filter.1.Value.2=running&Filter.1.Value.3=stopping&Filter.1.Value.4=stopped&Version=2014-09-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.1.4 x86_64-darwin14.0"
+          X-Amz-Date: 
+            - "20150507T104715Z"
+          Host: 
+            - ec2.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - "3c4f913045b3ab51b265c5c702a265f74527c4f93cc1ce92140ec283cbd25b40"
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=AKIAJKFCLZAZQRFMXDAA/20150507/sa-east-1/ec2/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=417325a07a39778c900911f4b91b59b6b037f754fc4b3ef133c06977b94d536a"
+          Content-Length: 
+            - "178"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          Content-Type: 
+            - "text/xml;charset=UTF-8"
+          Transfer-Encoding: 
+            - chunked
+          Vary: 
+            - Accept-Encoding
+          Date: 
+            - "Thu, 07 May 2015 10:47:14 GMT"
+          Server: 
+            - AmazonEC2
+        body: 
+          encoding: UTF-8
+          string: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+                <requestId>b2db17bc-6098-4ace-a53e-0aaec30f65a8</requestId>
+                <reservationSet/>
+            </DescribeInstancesResponse>
+        http_version: 
+      recorded_at: "Thu, 07 May 2015 10:47:15 GMT"
+    - request: 
+        method: post
+        uri: "https://ec2.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeSubnets&Version=2014-09-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.1.4 x86_64-darwin14.0"
+          X-Amz-Date: 
+            - "20150507T104715Z"
+          Host: 
+            - ec2.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - "3a82620a58eb8a58f422b0762600796f48166b8ce93cb23e176e8d65d498f8c8"
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=AKIAJKFCLZAZQRFMXDAA/20150507/sa-east-1/ec2/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=8d7b66b7271a65519449e9fad67b17c9171c5986282a968eb49f13835df958e4"
+          Content-Length: 
+            - "41"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          Content-Type: 
+            - "text/xml;charset=UTF-8"
+          Transfer-Encoding: 
+            - chunked
+          Vary: 
+            - Accept-Encoding
+          Date: 
+            - "Thu, 07 May 2015 10:47:16 GMT"
+          Server: 
+            - AmazonEC2
+        body: 
+          encoding: UTF-8
+          string: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <DescribeSubnetsResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+                <requestId>ae6615a7-01a4-4896-8019-03e2d1d25ddf</requestId>
+                <subnetSet>
+                </subnetSet>
+            </DescribeSubnetsResponse>
+        http_version: 
+      recorded_at: "Thu, 07 May 2015 10:47:16 GMT"
+    - request: 
+        method: post
+        uri: "https://ec2.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeInstances&Filter.1.Name=instance-state-name&Filter.1.Value.1=pending&Filter.1.Value.2=running&Filter.1.Value.3=stopping&Filter.1.Value.4=stopped&Version=2014-09-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.1.4 x86_64-darwin14.0"
+          X-Amz-Date: 
+            - "20150507T104716Z"
+          Host: 
+            - ec2.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - "3c4f913045b3ab51b265c5c702a265f74527c4f93cc1ce92140ec283cbd25b40"
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=AKIAJKFCLZAZQRFMXDAA/20150507/sa-east-1/ec2/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=5c22ded9c3d450eacc36537e851b991ba3a2a0ac93b2f83aaa7784c23ab79161"
+          Content-Length: 
+            - "178"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          Content-Type: 
+            - "text/xml;charset=UTF-8"
+          Transfer-Encoding: 
+            - chunked
+          Vary: 
+            - Accept-Encoding
+          Date: 
+            - "Thu, 07 May 2015 10:47:17 GMT"
+          Server: 
+            - AmazonEC2
+        body: 
+          encoding: UTF-8
+          string: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2014-09-01/">
+                <requestId>814fd8ab-7206-4dc2-8a66-b8319d2d924a</requestId>
+                <reservationSet/>
+            </DescribeInstancesResponse>
+        http_version: 
+      recorded_at: "Thu, 07 May 2015 10:47:17 GMT"
+  recorded_with: "VCR 2.9.3"

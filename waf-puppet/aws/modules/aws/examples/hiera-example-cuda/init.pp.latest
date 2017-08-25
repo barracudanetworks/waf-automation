@@ -1,0 +1,100 @@
+# site.pp ##
+
+# This file (/etc/puppetlabs/puppet/manifests/site.pp) is the main entry point
+# used when an agent connects to a master and asks for an updated configuration.
+#
+# Global objects like filebuckets and resource defaults should go in this file,
+# as should the default node definition. (The default node can be omitted
+# if you use the console and don't define any other nodes in site.pp. See
+# http://docs.puppetlabs.com/guides/language_guide.html#nodes for more on
+# node definitions.)
+
+## Active Configurations ##
+
+# Disable filebucket by default for all File resources:
+#File { backup => false }
+
+# DEFAULT NODE
+# Node definitions in this file are merged with node data from the console. See
+# http://docs.puppetlabs.com/guides/language_guide.html#nodes for more on
+# node definitions.
+
+# The default node definition matches any node lacking a more specific node
+# definition. If there are no other nodes in this file, classes declared here
+# will be included in every node's catalog, *in addition* to any classes
+# specified in the console for that node.
+#This manifest is used to create a Barracuda WAF EC2 instance in AWS. Parameters such as Region, VPC, Subnet, Security group are all mentioned here.
+class aws {
+ec2_securitygroup { 'ara-sec-group':
+  ensure      => present,
+  region      => 'us-west-2',
+  vpc	      => 'Ara-VPCNet',  
+  description => 'a description of the group',
+  ingress     => [{
+    protocol  => 'tcp',
+    port      => 80,
+    cidr      => '0.0.0.0/0',
+  },{
+    protocol  => 'tcp',
+    port      => 443,
+    cidr      => '0.0.0.0/0',
+},
+    {
+    protocol  => 'tcp',
+    port      => 8000,
+    cidr      => '0.0.0.0/0'}],
+  tags        => {
+    tag_name  => 'value',
+  },
+}
+ec2_instance { 'aravindan-waf-instance3':
+  ensure            => running,
+  region            => hiera('region'),
+  availability_zone => hiera('availability_zone'),
+  image_id          => hiera('ami'),
+  instance_type     => 'm3.medium',
+  monitoring        => true,
+#  vpc		    => 'Ara-VPCNet',
+  subnet	    => 'ara-web-svr-subnet',
+  key_name          => 'aravindan-ec2-test-puppet',
+  security_groups   => ['ara-sec-group'],
+#  user_data         => template('module/file-path.sh.erb'),
+  tags              => {
+    Name => 'auto-waf-instance',
+  },
+}
+ec2_securitygroup { 'ara-lampsvr-group':
+  ensure      => present,
+  region      => 'us-west-2',
+  vpc         => 'Ara-VPCNet',
+  description => 'a description of the group',
+  ingress     => [{
+    protocol  => 'tcp',
+    port      => 22,
+    cidr      => '0.0.0.0/0',
+  },{
+    protocol  => 'tcp',
+    port      => 80,
+    cidr      => '0.0.0.0/0'}],
+    tags      => {
+    tag_name  => 'value',
+},
+}
+ec2_instance { 'aravindan-lamp-instance':
+  ensure            => running,
+  region            => 'us-west-2',
+  availability_zone => 'us-west-2a',
+  image_id          => 'ami-efd0428f',
+  instance_type     => 't2.micro',
+  monitoring        => true,
+#  vpc              => 'Ara-VPCNet',
+  subnet            => 'ara-web-svr-subnet',
+  key_name          => 'aravindan-temp',
+  security_groups   => ['ara-lampsvr-group'],
+  user_data         => template('aws/lamp.erb'),
+  tags              => {
+    tag_name => 'testinstance',
+  },
+}
+
+}

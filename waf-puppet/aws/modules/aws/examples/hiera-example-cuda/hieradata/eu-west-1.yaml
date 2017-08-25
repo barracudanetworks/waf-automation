@@ -1,0 +1,5 @@
+---
+ami: ami-bf1b21d9
+region: eu-west-1
+availability_zone: eu-west-1a
+

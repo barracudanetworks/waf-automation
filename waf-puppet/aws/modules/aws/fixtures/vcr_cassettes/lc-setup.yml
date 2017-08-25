@@ -1,0 +1,89 @@
+--- 
+  http_interactions: 
+    - request: 
+        method: post
+        uri: "https://autoscaling.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeLaunchConfigurations&Version=2011-01-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.0.0 universal.x86_64-darwin14"
+          X-Amz-Date: 
+            - "20150226T105842Z"
+          Host: 
+            - autoscaling.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - e858e902d9287f6cedec21fa27ca23bda00820e3ffa25f3eac1929c4a84f423d
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=redacted/20150226/sa-east-1/autoscaling/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=083c6968ab3696528dd8777ce0275236f41c574cc0e841144fa6f95dd2e55682"
+          Content-Length: 
+            - "54"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          X-Amzn-Requestid: 
+            - "6d92428c-bda6-11e4-bc1b-9f2652bae3b6"
+          Content-Type: 
+            - text/xml
+          Content-Length: 
+            - "350"
+          Date: 
+            - "Thu, 26 Feb 2015 10:58:42 GMT"
+        body: 
+          encoding: UTF-8
+          string: "<DescribeLaunchConfigurationsResponse xmlns=\x22http://autoscaling.amazonaws.com/doc/2011-01-01/\x22>\n  <DescribeLaunchConfigurationsResult>\n    <LaunchConfigurations/>\n  </DescribeLaunchConfigurationsResult>\n  <ResponseMetadata>\n    <RequestId>6d92428c-bda6-11e4-bc1b-9f2652bae3b6</RequestId>\n  </ResponseMetadata>\n</DescribeLaunchConfigurationsResponse>\n"
+        http_version: 
+      recorded_at: "Thu, 26 Feb 2015 10:58:44 GMT"
+    - request: 
+        method: post
+        uri: "https://autoscaling.sa-east-1.amazonaws.com/"
+        body: 
+          encoding: UTF-8
+          string: "Action=DescribeLaunchConfigurations&Version=2011-01-01"
+        headers: 
+          Content-Type: 
+            - "application/x-www-form-urlencoded; charset=utf-8"
+          Accept-Encoding: 
+            - ""
+          User-Agent: 
+            - "aws-sdk-ruby2/2.0.5 ruby/2.0.0 universal.x86_64-darwin14"
+          X-Amz-Date: 
+            - "20150226T105844Z"
+          Host: 
+            - autoscaling.sa-east-1.amazonaws.com
+          X-Amz-Content-Sha256: 
+            - e858e902d9287f6cedec21fa27ca23bda00820e3ffa25f3eac1929c4a84f423d
+          Authorization: 
+            - "AWS4-HMAC-SHA256 Credential=redacted/20150226/sa-east-1/autoscaling/aws4_request, SignedHeaders=content-type;host;user-agent;x-amz-content-sha256;x-amz-date, Signature=7a49ec2878cb9fbeb31bee1cffac6fb1ba87c98730de56d3b4aeea54e6ecf4c6"
+          Content-Length: 
+            - "54"
+          Accept: 
+            - "*/*"
+      response: 
+        status: 
+          code: 200
+          message: OK
+        headers: 
+          X-Amzn-Requestid: 
+            - "6e7c7b7e-bda6-11e4-bc1b-9f2652bae3b6"
+          Content-Type: 
+            - text/xml
+          Content-Length: 
+            - "350"
+          Date: 
+            - "Thu, 26 Feb 2015 10:58:44 GMT"
+        body: 
+          encoding: UTF-8
+          string: "<DescribeLaunchConfigurationsResponse xmlns=\x22http://autoscaling.amazonaws.com/doc/2011-01-01/\x22>\n  <DescribeLaunchConfigurationsResult>\n    <LaunchConfigurations/>\n  </DescribeLaunchConfigurationsResult>\n  <ResponseMetadata>\n    <RequestId>6e7c7b7e-bda6-11e4-bc1b-9f2652bae3b6</RequestId>\n  </ResponseMetadata>\n</DescribeLaunchConfigurationsResponse>\n"
+        http_version: 
+      recorded_at: "Thu, 26 Feb 2015 10:58:45 GMT"
+  recorded_with: "VCR 2.9.3"

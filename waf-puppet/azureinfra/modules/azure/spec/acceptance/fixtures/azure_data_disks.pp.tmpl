@@ -1,0 +1,27 @@
+azure_resource_group { '{{resource_group}}':
+  ensure   => present,
+  location => '{{location}}',
+}
+azure_storage_account { 'slowspacespec':
+  ensure         => present,
+  account_type   => 'Standard_GRS',
+  location       => '{{location}}',
+  resource_group => '{{resource_group}}',
+}
+-> azure_storage_account { 'hunnerdisks861':
+  ensure         => present,
+  account_type   => 'Standard_GRS',
+  location       => '{{location}}',
+  resource_group => '{{resource_group}}',
+}
+-> azure_vm { '{{name}}':
+  ensure         => {{ensure}},
+  resource_group => '{{resource_group}}',
+  location       => '{{location}}',
+  {{#optional}}
+  {{k}}   => '{{v}}',
+  {{/optional}}
+  {{#nonstring}}
+  {{k}}   => {{{v}}},
+  {{/nonstring}}
+}

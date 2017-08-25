@@ -1,0 +1,23 @@
+HOSTS:
+  ubuntu1404-master:
+    roles:
+      - master
+      - dashboard
+      - database
+      - agent
+    platform: ubuntu-14.04-amd64
+    box: puppetlabs/ubuntu-14.04-64-nocm
+    box_url: https://vagrantcloud.com/puppetlabs/ubuntu-14.04-64-nocm
+    hypervisor: vagrant
+  debian7-agent:
+    roles:
+      - agent
+      - default
+    platform: debian-7-amd64
+    box: puppetlabs/debian-7.8-64-nocm
+    box_url: https://vagrantcloud.com/puppetlabs/boxes/debian-7.8-64-nocm
+    hypervisor: vagrant
+CONFIG:
+  consoleport: 443
+  vagrant_memsize: 2048
+  color: false

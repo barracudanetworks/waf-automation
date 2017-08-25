@@ -1,0 +1,6 @@
+azure_storage_account { '{{name}}':
+  ensure  => {{ensure}},
+  {{#optional}}
+  {{k}}   => '{{v}}',
+  {{/optional}}
+}
