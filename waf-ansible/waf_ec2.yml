@@ -1,0 +1,17 @@
+---
+###Create a WAF EC2 instance on AWS###
+###This playbook can be used to create an EC2 instance of the Barracuda WAF PAYG type###
+### WAF DETAILS ###
+- hosts: ansible-client
+  tasks:
+  - ec2:
+      region: us-west-2
+      key_name: ansible-waf
+      instance_type: m3.medium
+      instance_tags: '{"Name":"Ansible-waf-aug"}'
+      image: ami-2524a145
+      wait: yes
+      group: WAF-Ansible-sec-group
+      count: 1
+      vpc_subnet_id: subnet-484b782f
+      assign_public_ip: yes
