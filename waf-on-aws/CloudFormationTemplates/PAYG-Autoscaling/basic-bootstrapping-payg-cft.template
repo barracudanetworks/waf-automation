@@ -1,0 +1,724 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Barracuda Web Application Firewall Auto Scaling and Bootstraping --AWSMP::21be5cf9-5526-4ce1-a532-e77f92b36896::8c1903c7-1211-4d61-95c1-1cd538b8ff2c",
+  "Metadata": {
+    "AWS::CloudFormation::Interface": {
+      "ParameterGroups": [
+        {
+          "Label": {
+            "default": "Networking Configuration"
+          },
+          "Parameters": [
+            "VPCid",
+            "AvailabilityZones",
+            "SubnetID",
+            "ELBNames"
+          ]
+        },
+        {
+          "Label": {
+            "default": "Auto scaling Configuration"
+          },
+          "Parameters": [
+            "InstanceType",
+            "ScalingMinSize",
+            "ScalingMaxSize",
+            "NotificationEmail"
+          ]
+        },
+        {
+          "Label": {
+            "default": "Barracuda Web Application Firewall Bootstrapping Configuration"
+          },
+          "Parameters": [
+            "WAFServiceName",
+            "WAFServicePort",
+            "WAFServerIP",
+            "WAFServerPort"
+          ]
+        }
+      ],
+      "ParameterLabels": {
+        "VPCid": {
+          "default": "VPC Id"
+        },
+        "AvailabilityZones": {
+          "default": "Availability Zone(s)"
+        },
+        "SubnetID": {
+          "default": "Subnet Id(s)"
+        },
+        "ELBNames": {
+          "default": "Elastic Load Balancer"
+        },
+        "InstanceType": {
+          "default": "Instance Type"
+        },
+        "ScalingMinSize": {
+          "default": "Minimum Instances"
+        },
+        "ScalingMaxSize": {
+          "default": "Maximum Instances"
+        },
+        "NotificationEmail": {
+          "default": "Notification Email"
+        },
+        "WAFServiceName": {
+          "default": "Service Name"
+        },
+        "WAFServicePort": {
+          "default": "Service Port"
+        },
+        "WAFServerIP": {
+          "default": "Server IP/FQDN"
+        },
+        "WAFServerPort": {
+          "default": "Server Port"
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "AvailabilityZones": {
+      "Type": "List<AWS::EC2::AvailabilityZone::Name>",
+      "Description": "Select the Availability Zones of the VPC that will be used for this deployment. Recommended deployment is across multiple AZ's"
+    },
+    "VPCid": {
+      "Description": "Select the VPC chosen for this deployment",
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "SubnetID": {
+      "ConstraintDescription": "Enter valid Subnet Id's associated to the VPC (subnet-*)",
+      "Type": "List<AWS::EC2::Subnet::Id>",
+      "Description": "Select subnet id's which has been already assigned to the VPC used. These subnets must reside on AZ's chosen"
+    },
+    "ELBNames": {
+      "ConstraintDescription": "Enter a comma separated list of pre-configured Elastic Load Balancer Names",
+      "Type": "CommaDelimitedList",
+      "Description": "Enter a valid pre-configured Elastic Load Balancer name associated to the VPC and Subnet. This is the ELB that will distrubite traffic to the WAF Cluster"
+    },
+    "InstanceType": {
+      "Default": "m3.medium",
+      "ConstraintDescription": "Choose from the following EC2 instance types: m3.medium, m3.large, m3.xlarge, m3.2xlarge, m4.large, m4.xlarge, m4.2xlarge",
+      "Type": "String",
+      "Description": "Choose the instance type to use for this AutoScale group",
+      "AllowedValues": [
+        "m3.medium",
+        "m3.large",
+        "m3.xlarge",
+        "m3.2xlarge",
+            "m4.large",
+            "m4.xlarge",
+            "m4.2xlarge"
+      ]
+    },
+    "ScalingMinSize": {
+      "Description": "Enter the minimum number of WAF instances (1-20) to be available in the AutoScale Group",
+      "Default": "1",
+      "ConstraintDescription": "Must be a number between 1-20",
+      "Type": "Number",
+      "MaxValue": "20",
+      "MinValue": "1"
+    },
+    "ScalingMaxSize": {
+      "Description": "Enter the maximum number of WAF instances (2-20) that can be created in the AutoScale Group",
+      "Default": "4",
+      "ConstraintDescription": "Must be a number between 2-20.",
+      "Type": "Number",
+      "MaxValue": "20",
+      "MinValue": "2"
+    },
+    "NotificationEmail": {
+      "Description": "Enter a valid email address to send AutoSclaing Event Notifications",
+      "Type": "String",
+      "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+      "ConstraintDescription": "Must be a valid email address."
+    },
+    "WAFServiceName": {
+      "Description": "Specify the Service Name to be configured on the Barracuda Web Application Firewall",
+      "AllowedPattern": "[0-9a-zA-Z-_]*",
+      "MinLength": "2",
+      "MaxLength": "64",
+      "Type": "String"
+    },
+    "WAFServicePort": {
+      "Description": "Specify the Service Port to be configured on the Barracuda Web Application Firewall. This the port that is exposed to the outside world. Default is 80.",
+      "Default": "80",
+      "ConstraintDescription": "Must be a valid port number (1-65535).",
+      "Type": "Number",
+      "MaxValue": "65535",
+      "MinValue": "1"
+    },
+    "WAFServerIP": {
+      "Description": "Specify the Server IP (inside the VPC) to be configured on the Barracuda Web Application Firewall; alternatively, you can also enter the FQDN of the instance or a downstream ELB to connect to.",
+      "ConstraintDescription": "Must be a valid IP address or FQDN",
+      "MinLength": "7",
+      "MaxLength": "65535",
+      "Type": "String"
+    },
+    "WAFServerPort": {
+      "Description": "Specify the port number on which the web application responds. This is the port that the Barracuda Web Application Firewall will use to connect to the application",
+      "ConstraintDescription": "Must be a valid port number (1-65535).",
+      "Type": "Number",
+      "MaxValue": "65535",
+      "MinValue": "1"
+    }
+  },
+  "Mappings": {
+    "RegionMap": {
+      "us-east-1": {
+        "ImageID": "ami-7c45b56a"
+      },
+      "us-west-1": {
+        "ImageID": "ami-f0f4a690"
+      },
+      "us-west-2": {
+        "ImageID": "ami-2c962f4c"
+      },
+      "sa-east-1": {
+        "ImageID": "ami-6ef09502"
+      },
+      "ca-central-1": {
+        "ImageID": "ami-4fd8652b"
+      },
+      "eu-central-1": {
+        "ImageID": "ami-63ec220c"
+      },
+      "eu-west-1": {
+        "ImageID": "ami-0e782668"
+      },
+      "eu-west-2": {
+        "ImageID": "ami-f4beb490"
+      },
+      "ap-southeast-1": {
+        "ImageID": "ami-27ca7f44"
+      },
+      "ap-southeast-2": {
+        "ImageID": "ami-14dbdc77"
+      },
+      "ap-northeast-1": {
+        "ImageID": "ami-98f78dff"
+      },
+      "ap-northeast-2": {
+        "ImageID": "ami-4a02d324"
+      },
+      "ap-south-1": {
+        "ImageID": "ami-0e235261"
+      }
+    },
+    "BandwidthScaleUp": {
+      "medium": {
+        "bandwidth": "8750000"
+      },
+      "large": {
+        "bandwidth": "17500000"
+      },
+      "xlarge": {
+        "bandwidth": "35000000"
+      },
+      "xxlarge": {
+        "bandwidth": "65630000"
+      }
+    },
+    "BandwidthScaleDown": {
+      "medium": {
+        "bandwidth": "8750000"
+      },
+      "large": {
+        "bandwidth": "17500000"
+      },
+      "xlarge": {
+        "bandwidth": "35000000"
+      },
+      "xxlarge": {
+        "bandwidth": "65630000"
+      }
+    }
+  },
+  "Resources": {
+    "NotificationTopic": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "Subscription": [
+          {
+            "Endpoint": {
+              "Ref": "NotificationEmail"
+            },
+            "Protocol": "email"
+          }
+        ]
+      }
+    },
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "BucketOwnerFullControl",
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        }
+      }
+    },
+    "BWAFAutoScalingS3AccessRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "BWAFAutoScalingS3AcccessPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:ListBucket"
+                  ],
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:s3[1]:::",
+                        {
+                          "Ref": "S3Bucket"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject"
+                  ],
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:s3[2]:::",
+                        {
+                          "Ref": "S3Bucket"
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "BWAFAutoScalingInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "BWAFAutoScalingS3AccessRole"
+          }
+        ]
+      }
+    },
+    "BWAFAutoScaleLaunchConfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "InstanceMonitoring": "true",
+        "AssociatePublicIpAddress": true,
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionMap",
+            {
+              "Ref": "AWS::Region"
+            },
+            "ImageID"
+          ]
+        },
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "IamInstanceProfile": {
+          "Ref": "BWAFAutoScalingInstanceProfile"
+        },
+        "SecurityGroups": [
+          {
+            "Ref": "BWAFAutoScaleSecurityGroup"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "/opt/aws/bwaf/aws_autoscale.pl --command init-config",
+                " --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource BWAFAutoScaleLaunchConfig ",
+                " --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                " --s3bucketname ",
+                {
+                  "Ref": "S3Bucket"
+                },
+                " --restorebackup ",
+                " --config ",
+                {
+                  "Fn::Join": [
+                    ":",
+                    [
+                      {
+                        "Ref": "WAFServiceName"
+                      },
+                      {
+                        "Ref": "WAFServicePort"
+                      },
+                      {
+                        "Ref": "WAFServerIP"
+                      },
+                      {
+                        "Ref": "WAFServerPort"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "BWAFAutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "MinSize": {
+          "Ref": "ScalingMinSize"
+        },
+        "HealthCheckGracePeriod": "1200",
+        "MaxSize": {
+          "Ref": "ScalingMaxSize"
+        },
+        "VPCZoneIdentifier": {
+          "Ref": "SubnetID"
+        },
+        "LaunchConfigurationName": {
+          "Ref": "BWAFAutoScaleLaunchConfig"
+        },
+        "AvailabilityZones": {
+          "Ref": "AvailabilityZones"
+        },
+        "NotificationConfigurations": [
+          {
+            "TopicARN": {
+              "Ref": "NotificationTopic"
+            },
+            "NotificationTypes": [
+              "autoscaling:EC2_INSTANCE_LAUNCH",
+              "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+              "autoscaling:EC2_INSTANCE_TERMINATE",
+              "autoscaling:EC2_INSTANCE_TERMINATE_ERROR"
+            ]
+          }
+        ],
+        "LoadBalancerNames": {
+          "Ref": "ELBNames"
+        },
+        "HealthCheckType": "EC2"
+      },
+      "UpdatePolicy": {
+        "AutoScalingRollingUpdate": {
+          "PauseTime": "PT10M",
+          "MaxBatchSize": "1",
+          "MinInstancesInService": {
+            "Ref": "ScalingMinSize"
+          }
+        }
+      }
+    },
+    "BWAFAutoScaleSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Default Security group for all WAF instances in the autoscale group",
+        "VpcId": {
+          "Ref": "VPCid"
+        }
+      }
+    },
+    "BWAFSecurityGroupRule1": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8000",
+        "ToPort": "8000",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule2": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8002",
+        "ToPort": "8002",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule3": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "32575",
+        "ToPort": "32575",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule4": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "udp",
+        "FromPort": "32576",
+        "ToPort": "32576",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule5": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8443",
+        "ToPort": "8443",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupServicePortRule": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": {
+          "Ref": "WAFServicePort"
+        },
+        "ToPort": {
+          "Ref": "WAFServicePort"
+        },
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFScaleUpPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "ScalingAdjustment": "1",
+        "Cooldown": "300",
+        "AutoScalingGroupName": {
+          "Ref": "BWAFAutoScalingGroup"
+        },
+        "AdjustmentType": "ChangeInCapacity"
+      }
+    },
+    "BWAFScaleDownPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "ScalingAdjustment": "-1",
+        "Cooldown": "300",
+        "AutoScalingGroupName": {
+          "Ref": "BWAFAutoScalingGroup"
+        },
+        "AdjustmentType": "ChangeInCapacity"
+      }
+    },
+    "NetworkInAlarmHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleUpPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "9175040",
+        "AlarmDescription": "Scale-up if the NetworkIn throughput > 70% of max throughput for 5 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "300",
+        "MetricName": "NetworkIn"
+      }
+    },
+    "NetworkInAlarmLow": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleDownPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "5242880",
+        "AlarmDescription": "Scale-down if the NetworkIn throughput < 50% of max throughput for 10 periods of 15 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "900",
+        "MetricName": "NetworkIn"
+      }
+    },
+    "NetworkOutAlarmHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleUpPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "9175040",
+        "AlarmDescription": "Scale-up if the NetworkOut throughput > 70% of max throughput for 5 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "60",
+        "MetricName": "NetworkOut"
+      }
+    },
+    "NetworkOutAlarmLow": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleDownPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "5242880",
+        "AlarmDescription": "Scale-down if the NetworkOut throughput < 50% of max throughput for 10 periods of 15 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "900",
+        "MetricName": "NetworkOut"
+      }
+    },
+    "CPUAlarmHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleUpPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "85",
+        "AlarmDescription": "Scale out if WAF CPU > 85% after 5 successive intervals of 60 seconds ",
+        "Namespace": "AWS/EC2",
+        "Period": "60",
+        "MetricName": "CPUUtilization"
+      }
+    },
+    "CPUAlarmNormal": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleDownPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "60",
+        "AlarmDescription": "Scale in WAF if CPU < 60% for 10 successive intervals of 15 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "900",
+        "MetricName": "CPUUtilization"
+      }
+    }
+  }
+}

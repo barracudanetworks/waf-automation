@@ -1,0 +1,820 @@
+{
+"AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Barracuda Web Application Firewall Auto Scaling with Basic Bootstrapping for BYOL Instances",
+  "Metadata": {
+"AWS::CloudFormation::Interface": {
+"ParameterGroups": [
+{
+"Label": {
+"default": "AWS Networking Configuration Details"
+},
+"Parameters": [
+"VPCid",
+"AvailabilityZones",
+"SubnetID",
+"ELBNames"
+]
+},
+{
+"Label": {
+"default": "AWS Auto scaling Configuration Details"
+},
+"Parameters": [
+"InstanceType",
+"ScalingMinSize",
+"ScalingMaxSize",
+"NotificationEmail"
+]
+},
+{
+"Label": {
+"default": "Barracuda Web Application Firewall BYOL License(s) Storage Details"
+},
+"Parameters": [
+            "LicenseS3Bucket",
+           "CudaLicenseSubDir"
+         ]
+       },
+      {
+        "Label": {
+           "default": "Barracuda Web Application Firewall Bootstrapping Configuration Storage Details "
+         },
+         "Parameters": [
+            "ClusterS3Bucket"
+          ]
+        },
+        {
+          "Label": {
+           "default": "Barracuda Web Application Firewall Bootstrapping Configuration"
+          },
+         "Parameters": [
+               "DefaultDomain",
+            "WAFServiceName",
+          "WAFServicePort",
+           "WAFServerIP",
+           "WAFServerPort"
+       ]
+       },
+        {
+        "Label": {
+           "default": "Barracuda Web Application Firewall Proxy Server Configuration (Optional)"
+          },
+          "Parameters": [
+            "ProxyServerIP",
+            "ProxyServerPort",
+            "ProxyServerUsername",
+            "ProxyServerPassword"
+          ]
+        },
+        {
+          "Label": {
+            "default": "Barracuda Web Application Firewall EULA Details"
+          },
+          "Parameters": [
+            "AdministratorName",
+            "AdministratorEmailID",
+            "AdministratorCompany"
+          ]
+        },
+        {
+          "Label": {
+            "default": "AWS Identity & Access Management(IAM) Details"
+          },
+          "Parameters": [
+            "S3AccessIAMRole"
+          ]
+        }
+      ],
+      "ParameterLabels": {
+        "VPCid": {
+          "default": "VPC Id"
+        },
+        "AvailabilityZones": {
+          "default": "Availability Zone(s)"
+        },
+        "SubnetID": {
+          "default": "Subnet Id(s)"
+        },
+        "ELBNames": {
+          "default": "Elastic Load Balancer"
+        },
+        "AdministratorName": {
+          "default": "Name"
+        },
+        "AdministratorEmailID": {
+          "default": "Email Address"
+        },
+        "AdministratorCompany": {
+          "default": "Company (if applicable)"
+        },
+        "S3AccessIAMRole": {
+          "default" : "IAM Role Name"
+        },
+        "LicenseS3Bucket": {
+          "default": "License S3 Bucket"
+        },
+        "CudaLicenseSubDir": {
+          "default": "License Sub Directory"
+        },
+        "ProxyServerIP": {
+          "default": "Proxy Server IP"
+        },
+        "ProxyServerPort": {
+          "default": "Proxy Server Port"
+        },
+        "ProxyServerUsername": {
+          "default": "Proxy Server Username"
+        },
+        "ProxyServerPassword": {
+          "default": "Proxy Server Password"
+        },
+            "DefaultDomain": {
+          "default": "Default Domain"
+        },
+        "InstanceType": {
+          "default": "Instance Type"
+        },
+        "ScalingMinSize": {
+          "default": "Minimum Instances"
+        },
+        "ScalingMaxSize": {
+          "default": "Maximum Instances"
+        },
+        "NotificationEmail": {
+          "default": "Notification Email"
+        },
+            "ClusterS3Bucket": {
+          "default": "Clustering S3 Bucket"
+            },
+            "BootstrappingS3Bucket" : {
+          "default": "Bootstrapping S3 Bucket"
+            }
+      }
+    }
+  },
+  "Parameters": {
+    "AvailabilityZones": {
+      "Type": "List<AWS::EC2::AvailabilityZone::Name>",
+      "Description": "Select the Availability Zones of the VPC that will be used for this deployment. Recommended deployment is across multiple AZ's"
+    },
+    "VPCid": {
+      "Description": "Select the VPC chosen for this deployment",
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "SubnetID": {
+      "ConstraintDescription": "Enter valid Subnet Id's associated to the VPC (subnet-*)",
+      "Type": "List<AWS::EC2::Subnet::Id>",
+      "Description": "Select subnet id's which has been already assigned to the VPC used. These subnets must reside on AZ's chosen"
+    },
+    "ELBNames": {
+      "ConstraintDescription": "Enter a comma separated list of pre-configured Elastic Load Balancer Names",
+      "Type": "CommaDelimitedList",
+      "Description": "Enter a valid pre-configured Elastic Load Balancer name associated to the VPC and Subnet. This is the ELB that will distrubite traffic to the WAF Cluster"
+    },
+     "CudaLicenseSubDir": {
+      "Type": "String",
+      "AllowedPattern": "[^\\s]*",
+      "Description": "Specify the folder on the specified License S3 Bucket which contains the BYOL License File. Leave blank if there is no specific folder for Licenses on the S3 Bucket. Examples: Barracuda/Licenses(Two level folder structure), BarracudaBYOLLicenses(One level folder structure)."
+    },
+    "AdministratorName": {
+              "ConstraintDescription": "Must be a valid name with 2 - 64 characters.",
+      "MinLength": "2",
+      "MaxLength": "64",
+      "Type": "String"
+    },
+    "AdministratorEmailID": {
+      "Type": "String",
+      "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+      "ConstraintDescription": "Must be a valid email address."
+    },
+    "AdministratorCompany": {
+      "Default": "None",
+      "Type": "String",
+      "ConstraintDescription": "Must be a valid company name with 2 - 64 characters.",
+      "MinLength": "2",
+      "MaxLength": "64",
+      "Description": "By entering the Name, Email Address and Company (if applicable) above you agree to terms and conditions outlined in the product End User License Agreement (https://www.barracuda.com/legal/software_license_agreement[1]) and Privacy Policy (https://www.barracuda.com/legal/privacy[2])."
+    },
+    "LicenseS3Bucket": {
+      "Type": "String",
+      "Description": "Enter an existing S3 Bucket Name which contains the Barracuda Web Application Firewal BYOL Licenses"
+    },
+    "ClusterS3Bucket": {
+      "Type": "String",
+      "Description": "Enter the existing S3 Bucket Name to be used for WAF Cluster bootstrapping. This bucket would also be used to dump the system report during the instance termination"
+    },
+    "WAFServiceName": {
+      "Description": "Specify the Service Name to be configured on the Barracuda Web Application Firewall",
+      "AllowedPattern": "[0-9a-zA-Z-_]*",
+      "MinLength": "2",
+      "MaxLength": "64",
+      "Type": "String"
+    },
+    "WAFServicePort": {
+      "Description": "Specify the Service Port to be configured on the Barracuda Web Application Firewall. This the port that is exposed to the outside world. Default is 80.",
+      "Default": "80",
+      "ConstraintDescription": "Must be a valid port number (1-65535).",
+      "Type": "Number",
+      "MaxValue": "65535",
+      "MinValue": "1"
+    },
+    "WAFServerIP": {
+      "Description": "Specify the Server IP (inside the VPC) to be configured on the Barracuda Web Application Firewall; alternatively, you can also enter the FQDN of the instance or a downstream ELB to connect to.",
+      "ConstraintDescription": "Must be a valid IP address or FQDN",
+      "MinLength": "7",
+      "MaxLength": "65535",
+      "Type": "String"
+    },
+    "WAFServerPort": {
+      "Description": "Specify the port number on which the web application responds. This is the port that the Barracuda Web Application Firewall will use to connect to the application",
+      "ConstraintDescription": "Must be a valid port number (1-65535).",
+      "Type": "Number",
+      "MaxValue": "65535",
+      "MinValue": "1"
+    },
+    "ProxyServerIP": {
+      "Description": "Enter the IP of your Proxy Server",
+      "Type": "String"
+    },
+    "ProxyServerPort": {
+      "Description": "Enter the Port of your Proxy Server",
+      "Type": "String"
+    },
+    "ProxyServerUsername": {
+      "Description": "Enter the Username for your Proxy Server. Leave it empty in case you dont have any username for your Proxy Server.",
+      "Type": "String"
+    },
+    "ProxyServerPassword": {
+      "Description": "Enter the Password for your Proxy Server. Leave it empty in case you dont have any password for your Proxy Server.",
+      "Type": "String"
+    },
+    "DefaultDomain": {
+      "Description": "Enter the default domain which needs to be configured on the Barracuda Web Application Firewall",
+      "MinLength": "3",
+      "MaxLength": "64",
+      "Type": "String"
+    },
+    "S3AccessIAMRole":{
+      "ConstraintDescription": "Enter the IAM Role to be used for S3 Access",
+      "Type": "String",
+      "Description": "Enter the IAM Role which has appropriate permissions on the all the specified S3 bucket(s)"
+    },
+    "InstanceType": {
+      "Default": "m3.medium",
+      "ConstraintDescription": "Choose from the following EC2 instance types: m3.medium, m3.large, m3.xlarge, m3.2xlarge, m4.large, m4.xlarge, m4.2xlarge",
+      "Type": "String",
+      "Description": "Choose the instance type to use for this AutoScale group",
+      "AllowedValues": [
+        "m3.medium",
+        "m3.large",
+        "m3.xlarge",
+        "m3.2xlarge",
+                        "m4.large",
+                        "m4.xlarge",
+                        "m4.2xlarge"
+      ]
+    },
+    "ScalingMinSize": {
+      "Description": "Enter the minimum number of WAF instances (1-20) to be available in the AutoScale Group",
+      "Default": "1",
+      "ConstraintDescription": "Must be a number between 1-20",
+      "Type": "Number",
+      "MaxValue": "20",
+      "MinValue": "1"
+    },
+    "ScalingMaxSize": {
+      "Description": "Enter the maximum number of WAF instances (2-20) that can be created in the AutoScale Group",
+      "Default": "4",
+      "ConstraintDescription": "Must be a number between 2-20.",
+      "Type": "Number",
+      "MaxValue": "20",
+      "MinValue": "2"
+    },
+    "NotificationEmail": {
+      "Description": "Enter a valid email address to send AutoSclaing Event Notifications",
+      "Type": "String",
+      "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+      "ConstraintDescription": "Must be a valid email address."
+    }
+  },
+  "Mappings": {
+    "RegionMap": {
+      "us-east-1": {
+        "ImageID": "ami-d1c4e2aa"
+      },
+      "us-west-1": {
+        "ImageID": "ami-34a78f54"
+      },
+      "us-west-2": {
+        "ImageID": "ami-58d03720"
+      },
+      "sa-east-1": {
+        "ImageID": "ami-831167ef"
+      },
+
+      "ca-central-1": {
+        "ImageID": "ami-65ec5201"
+
+        },
+      "eu-central-1": {
+        "ImageID": "ami-e277d88d"
+      },
+
+      "eu-west-1": {
+        "ImageID": "ami-aee91dd7"
+
+        },
+      "eu-west-2": {
+        "ImageID": "ami-fa27369e"
+      },
+      "ap-southeast-1": {
+        "ImageID": "ami-c662fda5"
+      },
+      "ap-southeast-2": {
+        "ImageID": "ami-ed928c8e"
+      },
+      "ap-northeast-1": {
+        "ImageID": "ami-2221cf44"
+      },
+      "ap-northeast-2": {
+        "ImageID": "ami-a5e33acb"
+      },
+      "ap-south-1": {
+        "ImageID": "ami-29bec546"
+      }
+    },
+    "BandwidthScaleUp": {
+      "medium": {
+        "bandwidth": "8750000"
+      },
+      "large": {
+        "bandwidth": "17500000"
+      },
+      "xlarge": {
+        "bandwidth": "35000000"
+      },
+      "xxlarge": {
+        "bandwidth": "65630000"
+      }
+    },
+    "BandwidthScaleDown": {
+      "medium": {
+        "bandwidth": "8750000"
+      },
+      "large": {
+        "bandwidth": "17500000"
+      },
+      "xlarge": {
+        "bandwidth": "35000000"
+      },
+      "xxlarge": {
+        "bandwidth": "65630000"
+      }
+    }
+  },
+  "Resources": {
+    "NotificationTopic": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "Subscription": [
+          {
+            "Endpoint": {
+              "Ref": "NotificationEmail"
+            },
+            "Protocol": "email"
+          }
+        ]
+      }
+    },
+    "BWAFAutoScaleLaunchConfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "InstanceMonitoring": "true",
+        "AssociatePublicIpAddress": true,
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionMap",
+            {
+              "Ref": "AWS::Region"
+            },
+            "ImageID"
+          ]
+        },
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "IamInstanceProfile": {
+          "Ref": "S3AccessIAMRole"
+        },
+        "SecurityGroups": [
+          {
+            "Ref": "BWAFAutoScaleSecurityGroup"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "/opt/aws/bwaf/aws_autoscale.pl --command init-config --saveSystemDataOnTermination --dumpEC2Details",
+                " --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource BWAFAutoScaleLaunchConfig ",
+                " --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                        " --vpc ",
+                        {
+                  "Ref": "VPCid" 
+                        },
+                        " --type ",
+                        {
+                          "Ref": "InstanceType"
+                        },
+                        " --s3ClusterBucket ",
+                        {
+                  "Ref" : "ClusterS3Bucket"
+                        },
+                " --s3LicensingBucket ",
+                {
+                  "Ref": "LicenseS3Bucket"
+                },
+                "  --s3LicensingFolder ",
+                {
+                  "Ref": "CudaLicenseSubDir"
+                },
+                    " --config ",
+                {
+                  "Fn::Join": [
+                    ":",
+                    [
+                      {
+                        "Ref": "WAFServiceName"
+                      },
+                      {
+                        "Ref": "WAFServicePort"
+                      },
+                      {
+                        "Ref": "WAFServerIP"
+                      },
+                      {
+                        "Ref": "WAFServerPort"
+                      }
+                    ]
+                  ]
+                },     
+                "\n\n",
+                                               
+                    "BYOL Licensing Options: ",
+                        " --licensebucket ",
+                {
+                  "Ref": "LicenseS3Bucket"
+                },
+                " --subdirectory ",
+                {
+                  "Ref": "CudaLicenseSubDir"
+                },
+                " --defaultdomain ",
+                {
+                  "Ref": "DefaultDomain"
+                },"\n",
+                                                "Eula Options: ",
+                " --signature ",
+                {
+                  "Ref": "AdministratorName"
+                },
+                " --organization ",
+                {
+                  "Ref": "AdministratorCompany"
+                },
+                " --email ",
+                {
+                  "Ref": "AdministratorEmailID"
+                }, "\n",
+                        "Proxy Server: ",
+                " --prx_username ",
+                {
+                  "Ref": "ProxyServerUsername"
+                },
+                " --prx_password ",
+                {
+                  "Ref": "ProxyServerPassword"
+                },
+                " --prx_server ",
+                {
+                  "Ref": "ProxyServerIP"
+                },
+                " --prx_port ",
+                {
+                  "Ref": "ProxyServerPort"
+                },"\n"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "BWAFAutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "MinSize": {
+          "Ref": "ScalingMinSize"
+        },
+        "HealthCheckGracePeriod": "1200",
+        "MaxSize": {
+          "Ref": "ScalingMaxSize"
+        },
+        "VPCZoneIdentifier": {
+          "Ref": "SubnetID"
+        },
+        "LaunchConfigurationName": {
+          "Ref": "BWAFAutoScaleLaunchConfig"
+        },
+        "AvailabilityZones": {
+          "Ref": "AvailabilityZones"
+        },
+                        "TerminationPolicies" : [
+          "NewestInstance"
+        ],
+        "NotificationConfigurations": [
+          {
+            "TopicARN": {
+              "Ref": "NotificationTopic"
+            },
+            "NotificationTypes": [
+              "autoscaling:EC2_INSTANCE_LAUNCH",
+              "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+              "autoscaling:EC2_INSTANCE_TERMINATE",
+              "autoscaling:EC2_INSTANCE_TERMINATE_ERROR"
+            ]
+          }
+        ],
+        "LoadBalancerNames": {
+          "Ref": "ELBNames"
+        },
+        "HealthCheckType": "EC2"
+      },
+      "UpdatePolicy": {
+        "AutoScalingRollingUpdate": {
+          "PauseTime": "PT10M",
+          "MaxBatchSize": "1",
+          "MinInstancesInService": {
+            "Ref": "ScalingMinSize"
+          }
+        }
+      }
+    },
+    "BWAFAutoScaleSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Default Security group for all WAF instances in the autoscale group",
+        "VpcId": {
+          "Ref": "VPCid"
+        }
+      }
+    },
+    "BWAFSecurityGroupRule1": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8000",
+        "ToPort": "8000",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule2": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8002",
+        "ToPort": "8002",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule3": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "32575",
+        "ToPort": "32575",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule4": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "udp",
+        "FromPort": "32576",
+        "ToPort": "32576",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFSecurityGroupRule5": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "BWAFAutoScaleSecurityGroup"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "8443",
+        "ToPort": "8443",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "BWAFScaleUpPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "ScalingAdjustment": "1",
+        "Cooldown": "300",
+        "AutoScalingGroupName": {
+          "Ref": "BWAFAutoScalingGroup"
+        },
+        "AdjustmentType": "ChangeInCapacity"
+      }
+    },
+    "BWAFScaleDownPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "ScalingAdjustment": "-1",
+        "Cooldown": "300",
+        "AutoScalingGroupName": {
+          "Ref": "BWAFAutoScalingGroup"
+        },
+        "AdjustmentType": "ChangeInCapacity"
+      }
+    },
+    "NetworkInAlarmHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleUpPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "9175040",
+        "AlarmDescription": "Scale-up if the NetworkIn throughput > 70% of max throughput for 5 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "300",
+        "MetricName": "NetworkIn"
+      }
+    },
+    "NetworkInAlarmLow": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleDownPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "5242880",
+        "AlarmDescription": "Scale-down if the NetworkIn throughput < 50% of max throughput for 10 periods of 15 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "900",
+        "MetricName": "NetworkIn"
+      }
+    },
+    "NetworkOutAlarmHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleUpPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "9175040",
+        "AlarmDescription": "Scale-up if the NetworkOut throughput > 70% of max throughput for 5 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "60",
+        "MetricName": "NetworkOut"
+      }
+    },
+    "NetworkOutAlarmLow": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleDownPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "5242880",
+        "AlarmDescription": "Scale-down if the NetworkOut throughput < 50% of max throughput for 10 periods of 15 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "900",
+        "MetricName": "NetworkOut"
+      }
+    },
+    "CPUAlarmHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleUpPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "85",
+        "AlarmDescription": "Scale out if WAF CPU > 85% after 5 successive intervals of 60 seconds ",
+        "Namespace": "AWS/EC2",
+        "Period": "60",
+        "MetricName": "CPUUtilization"
+      }
+    },
+    "CPUAlarmNormal": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "EvaluationPeriods": "5",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": {
+              "Ref": "BWAFAutoScalingGroup"
+            }
+          }
+        ],
+        "AlarmActions": [
+          {
+            "Ref": "BWAFScaleDownPolicy"
+          }
+        ],
+        "Statistic": "Average",
+        "Threshold": "60",
+        "AlarmDescription": "Scale in WAF if CPU < 60% for 10 successive intervals of 15 minutes",
+        "Namespace": "AWS/EC2",
+        "Period": "900",
+        "MetricName": "CPUUtilization"
+      }
+    }
+  }
+}
+
