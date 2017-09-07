@@ -1,2 +1,3 @@
-# waf-automation
-This repo contains some workflow examples for using the WAF REST API on AWS and Azure with tools like Puppet and Terraform.
+# Enabling DevOps practices to use the Barracuda Web Application Firewall
+This repo contains examples of common configuration and automation tools with the Barracuda WAF.
+
