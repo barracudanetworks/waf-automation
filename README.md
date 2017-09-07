@@ -1,14 +1,14 @@
 # Enabling DevOps practices to use the Barracuda Web Application Firewall
 This repo contains examples of common configuration and automation tools with the Barracuda WAF.
 
-├── waf-ansible
+1. waf-ansible
 
-├── waf-on-aws
+2. waf-on-aws
 
-├── waf-on-azure
+3. waf-on-azure
 
-├── waf-puppet
+4. waf-puppet
 
-└── waf-terraform
+5. waf-terraform
 
 
