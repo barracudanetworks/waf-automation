@@ -2,7 +2,8 @@
 
 # Introduction
 
-Organisations are adopting infrastructure as code to be more agile to business requirements. Configuration automation solutions such as Puppet have been leaders in this space and have successfully migrated applications from conventional development practices. At the same time, the challenges that organisations have been facing from external threats has been growing exponentially. The challenge is to enhance proven security best practices to be adopted to the agility of the application development lifecycle. Barracuda Web Application Firewall (WAF) has been a long-standing cloud enabled security solution for application security needs. 
+Organisations are adopting infrastructure as code to be more agile to business requirements. Configuration automation solutions such as Puppet have been leaders in this space and have successfully migrated applications from conventional development practices. At the same time, the challenges that organisations have been facing from external threats has been growing exponentially. The challenge is to enhance proven security best practices to be adopted to the agility of the application development lifecycle. Barracuda Web Application Firewall (WAF) has been a long-standing cloud enabled security solution for application security needs. [Click here to learn more about the Barracuda Web Application Firewall](https://campus.barracuda.com/product/webapplicationfirewall/) 
+
 This space will include details about how common DevOps practices/tools can be used with the Barracuda Web Applications Firewall product with primary focus on public cloud platforms like AWS and Microsoft Azure.
 
 # Provisioning and Deployment
@@ -12,9 +13,9 @@ Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/w
 Puppet: Deploying Barracuda Web Application Firewall on AWS
 Terraform: Deploying Barracuda WAF on AWS
 ##### CFT for Autoscaling deployments
-[BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
-[PAYG Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/73007159/)
-[Metered Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/68361418/)
+1. [BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
+2. [PAYG Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/73007159/)
+3. [Metered Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/68361418/)
 ### Microsoft Azure
 ##### Template based deployments
 Ansible: Deploying Barracuda WAF on Azure
