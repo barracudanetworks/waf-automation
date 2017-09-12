@@ -34,8 +34,8 @@ This space will include details about how common DevOps practices/tools can be u
 
 # Vulnerabiilty Remediation Service
 ##### Ruby script for connecting to VRS and setting up a scan
-1. AWS - Ruby script for connecting to VRS and setting up a scan for an AWS instance
-2. Azure - Ruby script for connecting to VRS and setting up a scan for an Azure instance
+1. AWS - [Ruby script for connecting to VRS and setting up a scan for an AWS instance](https://github.com/barracudanetworks/waf-automation/blob/master/VRS/ruby-vrs-aws.rb)
+2. Azure - [Ruby script for connecting to VRS and setting up a scan for an Azure instance](https://github.com/barracudanetworks/waf-automation/blob/master/VRS/ruby-vrs-azure.rb)
 # Workflow Samples
 ### Application + Security Lifecycle Management
 In this workflow, the objective is to introduce security into the application deployment in a seamless way. REST API can be used to configure the service, link the WAF to Barracuda Cloud control, as well as to enable the advanced security controls. For further security fine tuning, Barracuda VRS can be leveraged. This workflow can be automated using configuration management tools like Puppet, Ansible and Chef. The workflow is shown with a schematic diagram below:
