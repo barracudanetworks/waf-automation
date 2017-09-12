@@ -9,17 +9,17 @@ This space will include details about how common DevOps practices/tools can be u
 # Provisioning and Deployment
 ### Amazon Web Services
 ##### Single instance deployments
-Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_ec2.yml)
-Puppet: Deploying Barracuda Web Application Firewall on AWS
-Terraform: Deploying Barracuda WAF on AWS
+1. Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_ec2.yml)
+2. Puppet: Deploying Barracuda Web Application Firewall on AWS
+3. Terraform: Deploying Barracuda WAF on AWS
 ##### CFT for Autoscaling deployments
 1. [BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
 2. [PAYG Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/73007159/)
 3. [Metered Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/68361418/)
 ### Microsoft Azure
 ##### Template based deployments
-Ansible: Deploying Barracuda WAF on Azure
-Puppet: Deploying Barracuda Web Application Firewall on Azure
+1. Ansible: [Deploying Barracuda WAF on Azure](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/azure_vm_create.yaml)
+2. Puppet: Deploying Barracuda Web Application Firewall on Azure
 # REST API
 ##### REST API v1
 [Documentation](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/RESTAPI/)
@@ -30,8 +30,8 @@ Puppet: Deploying Barracuda Web Application Firewall on Azure
 1. AWS - [Ruby script to configure a WAF instance on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-on-aws/Ruby/configuring-waf-on-aws.rb)
 2. Azure - [Ruby script to configure a WAF instance on Azure](https://github.com/barracudanetworks/waf-automation/blob/master/waf-on-azure/Ruby/configuring-waf-on-azure.rb)
 ##### Configuration Management using Ansible
-##### Playbook sample for configuring WAF
 [Ansible playbook yml file for WAF configuration](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_config_sample.yml)
+
 # Vulnerabiilty Remediation Service
 ##### Ruby script for connecting to VRS and setting up a scan
 1. AWS - Ruby script for connecting to VRS and setting up a scan for an AWS instance
