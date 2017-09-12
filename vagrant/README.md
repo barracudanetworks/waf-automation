@@ -11,7 +11,7 @@ Most of the devops tools we use commonly need different dependent software to be
 2. [Azure](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Azure)
 3. [Foreman](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Foreman)
 
-*** Please check the bottom of the vagrantfile to see the bootstrapping shell script. 
+*** Please check the bottom of the vagrantfile to see the bootstrapping shell script. ***
 # How-to
 
 1. Install [Vagrant](https://www.vagrantup.com/docs/installation/)
