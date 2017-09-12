@@ -1,4 +1,4 @@
-# Enabling DevOps practices to use the Barracuda Web Application Firewall
+# DevOps with Barracuda Web Application Firewall
 
 # Introduction
 
