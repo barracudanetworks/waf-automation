@@ -6,7 +6,7 @@ require "uri"
 require "json"
 require "base64"
 
-###Querying AWS for the the Instance ID and the Public and Private IP###
+###Querying Azure for the the Instance ID and the Public and Private IP###
 class Config_mode
 def config_mode
 config_mode = `azure config mode arm`
@@ -16,7 +16,7 @@ configmode = Config_mode.new
 configmode.config_mode
 
 
-###Querying AWS for the the Instance ID and the Public IP###
+###Querying Azure for the the Instance ID and the Public IP###
         azure = `cat /etc/puppetlabs/puppet/azure-instance-details`
         azure_json = JSON.parse(azure)
         rg_name = azure_json ["ResourceGroupName"]
