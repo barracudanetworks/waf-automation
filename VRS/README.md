@@ -1,7 +1,7 @@
 # Introduction
 
 The Barracuda Vulnerability Remediation Service, a free add-on to the Barracuda Web Application Firewall, enables automatic scanning, remediation, and maintenance of web application policies. The Barracuda Vulnerability Remediation Service makes it easy for organizations of any size to deploy comprehensive web application security with minimal administrative overhead. There is no need to hire security experts or spend time coding, testing, and deploying fixes. This eliminates the cost and complexity traditionally associated with securing web applications.
-                  ![alt](https://www.barracuda.com/assets/img/sections/products/bwf/benefits/benefit_1.svg)
+                  ![alt](https://campus.barracuda.com/resources/attachments/image/53676680/ExecSummaryAdv.png)
 Use the Barracuda Vulnerability Remediation Service in conjunction with Barracuda Web Application Firewalls (WAFs) to protect new or existing applications. Deployment of the Web Application Firewalls is a three-step process:
 
 1. Deploy the Barracuda Web Application Firewalls in the network.
