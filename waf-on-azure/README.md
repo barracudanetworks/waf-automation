@@ -8,9 +8,11 @@ The Barracuda Web Application Firewall for Azure is a scalable security solution
 4. Prevent malicious uploads and leakage of sensitive data with built-in anti-virus scanner and data loss prevention abilities
 5. Easily comply with standards like PCI-DSS, NIST SSL/TLS guidelines and regulations such as HIPAA
 
-![alt](https://www.barracuda.com/assets/img/sections/programs/azure/img_app-security_diagram1.png)
+![alt](https://www.barracuda.com/assets/img/sections/programs/azure/img_app-security_diagram2.png)
 
-# Content:
+
+
+# Contents:
 1. ARM-Templates
 2. OMS-Templates
 3. Powershell Scripts
