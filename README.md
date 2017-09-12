@@ -39,12 +39,12 @@ Puppet: Deploying Barracuda Web Application Firewall on Azure
 # Workflow Samples
 ##### Application + Security Lifecycle Management
 In this workflow, the objective is to introduce security into the application deployment in a seamless way. REST API can be used to configure the service, link the WAF to Barracuda Cloud control, as well as to enable the advanced security controls. For further security fine tuning, Barracuda VRS can be leveraged. This workflow can be automated using configuration management tools like Puppet, Ansible and Chef. The workflow is shown with a schematic diagram below:
-Web App Firewall > DevOps Toolkit for Barracuda WAF > Screen Shot 2017-09-07 at 11.19.23 AM.png
+![alt](https://github.com/barracudanetworks/waf-automation/blob/master/images/Screen%20Shot%202017-09-07%20at%2011.19.23%20AM.png)
 ##### Blue/Green testing
 The objective of this workflow is to provision parallel setups for application deployment, testing and configuration management. In order to minimize maintenance windows and reduce downtime, production and staging environments are swapped seamlessly to ensure production traffic flows through the most stable and well tested infrastructure.
-Web App Firewall > DevOps Toolkit for Barracuda WAF > Screen Shot 2017-09-07 at 11.20.39 AM.png
+![alt](https://github.com/barracudanetworks/waf-automation/blob/master/images/Screen%20Shot%202017-09-07%20at%2011.20.39%20AM.png)
 ##### Build, Deploy, Test and Destroy
 The objective of this workflow achieves a broader scope of deploying WAF into an application's SDLC. WAF gets deployed just like any other build, gets configured, tested for traffic and security and then gets teared down as part of the build test cycle.
-Web App Firewall > DevOps Toolkit for Barracuda WAF > Screen Shot 2017-09-07 at 11.21.15 AM.png
+![alt](https://github.com/barracudanetworks/waf-automation/blob/master/images/Screen%20Shot%202017-09-07%20at%2011.21.15%20AM.png)
 
 
