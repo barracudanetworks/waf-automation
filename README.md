@@ -31,7 +31,7 @@ Puppet: Deploying Barracuda Web Application Firewall on Azure
 2. Azure - [Ruby script to configure a WAF instance on Azure](https://github.com/barracudanetworks/waf-automation/blob/master/waf-on-azure/Ruby/configuring-waf-on-azure.rb)
 ##### Configuration Management using Ansible
 ##### Playbook sample for configuring WAF
-1. Ansible playbook yml file for WAF configuration
+[Ansible playbook yml file for WAF configuration](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_config_sample.yml)
 # Vulnerabiilty Remediation Service
 ##### Ruby script for connecting to VRS and setting up a scan
 1. AWS - Ruby script for connecting to VRS and setting up a scan for an AWS instance
