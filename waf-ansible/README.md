@@ -2,7 +2,7 @@
 
 ### [Ansible](https://www.ansible.com/) is a configuration management software. 
 
-####From Ansible's website: It uses no agents and no additional custom security infrastructure, so it's easy to deploy - and most importantly, it uses a very simple language (YAML, in the form of Ansible Playbooks) that allow you to describe your automation jobs in a way that approaches plain English.
+#### From Ansible's website: It uses no agents and no additional custom security infrastructure, so it's easy to deploy - and most importantly, it uses a very simple language (YAML, in the form of Ansible Playbooks) that allow you to describe your automation jobs in a way that approaches plain English.
 
 ### This space contains sample code for configuring a Barracuda WAF using the URI module of Ansible. URI module is used in this sample to call the REST API v1 of the Barracuda Web Application Firewall.
 
