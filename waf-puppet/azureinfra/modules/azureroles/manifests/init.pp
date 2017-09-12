@@ -43,8 +43,8 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class azureroles {
-#include azureprofiles::azure_rg
-#include azure
+include azureprofiles::azure_rg
+include azure
 include azure::lamp
 include azurecudawafconfig::config
 include vrsinazure::vrsconfig
