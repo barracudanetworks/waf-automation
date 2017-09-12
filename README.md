@@ -11,7 +11,7 @@ This space will include details about how common DevOps practices/tools can be u
 ##### Single instance deployments
 1. Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_ec2.yml)
 2. Puppet: Deploying Barracuda Web Application Firewall on AWS
-3. Terraform: Deploying Barracuda WAF on AWS
+3. Terraform: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/tree/master/waf-terraform/WAF)
 ##### CFT for Autoscaling deployments
 1. [BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
 2. [PAYG Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/73007159/)
