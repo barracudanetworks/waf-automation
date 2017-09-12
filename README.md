@@ -8,22 +8,22 @@ This space will include details about how common DevOps practices/tools can be u
 # Provisioning and Deployment
 ### Amazon Web Services
 ##### Single instance deployments
-Ansible: Deploying Barracuda WAF on AWS
+Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_ec2.yml)
 Puppet: Deploying Barracuda Web Application Firewall on AWS
 Terraform: Deploying Barracuda WAF on AWS
 ##### CFT for Autoscaling deployments
-BYOL Auto Scaling
-PAYG Auto Scaling
-Metered Auto Scaling
+[BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
+[PAYG Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/73007159/)
+[Metered Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/68361418/)
 ### Microsoft Azure
 ##### Template based deployments
 Ansible: Deploying Barracuda WAF on Azure
 Puppet: Deploying Barracuda Web Application Firewall on Azure
 # REST API
 ##### REST API v1
-Documentation
+[Documentation](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/RESTAPI/)
 ##### REST API v3
-Documentation[barracuda/ReStApIv3]
+[Documentation]
 # Automation of Configuration Management of the Barracuda WAF
 ##### Configuration Management using Puppet
 AWS - Ruby script to configure a WAF instance on AWS
