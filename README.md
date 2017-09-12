@@ -27,8 +27,8 @@ Puppet: Deploying Barracuda Web Application Firewall on Azure
 [Documentation]
 # Automation of Configuration Management of the Barracuda WAF
 ##### Configuration Management using Puppet
-1. AWS - Ruby script to configure a WAF instance on AWS
-2. Azure - Ruby script to configure a WAF instance on Azure
+1. AWS - [Ruby script to configure a WAF instance on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-on-aws/Ruby/configuring-waf-on-aws.rb)
+2. Azure - [Ruby script to configure a WAF instance on Azure](https://github.com/barracudanetworks/waf-automation/blob/master/waf-on-azure/Ruby/configuring-waf-on-azure.rb)
 ##### Configuration Management using Ansible
 ##### Playbook sample for configuring WAF
 1. Ansible playbook yml file for WAF configuration
