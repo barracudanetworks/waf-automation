@@ -4,15 +4,24 @@ Calls all the manifests in other modules. Refer to the manifests folder for deta
 
 # Tree
 
-├── cudawafaws-profiles -> cudawafaws-profiles
+├── cudawafaws-profiles -> cudawafaws-profiles  
+
 ├── examples
+
 │   └── init.pp
+
 ├── Gemfile
+
 ├── manifests
+
 │   ├── base.pp
+
 │   ├── ec2create.pp
+
 │   ├── elbcreate.pp
+
 │   ├── hieradata
+
 │   │   └── common.yaml
 │   ├── hiera.yaml
 │   ├── init.pp
