@@ -35,7 +35,7 @@ This space will include details about how common DevOps practices/tools can be u
 ##### Configuration Management using Ansible
 [Ansible playbook yml file for WAF configuration](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_config_sample.yml)
 
-# Vulnerabiilty Remediation Service
+# Vulnerability Remediation Service
 ##### Ruby script for connecting to VRS and setting up a scan
 1. AWS - [Ruby script for connecting to VRS and setting up a scan for an AWS instance](https://github.com/barracudanetworks/waf-automation/blob/master/VRS/ruby-vrs-aws.rb)
 2. Azure - [Ruby script for connecting to VRS and setting up a scan for an Azure instance](https://github.com/barracudanetworks/waf-automation/blob/master/VRS/ruby-vrs-azure.rb)
