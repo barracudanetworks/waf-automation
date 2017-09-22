@@ -1,6 +1,6 @@
 # Using Puppet to deploy and manage the Barracuda Web Application Firewall
 
-### How Puppet works
+### Why Puppet?
 
 "Puppet technology helps you know what's in your infrastructure, and how it's configured across all the physical components of your data center; your virtualized and cloud infrastructure; and everything you're running in containers. Puppet automatically keeps everything in its desired state, enforcing consistency and keeping you compliant, while giving you complete control to make changes as your business needs evolve." -- Courtesy: [Puppet](https://puppet.com/products)
 
