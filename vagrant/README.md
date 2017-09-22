@@ -7,9 +7,9 @@ In a nutshell, Vagrant is a tool for working with virtual environments, and in m
 Most of the devops tools we use commonly need different dependent software to be installed. We also need to install work flow specific software. It helps to have a Vagrant box that can boot up with all these software installed during bootup aka bootstrapping. We provide access to vagrantfiles that will have bootstrapping code.
 
 # Content
-1. [AWS](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/AWS)
-2. [Azure](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Azure)
-3. [Foreman](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Foreman)
+1. [AWS](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/AWS) : Prepares a VM to act as a Puppet Agent. The Vagrantfile is customized for an AWS environment.
+2. [Azure](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Azure) : Prepares a VM to act as a Puppet Agent. The Vagrantfile is customized for an Azure environment.
+3. [Foreman](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Foreman) : Creates a VM with Foreman and Puppet master preinstalled. Useful for testing in a dev environment.
 
 **Please check the bottom of the vagrantfile to see the bootstrapping shell script.**
 
