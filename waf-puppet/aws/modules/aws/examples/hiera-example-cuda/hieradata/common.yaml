@@ -1,5 +1,0 @@
----
-name: "some region"
-ami: ami-696e652c
-region: us-west-1
-availability_zone: us-west-1a
