@@ -13,7 +13,7 @@ This space will include details about how common DevOps practices/tools can be u
 ### Amazon Web Services
 ##### Single instance deployments
 1. Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/waf_ec2.yml)
-2. Puppet: Deploying Barracuda Web Application Firewall on AWS
+2. Puppet: [Deploying Barracuda Web Application Firewall on AWS](https://github.com/barracudanetworks/waf-automation/tree/master/waf-puppet/aws)
 3. Terraform: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/tree/master/waf-terraform/WAF)
 ##### CFT for Autoscaling deployments
 1. [BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
@@ -22,12 +22,12 @@ This space will include details about how common DevOps practices/tools can be u
 ### Microsoft Azure
 ##### Template based deployments
 1. Ansible: [Deploying Barracuda WAF on Azure](https://github.com/barracudanetworks/waf-automation/blob/master/waf-ansible/azure_vm_create.yaml)
-2. Puppet: Deploying Barracuda Web Application Firewall on Azure
+2. Puppet: [Deploying Barracuda Web Application Firewall on Azure](https://github.com/barracudanetworks/waf-automation/tree/master/waf-puppet/azureinfra)
 # REST API
 ##### REST API v1
 [Documentation](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/RESTAPI/)
 ##### REST API v3
-[Documentation]
+[Documentation](https://campus.barracuda.com/product/webapplicationfirewall/api) `NEW`
 # Automation of Configuration Management of the Barracuda WAF
 ##### Configuration Management using Puppet
 1. AWS - [Ruby script to configure a WAF instance on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/waf-on-aws/Ruby/configuring-waf-on-aws.rb)
