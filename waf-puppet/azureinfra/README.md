@@ -19,6 +19,10 @@ Since the process of launching the instance is in the public cloud, the managed 
 4. Connect the Barracuda WAF to Barracuda Cloud Control
 5. Setup a VRS scan to the web application being protected by the WAF
 
+# Pre-requisites:
+Install the Azure module. Link: https://forge.puppet.com/puppetlabs/azure
+
+
 # Module Description**(all the modules can be seen in the modules directory in the environment)
 
 1. azure : This module is the publicly available Puppet approved Azure module. Details : https://forge.puppet.com/puppetlabs/azure

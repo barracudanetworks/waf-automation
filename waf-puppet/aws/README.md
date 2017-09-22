@@ -22,6 +22,6 @@ Since the process of launching the instance is in the public cloud, the managed 
 
 # Pre-Requisites
 1. Install the Puppet module for AWS: https://github.com/puppetlabs/puppetlabs-aws and also the related dependencies. Refer to the readme under the module.
-
+   To install the module: puppet module install puppetlabs-aws --version 2.0.0
 
 ##### ALL OF THE SOURCE CODE ON THIS REPOSITORY IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL BARRACUDA BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOURCE CODE.#####
