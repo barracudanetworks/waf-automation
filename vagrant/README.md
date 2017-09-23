@@ -22,6 +22,11 @@ Most of the devops tools we use commonly need different dependent software to be
 5. To SSH into the machine `vagrant ssh`
 6. To stop the machine `vagrant halt`
  
+# Additional References
+
+1. [Getting Started](https://www.vagrantup.com/intro/getting-started/)
+2. [Discovering Vagrant Boxes](https://app.vagrantup.com/boxes/search)
+3. [Vagrant on Github](https://github.com/hashicorp/vagrant)
 
 ##### DISCLAIMER: ALL OF THE SOURCE CODE ON THIS REPOSITORY IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL BARRACUDA BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOURCE CODE. #####
 
