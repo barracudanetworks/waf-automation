@@ -1,11 +1,13 @@
-**Introduction**
+# Use case - 2
+
+### Introduction
 
 Terraform is an infrastructure as code software by HashiCorp.It allows users to define a datacenter infrastructure in a high level configuration language,from which it can create an execution plan to build the infrastructure in a service provider such as AWS.
 
-**OBJECTIVE** 
+### OBJECTIVE
 To deploy a Barracuda WAF instance in a subnet of a selected VPC.
 
-**Prerequisites**
+### Prerequisites
 
 1) Terraform - Download Terraform for your required OS here - https://www.terraform.io/downloads.html
 After that,place the downloaded Terraform software in the working directory.

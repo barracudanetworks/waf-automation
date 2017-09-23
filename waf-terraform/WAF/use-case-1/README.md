@@ -1,12 +1,14 @@
-**Introduction**
+# Use Case - 1
+
+### Introduction
 
 Terraform is an infrastructure as code software by HashiCorp.It allows users to define a datacenter infrastructure in a high level configuration language,from which it can create an execution plan to build the infrastructure in a service provider such as AWS.
 
-**Objective**
+### Objective
 
 To deploy a Barracuda WAF instance in a newly created infrastructure.
 
-**Prerequisites**
+### Prerequisites
 
 1) Terraform - Download Terraform for your required OS here - https://www.terraform.io/downloads.html
 After that,place the downloaded Terraform software in the working directory.
@@ -24,7 +26,7 @@ The program creates the following infrastructure(Configuration files of the corr
 7) Security Group for the server instance (7-aws-server-instance.tf)
 8) And finally,the Barracuda WAF instance to be deployed in this infrastructure.(5-aws-instance.tf)
 
-**Procedure**
+### Procedure
 
 This program deploys the Barracuda WAF in the newly created infrastructure.
 1) In all the .tf files,hardcode the required name tags of all the resources. Make sure to keep unique VPC,WAF instance,subnet names.
