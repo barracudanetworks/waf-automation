@@ -1,19 +1,19 @@
-# Introduction
+### Introduction
 
 In a nutshell, Vagrant is a tool for working with virtual environments, and in most circumstances, this means working with virtual machines. Vagrant provides a simple and easy to use command-line client for managing these environments, and an interpreter for the text-based definitions of what each environment looks like, called Vagrantfiles. Vagrant is open source, which means that anyone can download it, modify it, and share it freely.
 
-# Why Vagrant?
+### Why Vagrant?
 
 Most of the devops tools we use commonly need different dependent software to be installed. We also need to install work flow specific software. It helps to have a Vagrant box that can boot up with all these software installed during bootup aka bootstrapping. We provide access to vagrantfiles that will have bootstrapping code.
 
-# Content
+### Content
 1. [AWS](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/AWS) : Prepares a VM to act as a Puppet Agent. The Vagrantfile is customized for an AWS environment.
 2. [Azure](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Azure) : Prepares a VM to act as a Puppet Agent. The Vagrantfile is customized for an Azure environment.
 3. [Foreman](https://github.com/barracudanetworks/waf-automation/tree/master/vagrant/Foreman) : Creates a VM with Foreman and Puppet master preinstalled. Useful for testing in a dev environment.
 
 **Please check the bottom of the vagrantfile to see the bootstrapping shell script.**
 
-# How-to
+### How-to
 
 1. Install [Vagrant](https://www.vagrantup.com/docs/installation/)
 2. Create a directory for your environment (eg. AWS or Azure) within the Vagrant installation path
@@ -22,7 +22,7 @@ Most of the devops tools we use commonly need different dependent software to be
 5. To SSH into the machine `vagrant ssh`
 6. To stop the machine `vagrant halt`
  
-# Additional References
+### Additional References
 
 1. [Getting Started](https://www.vagrantup.com/intro/getting-started/)
 2. [Discovering Vagrant Boxes](https://app.vagrantup.com/boxes/search)

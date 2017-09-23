@@ -10,7 +10,7 @@ From Ansible's website: It uses no agents and no additional custom security infr
 
 ### What's this space all about?
 
-This space contains sample code for configuring a Barracuda WAF using the URI module of Ansible. URI module is used in this sample to call the REST API v1 of the Barracuda Web Application Firewall.
+This space contains Ansible playbook samples that can be used for provisioning and configuring Barracuda WAF instances on AWS and Azure.
 
 ### Content:  
 1. waf_config_sample.yml: Sample ansible playbook that can be used to create a service on a Barracuda Web Application Firewall using the built in URI module.
