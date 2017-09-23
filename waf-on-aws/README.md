@@ -8,7 +8,10 @@ Automatically scale based on metrics or a schedule to meet business needs. (An e
 ![alt](https://www.barracuda.com/assets/img/sections/programs/aws/app-security_section-2.png)
 
 # AMI ID information
-1. [PAY AS YOU GO](https://aws.amazon.com/marketplace/fulfillment?fulfillmentOptionId=single-ami&pricing=hourly&productId=21be5cf9-5526-4ce1-a532-e77f92b36896&ref_=dtl_psb_continue&region=ap-south-1)
+
+1. [PAY AS YOU GO](https://aws.amazon.com/marketplace/fulfillment?fulfillmentOptionId=single-ami&pricing=hourly&productId=21be5cf9-5526-4ce1-a532-e77f92b36896&ref_=dtl_psb_continue&region=ap-south-1) - Click on Manual Launch to view the region specific AMI IDs.
+2. [BRING YOUR OWN LICENSE](https://aws.amazon.com/marketplace/fulfillment?productId=9d8bd938-dd50-4899-99a7-ba803980562d&ref_=dtl_psb_continue&region=ap-south-1) - Click on Manual Launch to view the region specific AMI IDs.
+3. [METERED BILLING](https://aws.amazon.com/marketplace/fulfillment?productId=640f424f-c61d-4381-a29e-9d946a4058cd&ref_=dtl_psb_continue&region=ap-south-1) - Click on Manual Launch to view the region specific AMI IDs.
 
 # Contents
 1. CloudFormationTemplates
