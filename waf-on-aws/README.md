@@ -9,9 +9,11 @@ Automatically scale based on metrics or a schedule to meet business needs. (An e
 
 # AMI ID information
 
+AMI IDs can be manually changed in the CFT mapping section or in config management software (Puppet manifests, Ansible playbooks etc). The links below can be used to get the most recent AMI IDs of the Barracuda Web Application Firewall.
+
 1. [PAY AS YOU GO](https://aws.amazon.com/marketplace/fulfillment?fulfillmentOptionId=single-ami&pricing=hourly&productId=21be5cf9-5526-4ce1-a532-e77f92b36896&ref_=dtl_psb_continue&region=ap-south-1) - Click on Manual Launch to view the region specific AMI IDs.
 2. [BRING YOUR OWN LICENSE](https://aws.amazon.com/marketplace/fulfillment?productId=9d8bd938-dd50-4899-99a7-ba803980562d&ref_=dtl_psb_continue&region=ap-south-1) - Click on Manual Launch to view the region specific AMI IDs.
-3. [METERED BILLING](https://aws.amazon.com/marketplace/fulfillment?productId=640f424f-c61d-4381-a29e-9d946a4058cd&ref_=dtl_psb_continue&region=ap-south-1) - Click on Manual Launch to view the region specific AMI IDs.
+3. [METERED BILLING](https://aws.amazon.com/marketplace/fulfillment?productId=640f424f-c61d-4381-a29e-9d946a4058cd&ref_=dtl_psb_continue&region=ap-south-1)
 
 # Contents
 1. CloudFormationTemplates
