@@ -42,17 +42,17 @@ This space will include details about how common DevOps practices/tools can be u
 # Workflow Samples
 Using the code samples in this repo, organizations can build devops workflows in their networks. The following are some of the devops workflows that can be created:
 
-### Application + Security Lifecycle Management
+### 1. Application + Security Lifecycle Management
 In this workflow, the objective is to introduce security into the application deployment in a seamless way. REST API can be used to configure the service, link the WAF to Barracuda Cloud control, as well as to enable the advanced security controls. For further security fine tuning, Barracuda VRS can be leveraged. This workflow can be automated using configuration management tools like Puppet, Ansible and Chef. The workflow is shown with a schematic diagram below:
 
 ![alt](https://github.com/barracudanetworks/waf-automation/blob/master/images/Screen%20Shot%202017-09-07%20at%2011.19.23%20AM.png)
 
-### Blue/Green testing
+### 2. Blue/Green testing
 The objective of this workflow is to provision parallel setups for application deployment, testing and configuration management. In order to minimize maintenance windows and reduce downtime, production and staging environments are swapped seamlessly to ensure production traffic flows through the most stable and well tested infrastructure.
 
 ![alt](https://github.com/barracudanetworks/waf-automation/blob/master/images/Screen%20Shot%202017-09-07%20at%2011.20.39%20AM.png)
 
-### Build, Deploy, Test and Destroy
+### 3. Build, Deploy, Test and Destroy
 The objective of this workflow achieves a broader scope of deploying WAF into an application's SDLC. WAF gets deployed just like any other build, gets configured, tested for traffic and security and then gets teared down as part of the build test cycle.
 
 ![alt](https://github.com/barracudanetworks/waf-automation/blob/master/images/Screen%20Shot%202017-09-07%20at%2011.21.15%20AM.png)
