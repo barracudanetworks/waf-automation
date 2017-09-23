@@ -23,7 +23,7 @@ Since the process of launching the instance is in the public cloud, the managed 
 Install the Azure module. Link: https://forge.puppet.com/puppetlabs/azure
 
 
-# Module Description**(all the modules can be seen in the modules directory in the environment)
+# Module Description **(all the modules can be seen in the modules directory in the environment)
 
 1. azure : This module is the publicly available Puppet approved Azure module. Details : https://forge.puppet.com/puppetlabs/azure
 2. azureprofiles : Created for dividing the puppet execution instructions into multiple files. This module provides the manifests for creating other azure resources.Please see details in the README for that module.
@@ -32,4 +32,4 @@ Install the Azure module. Link: https://forge.puppet.com/puppetlabs/azure
 5. azureroles : Created for dividing the puppet execution instructions into multiple files. This module calls the other module level manifests.
 
 
-##### ALL OF THE SOURCE CODE ON THIS REPOSITORY IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL BARRACUDA BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOURCE CODE.#####
+##### ALL OF THE SOURCE CODE ON THIS REPOSITORY IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL BARRACUDA BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOURCE CODE.
