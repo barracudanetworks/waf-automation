@@ -4,12 +4,18 @@ This vagrantfile has the bootstrapping script to initialize a Ubuntu system with
 
 # Getting started
 
-1. `vagrant up`
-2. `vagrant ssh`
+1. `vagrant up` : initializes the Vagrant box and bootstraps it with the shell script commands in the vagrant file.
+2. `vagrant ssh` : log into the VM
 3. edit the `/etc/puppetlabs/puppet/puppet.conf` file with the following entries:
+
 `server = <puppetmaster>`
+
 `environment = <aws environment name>`
+
+Configures the puppet agent
+
 4. curl -k https://<puppetserver fqdn>:8140/packages/current/install.bash | sudo bash
+
 5. puppet agent -t
 
 At this stage the puppet server should sign this request.
