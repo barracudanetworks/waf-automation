@@ -4,7 +4,7 @@
 
 "Terraform enables you to safely and predictably create, change, and improve production infrastructure. It is an open source tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned." -- Courtesy: [Terraform](https://www.terraform.io/)
 
-### Settings the path after installing the binary:
+### Settings the path after installing [Terraform](https://www.terraform.io/intro/getting-started/install.html)
 
 export PATH=$PATH:/path/to/dir
 
