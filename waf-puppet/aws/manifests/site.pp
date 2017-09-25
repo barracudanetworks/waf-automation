@@ -6,7 +6,11 @@ node 'puppet-master' {
 include azure
 }
 
-node 'win-mgnd6ol98gp' {
-include azure
+node 'awsserver' {
+include roles::server
+}
+
+node 'awswaf' {
+include roles::waf
 }
 
