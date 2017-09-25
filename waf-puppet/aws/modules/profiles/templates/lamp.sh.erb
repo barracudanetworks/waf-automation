@@ -1,10 +1,10 @@
-<% #!/bin/bash -%>
-set -e -x
-export DEBIAN_FRONTEND=noninteractive
-echo mysql-server-5.1 mysql-server/root_password password 56NC1wd | sudo debconf-set-selections
-echo mysql-server-5.1 mysql-server/root_password_again password 56NC1wd | sudo debconf-set-selections
-sudo apt-get update && apt-get upgrade -y
-sudo apt-get -y install tasksel
-sudo DEBIAN_FRONTEND=noninteractive tasksel install lamp-server
-echo "Please remember to set the MySQL root password!"
 
+<% #!/bin/bash -%>
+ /usr/bin/set -e -x
+ /usr/bin/export DEBIAN_FRONTEND=noninteractive
+ /usr/bin/echo mysql-server-5.1 mysql-server/root_password password 56NC1wd | sudo debconf-set-selections
+ /usr/bin/echo mysql-server-5.1 mysql-server/root_password_again password 56NC1wd | sudo debconf-set-selections
+ /usr/bin/sudo apt-get update && apt-get upgrade -y
+ /usr/bin/sudo apt-get -y install tasksel
+ /usr/bin/sudo DEBIAN_FRONTEND=noninteractive tasksel install lamp-server
+ /usr/bin/echo "Please remember to set the MySQL root password!" 

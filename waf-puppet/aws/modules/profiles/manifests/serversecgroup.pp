@@ -1,8 +1,8 @@
 class profiles::serversecgroup {
 ec2_securitygroup { 'server-sec-group':
   ensure      => present,
-  region      => 'us-west-2',
-  vpc	      => 'Ara-VPCNet',  
+  region      => hiera('region'),
+  vpc	      => hiera('vpc'),  
   description => 'a description of the group',
   ingress     => [{
     protocol  => 'tcp',
