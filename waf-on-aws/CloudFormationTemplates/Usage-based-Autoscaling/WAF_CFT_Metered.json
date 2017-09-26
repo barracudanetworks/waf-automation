@@ -1,7 +1,6 @@
-
  {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Barracuda Web Application Firewall Auto Scaling and Bootstraping --AWSMP::21be5cf9-5526-4ce1-a532-e77f92b36896::7468b9b7-731f-4a13-992a-00928c1485b5",
+  "Description": "Barracuda Web Application Firewall Auto Scaling and Bootstraping --AWSMP",
   "Metadata": {
     "AWS::CloudFormation::Interface": {
       "ParameterGroups": [
@@ -859,8 +858,3 @@
     }
   }
 }
-Next Step
-
-Continue with the How Barracuda CloudFormation Template (CFT) Works in PAYG/Hourly Instance article.
-
-

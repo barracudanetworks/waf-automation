@@ -1,10 +1,7 @@
-
-
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": 
-"Barracuda Web Application Firewall Auto Scaling and Bootstraping 
---AWSMP::21be5cf9-5526-4ce1-a532-e77f92b36896::8c1903c7-1211-4d61-95c1-1cd538b8ff2c",
+"Barracuda Web Application Firewall Auto Scaling and Bootstraping AWSMP",
   "Metadata": {
     "AWS::CloudFormation::Interface": {
       "ParameterGroups": [
@@ -748,9 +745,3 @@ will use to connect to the application",
     }
   }
 }
-
-Next Step
-
-Continue with How Barracuda CloudFormation Template Works in PAYG/Hourly Instance.
-
-
