@@ -1,6 +1,7 @@
+
  {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Barracuda Web Application Firewall Auto Scaling and Bootstraping --AWSMP",
+  "Description": "Barracuda Web Application Firewall Auto Scaling and Bootstraping --AWSMP::21be5cf9-5526-4ce1-a532-e77f92b36896::7468b9b7-731f-4a13-992a-00928c1485b5",
   "Metadata": {
     "AWS::CloudFormation::Interface": {
       "ParameterGroups": [
@@ -244,43 +245,43 @@
   "Mappings": {
     "RegionMap": {
       "us-east-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-03e4c778"
       },
       "us-west-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-ef7f548f"
       },
       "us-west-2": {
-        "ImageID": "ami-0cb5ac75"
+        "ImageID": "ami-f8c32580"
       },
       "sa-east-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-6e562002"
       },
       "ca-central-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-4de65829"
       },
       "eu-central-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-7117b81e"
       },
       "eu-west-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-45eb1c3c"
       },
       "eu-west-2": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-ded6c7ba"
       },
       "ap-southeast-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-e247d981"
       },
       "ap-southeast-2": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-a37e67c0"
       },
       "ap-northeast-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-321ef754"
       },
       "ap-northeast-2": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-f10ad39f"
       },
       "ap-south-1": {
-        "ImageID": "ami-57d55237"
+        "ImageID": "ami-818ef5ee"
       }
     },
     "BandwidthScaleUp": {
@@ -858,3 +859,8 @@
     }
   }
 }
+Next Step
+
+Continue with the How Barracuda CloudFormation Template (CFT) Works in PAYG/Hourly Instance article.
+
+
