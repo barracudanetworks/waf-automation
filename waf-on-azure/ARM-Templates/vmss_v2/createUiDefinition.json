@@ -1,0 +1,804 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+    "handler": "Microsoft.Compute.MultiVm",
+    "version": "0.1.2-preview",
+    "parameters": {
+        "basics": [
+            {
+                "name": "wafvmssName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "WAF VMSS Instance Host Name",
+                "toolTip": "Provide host name for the newly created instance of Barracuda Web Application Firewall.",
+                "defaultValue": "bwafvmss",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[A-Za-z0-9]{1,15}$",
+                    "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1 to 15 characters."
+                }
+            },
+            {
+                "name": "Password",
+                "type": "Microsoft.Common.PasswordBox",
+                "label": {
+                    "password": "Password",
+                    "confirmPassword": "Confirm password"
+                },
+                "toolTip": "Provide password for WAF Admin UI.",
+                "constraints": {
+                    "required": true,
+                    "regex": "^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\\d\\W])|(?=.*\\W)(?=.*\\d))|(?=.*\\W)(?=.*[A-Z])(?=.*\\d)).{12,72}$",
+                    "validationMessage": "Your admin password should be at least 12 characters long"
+                },
+                "options": {
+                    "hideConfirmation": false
+                }
+            }
+        ],
+        "steps": [
+            {
+                "name": "DeployConfig",
+                "label": "Deployment Options",
+                "subLabel": {
+                    "preValidation": "Define the various deployment options, including VM size and storage",
+                    "postValidation": "Done"
+                },
+                "bladeTitle": "Deployment Options",
+                "elements": [
+                    {
+                        "name": "standardVmSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "WAF Instance Size",
+                        "toolTip": "Choose the instance size you require for your deployment",
+                        "recommendedSizes": [
+                            "Standard_D2",
+                            "Standard_D3",
+                            "Standard_D2_v2",
+                            "Standard_D3_v2"
+                        ],
+                        "constraints": {
+                            "allowedSizes": [
+                                "Standard_D2",
+                                "Standard_D1",
+                                "Standard_D3",
+                                "Standard_D4",
+                                "Standard_D1_v2",
+                                "Standard_D2_v2",
+                                "Standard_D3_v2",
+                                "Standard_D4_v2"
+                            ]
+                        },
+                        "osPlatform": "Linux",
+                        "imageReference": {
+                            "publisher": "barracudanetworks",
+                            "offer": "waf",
+                            "sku": "byol"
+                        },
+                        "count": 1,
+                        "visible": true
+                    },
+                    {
+                        "name": "storageElement",
+                        "type": "Microsoft.Storage.StorageAccountSelector",
+                        "label": "Storage Account that will be used to store data for this deployment",
+                        "toolTip": "Choose Standard_LRS for Standard VM Selections",
+                        "defaultValue": {
+                            "type": "Standard_LRS"
+                        },
+                        "constraints": {
+                            "allowedTypes": [
+                                "Standard_LRS"
+                            ]
+                        },
+                        "options": {
+                            "hideExisting": false
+                        }
+                    },
+                    {
+                        "name": "vnetSpec",
+                        "type": "Microsoft.Network.VirtualNetworkCombo",
+                        "label": {
+                            "virtualNetwork": "Virtual network to be created for this deployment",
+                            "subnets": "Subnets to be used in this deployment"
+                        },
+                        "toolTip": {
+                            "virtualNetwork": "Virtual Network Name",
+                            "subnets": "Create a separate for the Barracuda WAF"
+                        },
+                        "defaultValue": {
+                            "name": "wafVnet",
+                            "addressPrefixSize": "/16"
+                        },
+                        "options": {
+                            "hideExisting": false
+                        },
+                        "constraints": {
+                            "minAddressPrefixSize": "/16"
+                        },
+                        "subnets": {
+                            "subnet0": {
+                                "label": "WAF Subnet",
+                                "defaultValue": {
+                                    "name": "wafSubnet",
+                                    "addressPrefixSize": "/24"
+                                },
+                                "constraints": {
+                                    "minAddressPrefixSize": "/24",
+                                    "minAddressCount": 1,
+                                    "requireContiguousAddresses": true
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "dnsSpec",
+                        "type": "Microsoft.Network.PublicIpAddressCombo",
+                        "label": {
+                            "publicIpAddress": "New Public IP address name",
+                            "domainNameLabel": "Domain name for accessing the WAF"
+                        },
+                        "toolTip": {
+                            "publicIpAddress": "Only new public IP is currently supported",
+                            "domainNameLabel": "WAF UI will be accessible from port 8000 or 8443 of this domain"
+                        },
+                        "defaultValue": {
+                            "publicIpAddressName": "wafpip",
+                            "domainNameLabel": "change-me-to-be-unique"
+                        },
+                        "constraints": {
+                            "required": {
+                                "domainNameLabel": true
+                            }
+                        },
+                        "options": {
+                            "hideDomainNameLabel": false,
+                            "hideNone": true,
+                            "hideExisting": true
+                        }
+                    },
+                    {
+                        "name": "bootDiagnostics",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Boot diagnostics",
+                        "defaultValue": "Disabled",
+                        "toolTip": "Capture serial console output and screenshots of the virtual machine running on a host to help diagnose startup issues. This will use storage account configured above.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Enabled",
+                                    "value": true
+                                },
+                                {
+                                    "label": "Disabled",
+                                    "value": false
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "autoScaleSettings",
+                "label": "Azure Auto scaling Configuration Details",
+                "subLabel": {
+                    "preValidation": "Define the various autoscale options, including VMSS instance count",
+                    "postValidation": "Done"
+                },
+                "bladeTitle": "Autoscale Settings",
+                "elements": [
+                    {
+                        "name": "instanceCountConfiguration",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Instance count",
+                        "elements": [
+                            {
+                                "name": "instanceCount",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Initial instances",
+                                "defaultValue": "2",
+                                "toolTip": "Enter the initial number of WAF instances (1-20) to be available at launch time in the vmss group",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[0-9]{1,2}$",
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "maxInstanceCount",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Maximum instances",
+                                "defaultValue": "5",
+                                "toolTip": "Enter the maximum number of WAF instances (2-20) that can be created in the vmss group",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[0-9]{1,2}$",
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "minInstanceCount",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Minimum instances",
+                                "defaultValue": "2",
+                                "toolTip": "Enter the minimum number of WAF instances (1-20) to be available in the vmss group",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[0-9]{1,2}$",
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "overprovisioningOption",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Overprovisioning",
+                        "defaultValue": "DISABLE",
+                        "toolTip": "Specify if you want to turn on overprovisioning in case of scale up event.[Read more](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-design-overview#overprovisioning)",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "ENABLE",
+                                    "value": true
+                                },
+                                {
+                                    "label": "DISABLE",
+                                    "value": false
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "scaleUpConfiguration",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Scale UP threshold(s)",
+                        "elements": [
+                            {
+                                "name": "upCpu",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "CPU %",
+                                "defaultValue": "85",
+                                "toolTip": "Specify scale up theshold for CPU utilization(%)",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[0-9]{1,2}$",
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "upNetworkIn",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Network In",
+                                "defaultValue": "9175040",
+                                "toolTip": "Specify scale up threshold for NetworkIn throughput.",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "upNetworkOut",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Network Out",
+                                "defaultValue": "9175040",
+                                "toolTip": "Specify scale up threshold for NetworkOut throughput.",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "scaleDownConfiguration",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Scale Down threshold(s)",
+                        "elements": [
+                            {
+                                "name": "downCpu",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "CPU %",
+                                "defaultValue": "60",
+                                "toolTip": "Specify scale down theshold for CPU utilization(%)",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[0-9]{1,2}$",
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "downNetworkIn",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Network In",
+                                "defaultValue": "5242880",
+                                "toolTip": "Specify scale down threshold for NetworkIn throughput.",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "downNetworkOut",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Network Out",
+                                "defaultValue": "5242880",
+                                "toolTip": "Specify scale down threshold for NetworkOut throughput.",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "notifyEmailAddresses",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Notification Email ID(s) in csv format",
+                        "defaultValue": "",
+                        "toolTip": "Enter valid email address(es) to send autoSclaing event notifications. e.g. abc@example.com,xyz@example.com",
+                        "constraints": {
+                            "required": false,
+                            "validationMessage": " "
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "azureApiSettings",
+                "label": "Azure API configuration",
+                "subLabel": {
+                    "preValidation": "Define option for Azure API credentials. These details will be used by WAF to make azure API calls.",
+                    "postValidation": "Done"
+                },
+                "bladeTitle": "Azure Credential Settings",
+                "elements": [
+                    {
+                        "name": "authenticationMethod",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Authentication Method",
+                        "defaultValue": "AD Credentials",
+                        "toolTip": "Specify Authentication method you want to configure",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "AD Credentials",
+                                    "value": "AZURE_USER_PASSWORD"
+                                },
+                                {
+                                    "label": "Service Principal",
+                                    "value": "AZURE_SERVICE_PRINCIPAL"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "azureAdDetails",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Azure AD Credentials",
+                        "visible": "[equals(steps('azureApiSettings').authenticationMethod, 'AZURE_USER_PASSWORD')]",
+                        "elements": [
+                            {
+                                "name": "azureUserId",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Azure User ID",
+                                "defaultValue": " ",
+                                "toolTip": "Azure User ID",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": " "
+                                }
+                            },
+                            {
+                                "name": "azurePassword",
+                                "type": "Microsoft.Common.PasswordBox",
+                                "label": {
+                                    "password": "Azure User Password",
+                                    "confirmPassword": "Confirm password"
+                                },
+                                "options": {
+                                    "hideConfirmation": false
+                                },
+                                "toolTip": "Azure User Password",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": " "
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "azureServicePrincipalDetails",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Azure Service Principal",
+                        "visible": "[equals(steps('azureApiSettings').authenticationMethod, 'AZURE_SERVICE_PRINCIPAL')]",
+                        "elements": [
+                            {
+                                "name": "azureClientId",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Client ID",
+                                "defaultValue": " ",
+                                "toolTip": "Client ID",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": " "
+                                }
+                            },
+                            {
+                                "name": "azureTenantId",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Tenant ID",
+                                "defaultValue": " ",
+                                "toolTip": "Tenant ID",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": " "
+                                }
+                            },
+                            {
+                                "name": "azureSecretKey",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Azure Secret Key",
+                                "defaultValue": " ",
+                                "toolTip": "Azure Secret Key",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": " "
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "wafBootStrapSettings",
+                "label": "WAF Bootstrap Configuration",
+                "subLabel": {
+                    "preValidation": "Define the bootstrap configuration for VMSS group",
+                    "postValidation": "Done"
+                },
+                "bladeTitle": "WAF Bootstrap Settings",
+                "elements": [
+                    {
+                        "name": "wafSharedSecret",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                            "password": "Cluster Shared Secret",
+                            "confirmPassword": "Confirm password"
+                        },
+                        "toolTip": "Passcode to prevent unauthorized systems from accessing cluster information. All Barracuda Web Application Firewalls in a cluster must have the same shared secret.",
+                        "constraints": {
+                            "required": true
+                        },
+                        "options": {
+                            "hideConfirmation": true
+                        }
+                    },
+                    {
+                        "name": "bootstrapMethod",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Bootstrap Method",
+                        "defaultValue": "BACKUP",
+                        "toolTip": "Specify bootstrapping method.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "NONE",
+                                    "value": "NO_BOOTSTRAPING"
+                                },
+                                {
+                                    "label": "BASIC",
+                                    "value": "BASIC_SERVICE_BOOTSTRAP"
+                                },
+                                {
+                                    "label": "BACKUP",
+                                    "value": "BACKUP_BASED_BOOTSTRAP"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "basicBootstrapConfiguration",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Basic Bootstrap Configuration",
+                        "visible": "[equals(steps('wafBootStrapSettings').bootstrapMethod, 'BASIC_SERVICE_BOOTSTRAP')]",
+                        "elements": [
+                            {
+                                "name": "wafServiceName",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "WAF Service Name",
+                                "defaultValue": "bwaf_service_1",
+                                "toolTip": "Specify the service name to be created",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[A-Za-z0-9_]{1,15}$",
+                                    "validationMessage": "Only valid integer value allowed."
+                                }
+                            },
+                            {
+                                "name": "wafServicePort",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "WAF Service Port",
+                                "defaultValue": "80",
+                                "toolTip": "Specify Port to be used for service creation",
+                                "constraints": {
+                                    "required": true,
+                                    "regex": "^[0-9]{1,4}$",
+                                    "validationMessage": "Only valid port range."
+                                }
+                            },
+                            {
+                                "name": "wafBackendServers",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Backend Servers(IP:PORT)",
+                                "defaultValue": " ",
+                                "toolTip": "Specify backend servers in identifier:port format. e.g. 10.0.0.4:80,www.example.com:80",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": "csv format with service_ip:port or server_hostname:port."
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "backupBootstrapConfiguration",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Backup Bootstrap Configuration",
+                        "visible": "[equals(steps('wafBootStrapSettings').bootstrapMethod, 'BACKUP_BASED_BOOTSTRAP')]",
+                        "elements": [
+                            {
+                                "name": "azureStorageAccountName",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Azure Storage Account Name",
+                                "defaultValue": " ",
+                                "toolTip": "Specify storage account where backup file is stored.",
+                                "constraints": {
+                                    "required": true,
+                                    "validationMessage": "valid storage account name."
+                                }
+                            },
+                            {
+                                "name": "azureStorageAccountKey",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Azure Storage Account Key",
+                                "toolTip": "Specify storage account key for the account configured.",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "azureStorageBlobName",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Azure Storage Blob Name",
+                                "defaultValue": " ",
+                                "toolTip": "Specify Blob name where backup file is stored.",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "wafBackupFileName",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Barracuda WAF Backup File Name",
+                                "defaultValue": " ",
+                                "toolTip": "Specify WAF Backup file to be used for WAF bootstrapping.",
+                                "constraints": {
+                                    "required": true
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "omsWorkSpaceDetails",
+                        "type": "Microsoft.Common.Section",
+                        "label": "OMS workspace Details",
+                        "elements": [
+                            {
+                                "name": "omsWorkspaceId",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "OMS workspace ID",
+                                "toolTip": "Specify OMS workspace ID where Barracuda WAF logs will be sent",
+                                "constraints": {
+                                    "required": false
+                                }
+                            },
+                            {
+                                "name": "omsWorkspacePrimaryKey",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "OMS WorkSpace Primary Key",
+                                "defaultValue": " ",
+                                "toolTip": "Specify primary key associated with OMS workspace",
+                                "constraints": {
+                                    "required": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "azureLoadBalancerSettings",
+                "label": "Azure Load Balancer Configuration",
+                "subLabel": {
+                    "preValidation": "Define health probe and load balancer rule",
+                    "postValidation": "Done"
+                },
+                "bladeTitle": "Azure Load Balancer Settings",
+                "elements": [
+                    {
+                        "name": "albHealthProbe",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Health Probe Settings",
+                        "elements": [
+                            {
+                                "name": "probeProtocol",
+                                "type": "Microsoft.Common.OptionsGroup",
+                                "label": "Protocol",
+                                "defaultValue": "TCP",
+                                "toolTip": " ",
+                                "constraints": {
+                                    "allowedValues": [
+                                        {
+                                            "label": "TCP",
+                                            "value": "tcp"
+                                        },
+                                        {
+                                            "label": "HTTP",
+                                            "value": "http"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "probePort",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Port",
+                                "defaultValue": "80",
+                                "toolTip": " ",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "probePath",
+                                "type": "Microsoft.Common.TextBox",
+                                "visible": "[equals(steps('azureLoadBalancerSettings').albHealthProbe.probeProtocol, 'http')]",
+                                "label": "path",
+                                "defaultValue": "/",
+                                "toolTip": "The URI used for requesting health status from the backend endpoint.",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "probeInterval",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Interval",
+                                "defaultValue": "10",
+                                "toolTip": "The amount of time between probe attempts.",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "unhealthyThreshold",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Unhealthy threshold",
+                                "defaultValue": "5",
+                                "toolTip": "The number of consecutive probe failures that must occur before a virtual machine is considered unhealthy.",
+                                "constraints": {
+                                    "required": true
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "albLoadBalanceRule",
+                        "type": "Microsoft.Common.Section",
+                        "label": "Load Balancer Rule Settings",
+                        "elements": [
+                            {
+                                "name": "frontEndPort",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Port",
+                                "defaultValue": "80",
+                                "toolTip": " ",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "backEndPort",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Backend Port",
+                                "defaultValue": "80",
+                                "toolTip": " ",
+                                "constraints": {
+                                    "required": true
+                                }
+                            },
+                            {
+                                "name": "sessionPersistence",
+                                "type": "Microsoft.Common.DropDown",
+                                "label": "Session Persistence",
+                                "toolTip": "Choose the persistence type to be configured",
+                                "defaultValue": "Client IP and protocol",
+                                "constraints": {
+                                    "required": true,
+                                    "allowedValues": [
+                                        {
+                                            "label": "None",
+                                            "value": "Default"
+                                        },
+                                        {
+                                            "label": "Client IP",
+                                            "value": "SourceIP"
+                                        },
+                                        {
+                                            "label": "Client IP and protocol",
+                                            "value": "SourceIPProtocol"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "outputs": {
+            "location": "[location()]",
+            "vmssName": "[basics('wafvmssName')]",
+            "adminPassword": "[basics('Password')]",
+            "vmSku": "[steps('DeployConfig').standardVmSize]",
+            "storageAccountName": "[steps( 'DeployConfig' ).storageElement.name]",
+            "storageAccountType": "[steps('DeployConfig').storageElement.type]",
+            "storageAccountNewOrExisting" : "[steps('DeployConfig').storageElement.newOrExisting]",
+            "storageAccountResourceGroup" : "[steps('DeployConfig').storageElement.resourceGroup]",
+            "vNETName": "[steps('DeployConfig').vnetSpec.name]",
+            "vNETNewOrExisting": "[steps('DeployConfig').vnetSpec.newOrExisting]",
+            "vNETResourceGroup": "[steps('DeployConfig').vnetSpec.resourceGroup]",
+            "subnetName": "[steps('DeployConfig').vnetSpec.subnets.subnet0.name]",
+            "dnsNameForIP": "[steps('DeployConfig').dnsSpec.domainNameLabel]",
+            "publicIPAddressName": "[steps('DeployConfig').dnsSpec.name]",
+            "subnetPrefix": "[steps('DeployConfig').vnetSpec.subnets.subnet0.addressPrefix]",
+            "addressPrefix": "[steps('DeployConfig').vnetSpec.addressPrefix]",
+            "bootDiagnostics": "[steps('DeployConfig').bootDiagnostics]",
+            "instanceCount": "[steps('autoScaleSettings').instanceCountConfiguration.instanceCount]",
+            "minInstanceCount": "[steps('autoScaleSettings').instanceCountConfiguration.minInstanceCount]",
+            "maxInstanceCount": "[steps('autoScaleSettings').instanceCountConfiguration.maxInstanceCount]",
+            "scaleUpCpu": "[steps('autoScaleSettings').scaleUpConfiguration.upCpu]",
+            "scaleUpNetworkIn": "[steps('autoScaleSettings').scaleUpConfiguration.upNetworkIn]",
+            "scaleUpNetworkOut": "[steps('autoScaleSettings').scaleUpConfiguration.upNetworkOut]",
+            "scaleDownCpu": "[steps('autoScaleSettings').scaleDownConfiguration.downCpu]",
+            "scaleDownNetworkIn": "[steps('autoScaleSettings').scaleDownConfiguration.downNetworkIn]",
+            "scaleDownNetworkOut": "[steps('autoScaleSettings').scaleDownConfiguration.downNetworkOut]",
+            "azureOverprovisioning": "[steps('autoScaleSettings').overprovisioningOption]",
+            "wafSharedSecret": "[steps('wafBootStrapSettings').wafSharedSecret]",
+            "azureAuthenticationMethod": "[steps('azureApiSettings').authenticationMethod]",
+            "azureUserId": "[steps('azureApiSettings').azureAdDetails.azureUserId]",
+            "azureUserPassword": "[steps('azureApiSettings').azureAdDetails.azurePassword]",
+            "azureClientId": "[steps('azureApiSettings').azureServicePrincipalDetails.azureClientId]",
+            "azureTenantId": "[steps('azureApiSettings').azureServicePrincipalDetails.azureTenantId]",
+            "azureSecretKey": "[steps('azureApiSettings').azureServicePrincipalDetails.azureSecretKey]",
+            "wafBootstrapMethod": "[steps('wafBootStrapSettings').bootstrapMethod]",
+            "azureStorageAccountName": "[steps('wafBootStrapSettings').backupBootstrapConfiguration.azureStorageAccountName]",
+            "azureStorageAccountKey": "[steps('wafBootStrapSettings').backupBootstrapConfiguration.azureStorageAccountKey]",
+            "azureStorageBlobName": "[steps('wafBootStrapSettings').backupBootstrapConfiguration.azureStorageBlobName]",
+            "azureBootstrapBackupFilename": "[steps('wafBootStrapSettings').backupBootstrapConfiguration.wafBackupFileName]",
+            "wafServiceName": "[steps('wafBootStrapSettings').basicBootstrapConfiguration.wafServiceName]",
+            "wafServicePort": "[steps('wafBootStrapSettings').basicBootstrapConfiguration.wafServicePort]",
+            "wafServers": "[steps('wafBootStrapSettings').basicBootstrapConfiguration.wafBackendServers]",
+            "wafOmsPrimaryKey": "[steps('wafBootStrapSettings').omsWorkSpaceDetails.omsWorkspacePrimaryKey]",
+            "wafOmsWorkspaceId": "[steps('wafBootStrapSettings').omsWorkSpaceDetails.omsWorkspaceId]",
+            "wafNotifyEmail": "[steps('autoScaleSettings').notifyEmailAddresses]",
+            "albHealthProbeProtocol": "[steps('azureLoadBalancerSettings').albHealthProbe.probeProtocol]",
+            "albHealthProbePort": "[steps('azureLoadBalancerSettings').albHealthProbe.probePort]",
+            "albHealthProbePath": "[steps('azureLoadBalancerSettings').albHealthProbe.probePath]",
+            "albHealthProbeInterval": "[steps('azureLoadBalancerSettings').albHealthProbe.probeInterval]",
+            "albHealthProbeUnhealthyThreshold": "[steps('azureLoadBalancerSettings').albHealthProbe.unhealthyThreshold]",
+            "albRuleFrontEndPort": "[steps('azureLoadBalancerSettings').albLoadBalanceRule.frontEndPort]",
+            "albRuleBackEndPort": "[steps('azureLoadBalancerSettings').albLoadBalanceRule.backEndPort]",
+            "albRulePersistency": "[steps('azureLoadBalancerSettings').albLoadBalanceRule.sessionPersistence]"
+        }
+    }
+}
+
