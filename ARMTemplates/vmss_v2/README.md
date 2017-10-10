@@ -27,7 +27,7 @@ Refer to Azure LB NAT rules to find out MGMT access Ports. MGMT access are gener
 
 ### <a name="azure"></a>Azure deploy button
 
-   - **PAYG**: Deploy Barracuda WAF with pay-as-you-go hourly billing. <br><a href="https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/barracudanetworks/waf-automation/master/waf-on-azure/ARM-Templates/vmss_v2/mainTemplate.json">
+   - **PAYG**: Deploy Barracuda WAF with pay-as-you-go hourly billing. <br><a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fbarracudanetworks%2Fwaf-azure-templates%2Fmaster%2FARMTemplates%2Fvmss_v2%2FmainTemplate.json">
        <img src="http://azuredeploy.net/deploybutton.png"/></a><br><br>
 
 ## More Information
