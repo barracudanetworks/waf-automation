@@ -1,4 +1,4 @@
-**### Overview**
+# Overview
 
 Puppet is a configuration management software suite that helps to configure and manage remote systems in the network through a master/slave architecture through configuration files called manifests.
 Nodes to be managed are called agents and are connected to the master of masters through an SSL authentication mechanism. Each node sends "facts" to the master server which in turn prepares a catalog based on the facts and instructs the automation steps to the client. A scheduled job or a forced agent apply can be run to execute the instructions in the catalog.
