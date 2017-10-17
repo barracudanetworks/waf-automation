@@ -1,0 +1,25 @@
+---
+###########AWS launch parameters###########
+#AWS region for the account
+region: us-west-2
+#VPC name in which all the subnets for the network exist
+vpc: prodnet
+#AZ for the VPC in which the subnets into which the ec2 instances are to be deployed,exist
+waf_availability_zone: us-west-2a
+#please mention a subnet within the VPC in which the waf should be deployed
+waf_subnet: PublicSubnet
+#please mentioned the SSH key pair which should be used for the WAF
+waf_keypair: devops
+#AMI for the web server
+lamp_image: ami-efd0428f
+#AMI for the waf, refer to mapping.xls file
+waf_ami: ami-85d532fd
+#AZ for the VPC in which the subnets into which the server ec2 instances are to be deployed,exist
+svr_availability_zone: us-west-2a
+#CFT for base network
+basenet: 'https://s3-us-west-2.amazonaws.com/aravindandevops/CloudFormationTemplates/basenetwork.template'
+
+#web server subnet
+websvr_subnet: test-subnet
+###########AWS launch parameters###########
+

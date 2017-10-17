@@ -1,0 +1,15 @@
+{
+  "name": "cuda-wafloginforaws",
+  "version": "0.1.0",
+  "author": "cuda",
+  "summary": "This module can be used for generating a login token for using the restapi calls for the Barracuda WAF deployed on AWS",
+  "license": "Apache-2.0",
+  "source": "",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
