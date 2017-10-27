@@ -1,16 +1,9 @@
-node 'awsnode' {
-include roles
-}
 
-node 'puppet-master' {
-include azure
-}
-
-node 'awsserver' {
+node 'appnode' {
 include roles::server
 }
 
-node 'awswaf' {
+node 'wafnode' {
 include roles::waf
 }
 
