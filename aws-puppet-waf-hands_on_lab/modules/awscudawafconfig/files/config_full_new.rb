@@ -86,7 +86,6 @@ class Waf_Info
 end
 
 #accepting EULA
-=begin
 class EULA < Waf_Info
 		
 	def agreement
@@ -131,7 +130,6 @@ end
 
 eula = EULA.new
 eula.agreement
-=end
 
 
 #Logging in to the WAF :###

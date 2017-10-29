@@ -17,7 +17,7 @@ waf_ami: ami-85d532fd
 #AZ for the VPC in which the subnets into which the server ec2 instances are to be deployed,exist
 svr_availability_zone: us-west-2a
 #CFT for base network
-basenet: 'https://s3-us-west-2.amazonaws.com/aravindandevops/CloudFormationTemplates/basenetwork.template'
+basenet: 'https://s3-us-west-2.amazonaws.com/aravindandevops/CloudFormationTemplates/basenetwork.template1'
 
 #web server subnet
 websvr_subnet: test-subnet
