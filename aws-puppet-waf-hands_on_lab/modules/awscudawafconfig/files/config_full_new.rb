@@ -9,16 +9,18 @@ time = `clear; date`
 puts "Current time is #{time}\n\n"
 ###Querying AWS for the the Instance ID and the Public and Private IP###
 class Waf_Info
-		instance_id = `aws ec2 describe-instances --filter Name=tag:Name,Values=SE_ara-Test --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
+		instance_id = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
 		@@ins_id = "#{instance_id.chomp}"
+	        eip_alloc_json = `aws ec2 describe-addresses --filters "Name=domain,Values=vpc"`
+                eip_alloc_json_parsed = JSON.parse(eip_alloc_json)
+		eip_alloc_id = eip_alloc_json_parsed ["AllocationId"]
+		attach_ip = `aws ec2 associate-address --instance-id "#{instance_id.chomp}" --allocation-id "#{eip_alloc_id}"`
+		@@att_ip = "#{attach_ip}"
 		
-		#attach_ip = `aws ec2 associate-address --instance-id "#{instance_id.chomp}" --public-ip 52.37.124.1`
-		#@@att_ip = "#{attach_ip}"
-		
-		public_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=SE_ara-Test --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text`
+		public_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text`
 		@@pub_ip = "#{public_ip.chomp}"
 
-		system_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=SE_ara-Test --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text`
+		system_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text`
 		@@sys_ip = "#{system_ip.chomp}"
 
 		common = "#{public_ip.chomp}:8000/restapi/v1/"
@@ -30,7 +32,7 @@ class Waf_Info
 		common_service_path = "#{common}virtual_services"
 		@@service_url = "#{common_service_path}"
 
-		svr_system_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=server-for-ruleset-ara-rupak-1 --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text`
+		svr_system_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=lampinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text`
 		@@svr_sys_ip = "#{svr_system_ip.chomp}"
 
 	def self.ins_id
@@ -39,12 +41,12 @@ class Waf_Info
 	def ins_id
 	@@ins_id
 	end
-	#def self.att_ip
-        #@@att_ip
-        #end
-        #def att_ip
-        #@@att_ip
-        #end
+	def self.att_ip
+        @@att_ip
+        end
+        def att_ip
+        @@att_ip
+        end
 	def self.pub_ip
 	@@pub_ip
 	end
@@ -238,74 +240,6 @@ http_svc_name = "service_http_auto"
 puts "Creating the configuration for the production service group"
 puts "=========================================================== \n"
 		svc = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"name": "#{http_svc_name}", "ip_address":"#{wafip}", "port":"80", "type":"HTTP", "address_version":"ipv4", "vsite":"default", "group":"#{svc_grp}"}'`
-puts "The Service #{http_svc_name} has been created "
-#Rule group for the http service
-		rule_group = `curl http://#{common_path_service}/#{http_svc_name}/content_rules -u '#{waftoken}:' #{header_string} '{"name":"rule_1","host_match":"#{http_fqdn}","url_match":"/*","extended_match":"*", "extended_match_sequence":5}'`
-puts "The rule group under #{http_svc_name} has been created"
-#server for the rule group
-		rule_grp_svr = `curl http://#{common_path_service}/#{http_svc_name}/content_rules/rule_1/rg_servers -u '#{waftoken}:' #{header_string} '{"name":"rg_server_1","ip_address":"#{server_ip}","port":"80"}'`
-puts "The server ip address for the rule group rule_1 under the service #{http_svc_name}is configured"
-#HTTPS Service
-#services details
-https_svc_name = "service_https_auto"
-
-#website details
-https_fqdn = "staging.selahcloud.in"
-
-#Creating a certificate on the WAF
-cert = `curl http://#{common_path}certificates -u '#{waftoken}:' #{header_string} '{"name":"cert4","common_name":"barracuda.tme.com","country_code":"US","state":"California","city":"Campbell","organization_name":"BarracudaNetworks","organization_unit":"Engineering","key_size":"1024","allow_private_key_export":"yes"}'`
-#Creating a HTTPS service :
-svc_https = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"certificate":"cert4", "address_version":"ipv4", "name":"#{https_svc_name}", "type":"https", "ip_address":"#{wafip}", "port":"4443", "vsite":"default", "group":"#{svc_grp}"}'`
-puts "The Service #{https_svc_name} has been created"
-#Creating a rule group for the service :
-https_rule_group = `curl http://#{common_path_service}/#{https_svc_name}/content_rules -u '#{waftoken}:' #{header_string} '{"name":"rule_2","host_match":"#{http_fqdn}","url_match":"/*","extended_match":"*", "extended_match_sequence":5}'`
-puts "The rule group under #{https_svc_name} has been created"
-#Creating a server for the rule group :
-https_rule_grp_svr = `curl http://#{common_path_service}/#{https_svc_name}/content_rules/rule_2/rg_servers -u '#{waftoken}:' #{header_string} '{"name":"rg_server_1","ip_address":"#{server_ip}","port":"80"}'`
-puts "The server ip address for the rule group rule_2 under the service #{https_svc_name} is configured"
-
-#Service creation
-svc = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"name": "#{http_svc_name}", "ip_address":"#{wafip}", "port":"80", "type":"HTTP", "address_version":"ipv4", "vsite":"default", "group":"#{svc_grp}"}'`
-#Rule group for the http service
-rule_group = `curl http://#{common_path_service}/#{http_svc_name}/content_rules -u '#{waftoken}:' #{header_string} '{"name":"rule_1","host_match":"#{http_fqdn}","url_match":"/*","extended_match":"*", "extended_match_sequence":5}'`
-
-#server for the rule group
-rule_grp_svr = `curl http://#{common_path_service}/#{http_svc_name}/content_rules/rule_1/rg_servers -u '#{waftoken}:' #{header_string} '{"name":"rg_server_1","ip_address":"#{server_ip}","port":"80"}'`
-
-#STAGING
-http_svc_name = "service_http_auto_staging"
-svc_grp = "staging"
-puts "Creating the configuration for the staging service group"
-puts "======================================================= \n"
-
-#HTTP Service creation
-                svc = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"name": "#{http_svc_name}", "ip_address":"#{wafip}", "port":"8888", "type":"HTTP", "address_version":"ipv4", "vsite":"default", "group":"#{svc_grp}"}'`
-puts "The Service #{http_svc_name} has been created"
-
-#Rule group for the http service
-                rule_group = `curl http://#{common_path_service}/#{http_svc_name}/content_rules -u '#{waftoken}:' #{header_string} '{"name":"rule_1","host_match":"#{http_fqdn}","url_match":"/*","extended_match":"*", "extended_match_sequence":5}'`
-puts "The rule group under #{http_svc_name} has been created"
-
-#server for the rule group
-                rule_grp_svr = `curl http://#{common_path_service}/#{http_svc_name}/content_rules/rule_1/rg_servers -u '#{waftoken}:' #{header_string} '{"name":"rg_server_1","ip_address":"#{server_ip}","port":"80"}'`
-puts "The server ip address for the rule group rule_1 under the service #{http_svc_name} is configured"
-
-#HTTPS Service
-#services details
-https_svc_name = "service_https_auto_staging"
-
-#Creating a HTTPS service :
-svc_https = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"certificate":"cert4", "address_version":"ipv4", "name":"#{https_svc_name}", "type":"https", "ip_address":"#{wafip}", "port":"9443", "vsite":"default", "group":"#{svc_grp}"}'`
-puts "The Service #{https_svc_name} has been created"
-
-#Creating a rule group for the service :
-https_rule_group = `curl http://#{common_path_service}/#{https_svc_name}/content_rules -u '#{waftoken}:' #{header_string} '{"name":"rule_2","host_match":"#{http_fqdn}","url_match":"/*","extended_match":"*", "extended_match_sequence":5}'`
-puts "The rule group under #{https_svc_name} has been created"
-
-#Creating a server for the rule group :
-https_rule_grp_svr = `curl http://#{common_path_service}/#{https_svc_name}/content_rules/rule_2/rg_servers -u '#{waftoken}:' #{header_string} '{"name":"rg_server_1","ip_address":"#{server_ip}","port":"80"}'`	
-puts "The server ip address for the rule group rule_2 under the service #{https_svc_name} is configured"
-
 #Connecting the unit to BCC
 bcc = `cat /etc/puppetlabs/puppet/bcc_credentials`
 bcc_json = JSON.parse (bcc)
