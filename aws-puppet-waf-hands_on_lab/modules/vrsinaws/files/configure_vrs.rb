@@ -8,10 +8,10 @@ require "base64"
 
 ###Querying AWS for the the Instance ID and the Public IP###
 
-        instance_id = `aws ec2 describe-instances --filter Name=tag:tag_name,Values=awswafinstancebyPUPPET5 --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
+        instance_id = `aws ec2 describe-instances --filter Name=tag:tag_name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
         ins_id = "#{instance_id.chomp}"
 
-        public_ip = `aws ec2 describe-instances --filter Name=tag:tag_name,Values=awswafinstancebyPUPPET5 --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text`
+        public_ip = `aws ec2 describe-instances --filter Name=tag:tag_name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text`
         pub_ip = "#{public_ip.chomp}"
         login_token = `curl http://#{pub_ip}:8000/restapi/v1/login`
         response_json = JSON.parse (login_token)
