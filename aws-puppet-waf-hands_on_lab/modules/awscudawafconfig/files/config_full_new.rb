@@ -184,31 +184,6 @@ end
 token_for_login = Token.new
 token_for_login.logintoken
 
-#Service Group Creation
-class Service_group < Waf_Info::Token
-	def create_svc_grp
-		group_name = ["production", "staging"]
-		group_name.each do |environment_setting|
-
-		svc_grp_name = "#{environment_setting}"
-
-		wafip = Waf_Info.pub_ip
-		wafport = 8000
-		logintoken = Token.token
-		common_path = Waf_Info.common_url
-		header_string = Waf_Info.http_header
-		@@svc_grp = `curl http://#{common_path}vsites/default/service_groups -u '#{logintoken}:' #{header_string} '{"name":"#{svc_grp_name}"}'`
-		end
-	end
-	def self.svc_grp
-		@@svc_grp
-	end
-	def svc_grp
-		@@svc_grp
-	end
-end
-service_group = Service_group.new
-service_group.create_svc_grp
 
 
 #HTTP Service
