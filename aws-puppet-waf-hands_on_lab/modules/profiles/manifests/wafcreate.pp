@@ -10,7 +10,7 @@ ec2_instance { 'awswafinstancebyPUPPET7':
   key_name          => hiera('waf_keypair'),
   security_groups   => ['cudawaf-sec-group'],
   tags              => {
-    Name => 'awswafinstancebyPUPPET7',
+    tag_name => 'awswafinstancebyPUPPET7',
   },
 }
 
