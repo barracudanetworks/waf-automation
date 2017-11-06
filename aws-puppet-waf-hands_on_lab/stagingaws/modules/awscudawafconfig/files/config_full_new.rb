@@ -13,10 +13,11 @@ class Waf_Info
 		@@ins_id = "#{instance_id.chomp}"
 	        eip_alloc_json = `aws ec2 describe-addresses --filters "Name=domain,Values=vpc"`
                 eip_alloc_json_parsed = JSON.parse(eip_alloc_json)
-		eip_alloc_id = eip_alloc_json_parsed ["AllocationId"]
-		attach_ip = `aws ec2 associate-address --instance-id "#{instance_id.chomp}" --allocation-id "#{eip_alloc_id}"`
-		@@att_ip = "#{attach_ip}"
-		
+		eip_alloc_json_parsed ['Addresses'].each do |info|
+		eip_alloc_id = info ['AllocationId']
+		attach_ip = `aws ec2 associate-address --instance-id "#{instance_id.chomp}" --allocation-id "#{eip_alloc_id.chomp}"`
+		@@att_ip = "#{attach_ip.chomp}"
+		end
 		public_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text`
 		@@pub_ip = "#{public_ip.chomp}"
 
@@ -198,7 +199,6 @@ http_svc_name = "service_http_auto"
 	wafip = Waf_Info.sys_ip
 	wafport = 8000
 	waftoken = Token.token
-	svc_grp = "production"
 	common_path = Waf_Info.common_url
 	header_string = Waf_Info.http_header
 	common_path_service = Waf_Info.service_url
@@ -212,7 +212,7 @@ http_svc_name = "service_http_auto"
 #Service creation
 puts "Creating the configuration for the production service group"
 puts "=========================================================== \n"
-		svc = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"name": "#{http_svc_name}", "ip_address":"#{wafip}", "port":"80", "type":"HTTP", "address_version":"ipv4", "vsite":"default", "group":"#{svc_grp}"}'`
+		svc = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"name": "#{http_svc_name}", "ip_address":"#{wafip}", "port":"80", "type":"HTTP", "address_version":"ipv4", "vsite":"default", "group":"default"}'`
 #Connecting the unit to BCC
 bcc = `cat /etc/puppetlabs/puppet/bcc_credentials`
 bcc_json = JSON.parse (bcc)
