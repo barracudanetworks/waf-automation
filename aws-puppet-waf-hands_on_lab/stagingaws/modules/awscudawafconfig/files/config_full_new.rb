@@ -120,6 +120,7 @@ class EULA < Waf_Info
 		eula_post = Net::HTTP::Post.new(eula_uri.path)
 		eula_post.body = "{#{accept_params}}"
 		eula_post_request = eula_http.request(eula_post)
+		sleep (30)
 			else
 			puts "re-attempting in 30 seconds ..."
 			sleep (30)

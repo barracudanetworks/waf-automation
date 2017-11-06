@@ -10,14 +10,6 @@ file {'configure_vrs.rb':
   mode   => '0644',
   source => 'puppet:///modules/vrsinaws/configure_vrs.rb',
 }
-file {'bcc_credentials':
-  ensure => present,
-  path   => '/etc/puppetlabs/puppet/bcc_credentials',
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0400',
-  source => 'puppet:///modules/vrsinaws/bcc_credentials',
-}
 Exec {'ruby-for-vrs':
   command => '/usr/bin/ruby /home/ubuntu/vrsconfig.rb >> /home/ubuntu/vrsconfigresults.txt',
 }
