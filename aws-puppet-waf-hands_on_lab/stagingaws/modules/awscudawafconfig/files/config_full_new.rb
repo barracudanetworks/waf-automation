@@ -214,6 +214,8 @@ http_svc_name = "service_http_auto"
 puts "Creating the configuration for the production service group"
 puts "=========================================================== \n"
 		svc = `curl http://#{common_path_service} -u '#{waftoken}:' #{header_string} '{"name": "#{http_svc_name}", "ip_address":"#{wafip}", "port":"80", "type":"HTTP", "address_version":"ipv4", "vsite":"default", "group":"default"}'`
+server_create = `curl http://#{common_path_service}/#{http_svc_name}/servers -u '#{waftoken}' #{header_string} '{"address_version":"ipv4","name":"S1","ip_address":"#{server_ip}","port":80}'`
+
 #Connecting the unit to BCC
 bcc = `cat /etc/puppetlabs/puppet/bcc_credentials`
 bcc_json = JSON.parse (bcc)
