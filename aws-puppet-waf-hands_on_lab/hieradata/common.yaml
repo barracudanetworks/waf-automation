@@ -20,6 +20,6 @@ svr_availability_zone: us-west-2a
 basenet: 'https://s3-us-west-2.amazonaws.com/aravindandevops/CloudFormationTemplates/basenetwork.template1'
 
 #web server subnet
-websvr_subnet: test-subnet
+websvr_subnet: PublicSubnet2
 ###########AWS launch parameters###########
 
