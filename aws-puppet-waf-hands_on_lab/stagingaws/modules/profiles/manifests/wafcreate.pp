@@ -12,6 +12,8 @@ ec2_instance { 'awswafinstancebyPUPPET7':
   tags              => {
     tag_name => 'awswafinstancebyPUPPET7',
   },
+},
+exec { "wafbootwait":
+    command => "sleep (360)",
 }
-
 }

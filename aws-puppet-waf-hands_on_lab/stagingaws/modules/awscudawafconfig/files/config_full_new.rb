@@ -96,8 +96,8 @@ class EULA < Waf_Info
 	common_urlpath = Waf_Info.common_url
 	header_http = Waf_Info.http_header
 	serviceurl = Waf_Info.service_url
-	puts "The system's public ip address is #{instance_id_waf}"
-	puts "The systems's instance ID is #{instance_publicip}"
+	puts "The system's instance ID is #{instance_id_waf}"
+	puts "The systems's public IP is #{instance_publicip}"
 	puts "The system ip of the instance is #{instance_sysip}"
 	#puts "#{common_urlpath}"
 	#puts "#{header_http}"
