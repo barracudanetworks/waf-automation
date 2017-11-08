@@ -5,8 +5,7 @@ require "uri"
 require "json"
 require "base64"
 
-time = `clear; date`
-puts "Current time is #{time}\n\n"
+sleep 300
 ###Querying AWS for the the Instance ID and the Public and Private IP###
 class Waf_Info
 		instance_id = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
@@ -99,34 +98,23 @@ class EULA < Waf_Info
 	puts "The system's instance ID is #{instance_id_waf}"
 	puts "The systems's public IP is #{instance_publicip}"
 	puts "The system ip of the instance is #{instance_sysip}"
-	#puts "#{common_urlpath}"
-	#puts "#{header_http}"
-	#puts "#{serviceurl}"
-	
-	###Accepting EULA###
-	time_increment = 0
-		time_limit = 600
-		if time_increment < time_limit
-
-	
+	#Accepting EULA
+	eula_output = 0
+	until eula_output == "200"
 	
 	eula_uri = URI.parse("http://#{instance_publicip}:8000/")
 	eula_http = Net::HTTP.new(eula_uri.host, eula_uri.port)
 	eula_request = Net::HTTP::Get.new(eula_uri.path)
 	eula_response = eula_http.request(eula_request)
 	eula_output = eula_response.code
-		if eula_output == "200"
-		accept_params = "name_sign=self-provisioned&email_sign=self-provisioned&company_sign=self-provisioned&eula_hash_val=ed4480205f84cde3e6bdce0c987348d1d90de9db&action=save_signed_eula"
+	end
+	
+	accept_params = "name_sign=self-provisioned&email_sign=self-provisioned&company_sign=self-provisioned&eula_hash_val=ed4480205f84cde3e6bdce0c987348d1d90de9db&action=save_signed_eula"
 		eula_post = Net::HTTP::Post.new(eula_uri.path)
 		eula_post.body = "{#{accept_params}}"
-		eula_post_request = eula_http.request(eula_post)
-		sleep (30)
-			else
-			puts "re-attempting in 30 seconds ..."
-			sleep (30)
-			time_increment +=30;
-			end
-		end
+		eula_http.request(eula_post)
+		puts "waiting till the WAF is provisioned"
+		sleep 30
 	end
 end
 
@@ -135,45 +123,28 @@ eula.agreement
 
 
 #Logging in to the WAF :###
-#http://10.11.31.231:8000/restapi/v1/login -X POST -H Content-Type:application/json -d '{"username": "admin", "password": "admin" }'
 class Token < Waf_Info
 		def logintoken
 		
 		
-		time_increment = 0
-		time_limit = 300
-		if time_increment < time_limit
-        instance_publicip = Waf_Info.pub_ip
-        login_check = URI.parse("http://#{instance_publicip}:8000/cgi-bin/index.cgi")
+        	instance_publicip = Waf_Info.pub_ip
+        	login_check = URI.parse("http://#{instance_publicip}:8000/cgi-bin/index.cgi")
 		login_check_http = Net::HTTP.new(login_check.host, 8000)
 		login_request = Net::HTTP::Get.new(login_check.path)
 		response_check = login_check_http.request(login_request)
-		output_check = response_check.code
-		puts "#{output_check}" 
-		if output_check == "200"
-			urlpath = Waf_Info.common_url
-			uri = URI.parse("http://#{urlpath}login")
-			password = Waf_Info.ins_id
-			http = Net::HTTP.new(uri.host, uri.port)
-			request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-			request.body = {"username" => "admin", "password" => "#{password}"}.to_json
-			response = http.request(request)
-			output = response.body
-			parsed_json = JSON.parse(output)
-			token_value = parsed_json ["token"]
-			@@token = token_value.chomp
-			#puts "#{token_value.chomp}"
-		else
-			puts "re-attempting in 10 seconds ..."
-			sleep (10)
-			time_increment +=10;
-
-			end
+		urlpath = Waf_Info.common_url
+		uri = URI.parse("http://#{urlpath}login")
+		password = Waf_Info.ins_id
+		http = Net::HTTP.new(uri.host, uri.port)
+		request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+		request.body = {"username" => "admin", "password" => "#{password}"}.to_json
+		response = http.request(request)
+		output = response.body
+		parsed_json = JSON.parse(output)
+		token_value = parsed_json ["token"]
+		@@token = token_value.chomp
+		#puts "#{token_value.chomp}"
 		end
-	
-		
-		
-	end
 	def self.token
 	@@token
 	end

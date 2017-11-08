@@ -1,7 +1,5 @@
 class WAFSetUp::config {
 
-
-
 file {'eula_accept.rb':
   ensure => present,
   path   => '/home/ubuntu/eula_accept.rb',
