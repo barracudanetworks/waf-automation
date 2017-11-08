@@ -61,7 +61,7 @@ wafservers{ 'WAFSERVER-2':
   service_name => 'demo_service_13',
   hostname => 'TEST',
   port => '80',
-  comments => 'Creating the server'
+  comments => 'Creating the server',
 }
 
 To create a Certificate:
@@ -75,7 +75,7 @@ wafcertificates{ 'WAFUPLOADSIGNEDCER-1':
   type => 'pem',
   key =>'/home/wafcertificates/privkey.pem',
   assign_associated_key => 'no',
-  upload => 'signed'
+  upload => 'signed',
 }
 
 To connect the WAF to Barracuda Cloud Control
