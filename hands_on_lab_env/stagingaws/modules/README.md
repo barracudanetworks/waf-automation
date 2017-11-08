@@ -32,7 +32,7 @@ Installing the gem files:
 ### Examples
 
 To create a Service:
-
+```
 wafservices  { 'WAFSVC-1':
   ensure	=> present,
   name          => 'WAFSERVICE',
@@ -48,9 +48,9 @@ wafservices  { 'WAFSVC-1':
   svcname => 'ProdService',
 	}
 }
-
+```
 To create a Real server:
-
+```
 wafservers{ 'WAFSERVER-2':
   ensure => present,
   name => 'server2',
@@ -63,9 +63,9 @@ wafservers{ 'WAFSERVER-2':
   port => '80',
   comments => 'Creating the server',
 }
-
+```
 To create a Certificate:
-
+```
 wafcertificates{ 'WAFUPLOADSIGNEDCER-1':
   ensure => present,
   cer_name => 'wafuploadsignedcert1',
@@ -77,7 +77,7 @@ wafcertificates{ 'WAFUPLOADSIGNEDCER-1':
   assign_associated_key => 'no',
   upload => 'signed',
 }
-
+```
 To connect the WAF to Barracuda Cloud Control
 
 
