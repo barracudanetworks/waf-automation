@@ -1,4 +1,4 @@
-class awscudawafconfig::config {
+class WAFSetUp::config {
 
 
 
