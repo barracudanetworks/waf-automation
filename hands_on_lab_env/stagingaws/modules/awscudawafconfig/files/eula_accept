@@ -1,0 +1,57 @@
+#!/usr/bin/ruby
+
+require "net/http"
+require "uri"
+require "json"
+require "base64"
+
+		# This delay is needed to allow the AWS platform to initialize the instance and provision it
+		sleep 300
+
+		###Querying AWS for the the Instance ID and the Public and Private IP###
+		instance_id = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
+		ins_id = "#{instance_id.chomp}"
+
+		puts "The system's instance ID is #{ins_id}"
+
+		eip_alloc_json = `aws ec2 describe-addresses --filters "Name=domain,Values=vpc"`
+    eip_alloc_json_parsed = JSON.parse(eip_alloc_json)
+		eip_alloc_json_parsed ['Addresses'].each do |info|
+			eip_alloc_id = info ['AllocationId']
+			attach_ip = `aws ec2 associate-address --instance-id "#{instance_id.chomp}" --allocation-id "#{eip_alloc_id.chomp}"`
+			att_ip = "#{attach_ip.chomp}"
+		end
+
+		public_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text`
+		pub_ip = "#{public_ip.chomp}"
+    puts "The systems's public IP is #{pub_ip}"
+
+		system_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=awswafinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text`
+		sys_ip = "#{system_ip.chomp}"
+ 		puts "The system ip of the instance is #{sys_ip}"
+
+		svr_system_ip = `aws ec2 describe-instances --filter Name=tag:Name,Values=lampinstancebyPUPPET7 --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text`
+		svr_sys_ip = "#{svr_system_ip.chomp}"
+		puts "The server ip to be used in the service creation is #{svr_sys_ip}"
+
+		# Creating the credentials file
+		out_file=File.new "credentials.json", "w"
+		out_file.puts ("{\"username\":\"admin\",\"password\":\"#{ins_id}\",\"waf_ip\":\"#{pub_ip}\"}")
+		`mv credentials.json /etc/puppetlabs/puppet/`
+
+		###Accepting EULA###
+		puts "waiting till the WAF is provisioned..."
+		eula_output = 0
+		until eula_output == "200"
+			eula_uri = URI.parse("http://#{pub_ip}:8000/")
+			eula_http = Net::HTTP.new(eula_uri.host, eula_uri.port)
+			eula_request = Net::HTTP::Get.new(eula_uri.path)
+			eula_response = eula_http.request(eula_request)
+			eula_output = eula_response.code
+		end
+		accept_params = "name_sign=self-provisioned&email_sign=self-provisioned&company_sign=self-provisioned&eula_hash_val=ed4480205f84cde3e6bdce0c987348d1d90de9db&action=save_signed_eula"
+		eula_post = Net::HTTP::Post.new(eula_uri.path)
+		eula_post.body = "{#{accept_params}}"
+		eula_http.request(eula_post)
+		puts "waiting till the WAF is provisioned..."
+		sleep 30
