@@ -7,7 +7,7 @@ Organisations are adopting infrastructure as code to be more agile to business r
 ![alt](https://www.barracuda.com/assets/img/sections/programs/azure/img_app-security_diagram1.png)
 
 
-This space will include details about how common DevOps practices/tools can be used with the Barracuda Web Applications Firewall product with primary focus on public cloud platforms like AWS and Microsoft Azure.
+This space will include details about how common DevOps practices/tools can be used with the Barracuda Web Applications Firewall product with primary focus on Public Cloud platforms like AWS and Microsoft Azure.
 
 # Provisioning and Deployment
 ### Amazon Web Services
