@@ -1,0 +1,898 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template Puppet Ecosystem. This CFT will launch a Puppet Enterprise Master system as a PAYG instance along with 2 agent nodes in a newly created VPC. **WARNING** This template creates 3 Amazon EC2 instances. You will be billed for the AWS resources used if you create a stack from this template.",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "72eccf50-193c-408c-8878-100e1d642a06": {
+                "size": {
+                    "width": 620,
+                    "height": 320
+                },
+                "position": {
+                    "x": -330,
+                    "y": -160
+                },
+                "z": 0,
+                "embeds": [
+                    "96c0106b-ed5e-4fb0-ac9c-76dcfe0892e7",
+                    "24e48d01-f24f-4f7f-beee-bf015fee58fc",
+                    "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9",
+                    "630d1e70-262c-4f0b-bf2e-eb969f699362",
+                    "5a423820-6f8f-4429-a97a-563922eee390",
+                    "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43"
+                ]
+            },
+            "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43": {
+                "size": {
+                    "width": 390,
+                    "height": 120
+                },
+                "position": {
+                    "x": -201,
+                    "y": -150
+                },
+                "z": 1,
+                "parent": "72eccf50-193c-408c-8878-100e1d642a06",
+                "embeds": [
+                    "da42e6a1-070c-4e1b-bf6b-40210514e932",
+                    "5bead873-b00e-4b0c-9305-a8e24bdfbb41",
+                    "862e5aa7-7349-4637-be6f-b63a29e1bf15"
+                ]
+            },
+            "5a423820-6f8f-4429-a97a-563922eee390": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -230,
+                    "y": 30
+                },
+                "z": 1,
+                "parent": "72eccf50-193c-408c-8878-100e1d642a06",
+                "embeds": []
+            },
+            "630d1e70-262c-4f0b-bf2e-eb969f699362": {
+                "size": {
+                    "width": 140,
+                    "height": 101.50885009765625
+                },
+                "position": {
+                    "x": 123,
+                    "y": -1
+                },
+                "z": 1,
+                "parent": "72eccf50-193c-408c-8878-100e1d642a06",
+                "embeds": [
+                    "d5409698-d108-44ee-9074-782df4dbd106"
+                ]
+            },
+            "d5409698-d108-44ee-9074-782df4dbd106": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 161,
+                    "y": 19
+                },
+                "z": 2,
+                "parent": "630d1e70-262c-4f0b-bf2e-eb969f699362",
+                "embeds": [],
+                "references": [
+                    "c8a500c8-5d16-4e9e-b066-33f71a505c6d"
+                ],
+                "dependson": [
+                    "c8a500c8-5d16-4e9e-b066-33f71a505c6d"
+                ]
+            },
+            "862e5aa7-7349-4637-be6f-b63a29e1bf15": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -180,
+                    "y": -120
+                },
+                "z": 2,
+                "parent": "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43",
+                "embeds": [],
+                "isassociatedwith": [
+                    "5a423820-6f8f-4429-a97a-563922eee390"
+                ],
+                "dependson": [
+                    "d5409698-d108-44ee-9074-782df4dbd106"
+                ],
+                "isrelatedto": [
+                    "5a423820-6f8f-4429-a97a-563922eee390",
+                    "24e48d01-f24f-4f7f-beee-bf015fee58fc"
+                ]
+            },
+            "c8a500c8-5d16-4e9e-b066-33f71a505c6d": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -439.57470703125,
+                    "y": -74.50885009765625
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "af1bca7b-5f43-403f-b97b-d171fb1eaafa": {
+                "source": {
+                    "id": "c8a500c8-5d16-4e9e-b066-33f71a505c6d"
+                },
+                "target": {
+                    "id": "72eccf50-193c-408c-8878-100e1d642a06"
+                },
+                "z": 0
+            },
+            "84e3846c-b97b-45b1-b810-ca573b42f0ba": {
+                "source": {
+                    "id": "d5409698-d108-44ee-9074-782df4dbd106"
+                },
+                "target": {
+                    "id": "c8a500c8-5d16-4e9e-b066-33f71a505c6d"
+                },
+                "z": 4
+            },
+            "2574231b-37fb-4bb5-9bd7-14d5e9dd7fd7": {
+                "source": {
+                    "id": "d5409698-d108-44ee-9074-782df4dbd106"
+                },
+                "target": {
+                    "id": "c8a500c8-5d16-4e9e-b066-33f71a505c6d"
+                },
+                "z": 5
+            },
+            "39195394-5a41-459d-a176-d1d89e289c9e": {
+                "source": {
+                    "id": "862e5aa7-7349-4637-be6f-b63a29e1bf15"
+                },
+                "target": {
+                    "id": "d5409698-d108-44ee-9074-782df4dbd106"
+                },
+                "z": 6
+            },
+            "a4defcfd-8242-4ed5-8668-98538696f77a": {
+                "source": {
+                    "id": "862e5aa7-7349-4637-be6f-b63a29e1bf15"
+                },
+                "target": {
+                    "id": "5a423820-6f8f-4429-a97a-563922eee390"
+                },
+                "z": 7
+            },
+            "8fc04d0a-22c8-4632-a81e-60492a9be52f": {
+                "source": {
+                    "id": "630d1e70-262c-4f0b-bf2e-eb969f699362"
+                },
+                "target": {
+                    "id": "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43"
+                },
+                "z": 1
+            },
+            "5bead873-b00e-4b0c-9305-a8e24bdfbb41": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -52.2615744389221,
+                    "y": -119.17525524768219
+                },
+                "z": 2,
+                "parent": "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43",
+                "embeds": [],
+                "isassociatedwith": [
+                    "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                ],
+                "dependson": [
+                    "d5409698-d108-44ee-9074-782df4dbd106"
+                ],
+                "isrelatedto": [
+                    "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                ]
+            },
+            "d0299b11-66bd-47ae-a5d5-17769fa563d8": {
+                "source": {
+                    "id": "5bead873-b00e-4b0c-9305-a8e24bdfbb41"
+                },
+                "target": {
+                    "id": "d5409698-d108-44ee-9074-782df4dbd106"
+                },
+                "z": 3
+            },
+            "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -130,
+                    "y": 90
+                },
+                "z": 1,
+                "parent": "72eccf50-193c-408c-8878-100e1d642a06",
+                "embeds": []
+            },
+            "ce3a41b7-4bda-4aae-b95a-1c0e5c27b3e2": {
+                "source": {
+                    "id": "5bead873-b00e-4b0c-9305-a8e24bdfbb41"
+                },
+                "target": {
+                    "id": "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                },
+                "z": 4
+            },
+            "dcc6a3d1-662e-41b3-914a-bd7031765f68": {
+                "source": {
+                    "id": "5bead873-b00e-4b0c-9305-a8e24bdfbb41"
+                },
+                "target": {
+                    "id": "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                },
+                "z": 3
+            },
+            "da42e6a1-070c-4e1b-bf6b-40210514e932": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 57.81488833762843,
+                    "y": -116.78438535654881
+                },
+                "z": 2,
+                "parent": "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43",
+                "embeds": [],
+                "isassociatedwith": [
+                    "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                ],
+                "dependson": [
+                    "d5409698-d108-44ee-9074-782df4dbd106"
+                ],
+                "isrelatedto": [
+                    "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                ]
+            },
+            "d9064572-cbe7-4ed2-a4f5-406563016e23": {
+                "source": {
+                    "id": "da42e6a1-070c-4e1b-bf6b-40210514e932"
+                },
+                "target": {
+                    "id": "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                },
+                "z": 3
+            },
+            "bea36076-c37f-40fd-9040-ef298662edd1": {
+                "source": {
+                    "id": "da42e6a1-070c-4e1b-bf6b-40210514e932"
+                },
+                "target": {
+                    "id": "d5409698-d108-44ee-9074-782df4dbd106"
+                },
+                "z": 4
+            },
+            "96c0106b-ed5e-4fb0-ac9c-76dcfe0892e7": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -320,
+                    "y": 30
+                },
+                "z": 1,
+                "parent": "72eccf50-193c-408c-8878-100e1d642a06",
+                "embeds": []
+            },
+            "24e48d01-f24f-4f7f-beee-bf015fee58fc": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -310,
+                    "y": -120
+                },
+                "z": 1,
+                "parent": "72eccf50-193c-408c-8878-100e1d642a06",
+                "embeds": [],
+                "isassociatedwith": [
+                    "96c0106b-ed5e-4fb0-ac9c-76dcfe0892e7"
+                ]
+            }
+        }
+    },
+    "Resources": {
+        "devops": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "EnableDnsSupport": "true",
+                "EnableDnsHostnames": "true",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "devops"
+                    }
+                ],
+                "CidrBlock": "192.168.0.0/16"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "72eccf50-193c-408c-8878-100e1d642a06"
+                }
+            }
+        },
+        "PublicSubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "devops"
+                },
+                "CidrBlock": "192.168.10.0/24"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "c0df1997-ec1e-4e30-ab0e-0f43a2f29d43"
+                }
+            }
+        },
+        "PESecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "devops"
+                },
+                "GroupDescription": "Allow access from HTTP and SSH traffic",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "443",
+                        "ToPort": "443",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8140",
+                        "ToPort": "8140",
+                        "CidrIp": "192.168.10.0/24"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8142",
+                        "ToPort": "8142",
+                        "CidrIp": "192.168.10.0/24"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8143",
+                        "ToPort": "8143",
+                        "CidrIp": "192.168.10.0/24"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "61613",
+                        "ToPort": "61613",
+                        "CidrIp": "192.168.10.0/24"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "5a423820-6f8f-4429-a97a-563922eee390"
+                }
+            }
+        },
+        "RouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "devops"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "630d1e70-262c-4f0b-bf2e-eb969f699362"
+                }
+            }
+        },
+        "Route": {
+            "Type": "AWS::EC2::Route",
+            "Properties": {
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "RouteTableId": {
+                    "Ref": "RouteTable"
+                },
+                "GatewayId": {
+                    "Ref": "devopsIGW"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "d5409698-d108-44ee-9074-782df4dbd106"
+                }
+            },
+            "DependsOn": [
+                "devopsIGW"
+            ]
+        },
+        "PE": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": {
+                    "Ref": "InstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "iamprofilemetering"
+                },
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "AWSRegionArch2AMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        {
+                            "Fn::FindInMap": [
+                                "AWSInstanceType2Arch",
+                                {
+                                    "Ref": "InstanceType"
+                                },
+                                "Arch"
+                            ]
+                        }
+                    ]
+                },
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "# system updates and installing the packages\n",
+                                "yum install -y git\n",
+                                "yum install -y vim\n",
+                                "yum install -y python-pip\n",
+                                "yum install -y libjson-perl\n",
+                                "pip install awscli\n",
+                                "mkdir /root/.aws\n",
+                                "yum install -y git\n",
+                                "git clone https://github.com/barracudanetworks/waf-automation.git /root/waf-automation/\n",
+                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/credentials /root/.aws/\n",
+                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/config /root/.aws/\n",
+                                "EOF"
+                            ]
+                        ]
+                    }
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "PuppetMaster"
+                    }
+                ],
+                "NetworkInterfaces": [
+                    {
+                        "GroupSet": [
+                            {
+                                "Ref": "PESecurityGroup"
+                            }
+                        ],
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "DeleteOnTermination": "true",
+                        "SubnetId": {
+                            "Ref": "PublicSubnet"
+                        }
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "862e5aa7-7349-4637-be6f-b63a29e1bf15"
+                }
+            },
+            "DependsOn": [
+                "Route"
+            ]
+        },
+        "devopsIGW": {
+            "Type": "AWS::EC2::InternetGateway",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "c8a500c8-5d16-4e9e-b066-33f71a505c6d"
+                }
+            }
+        },
+        "EC2VPCG22IOA": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "InternetGatewayId": {
+                    "Ref": "devopsIGW"
+                },
+                "VpcId": {
+                    "Ref": "devops"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "af1bca7b-5f43-403f-b97b-d171fb1eaafa"
+                }
+            }
+        },
+        "EC2SRTA1CX0W": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "RouteTable"
+                },
+                "SubnetId": {
+                    "Ref": "PublicSubnet"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "8fc04d0a-22c8-4632-a81e-60492a9be52f"
+                }
+            }
+        },
+        "appnode": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": {
+                    "Ref": "appnodeInstanceType"
+                },
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "appnodeAWSRegionArch2AMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        {
+                            "Fn::FindInMap": [
+                                "appnodeAWSInstanceType2Arch",
+                                {
+                                    "Ref": "appnodeInstanceType"
+                                },
+                                "Arch"
+                            ]
+                        }
+                    ]
+                },
+                "KeyName": {
+                    "Ref": "appnodeKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "appnode"
+                    }
+                ],
+                "NetworkInterfaces": [
+                    {
+                        "GroupSet": [
+                            {
+                                "Ref": "nodeSecurityGroup"
+                            }
+                        ],
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "DeleteOnTermination": "true",
+                        "SubnetId": {
+                            "Ref": "PublicSubnet"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "DOMAIN=cudadevops.com\n",
+                                "##Set the host name\n",
+                                "hostname appnode\n",
+                                "echo appnode > /etc/hostname\n",
+                                "#system updates and installing the packages\n",
+                                "apt-get update\n",
+                                "apt-get install -y vim\n",
+                                "apt-get install -y curl\n",
+                                "apt-get install -y python-pip\n",
+                                "apt-get install -y libjson-perl\n",
+                                "pip install awscli\n",
+                                "mkdir /root/.aws\n",
+                                "apt-get install -y git\n",
+                                "git clone https://github.com/barracudanetworks/waf-automation.git /root/waf-automation/\n",
+                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/credentials /root/.aws/\n",
+                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/config/root/.aws/\n",
+                                "EOF"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "5bead873-b00e-4b0c-9305-a8e24bdfbb41"
+                }
+            },
+            "DependsOn": [
+                "Route"
+            ]
+        },
+        "nodeSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "devops"
+                },
+                "GroupDescription": "Allow access from HTTP and SSH traffic",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "ee0a5e89-2039-496d-bd51-3ce98bd4d6b9"
+                }
+            }
+        },
+        "wafnode": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": {
+                    "Ref": "wafnodeInstanceType"
+                },
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "wafnodeAWSRegionArch2AMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        {
+                            "Fn::FindInMap": [
+                                "wafnodeAWSInstanceType2Arch",
+                                {
+                                    "Ref": "wafnodeInstanceType"
+                                },
+                                "Arch"
+                            ]
+                        }
+                    ]
+                },
+                "KeyName": {
+                    "Ref": "wafnodeKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "wafnode"
+                    }
+                ],
+                "NetworkInterfaces": [
+                    {
+                        "GroupSet": [
+                            {
+                                "Ref": "nodeSecurityGroup"
+                            }
+                        ],
+                        "AssociatePublicIpAddress": "true",
+                        "DeviceIndex": "0",
+                        "DeleteOnTermination": "true",
+                        "SubnetId": {
+                            "Ref": "PublicSubnet"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "DOMAIN=cudadevops.com\n",
+                                "# # Set the host name\n",
+                                "hostname wafnode\n",
+                                "echo wafnode > /etc/hostname\n",
+                                "# system updates and installing the packages\n",
+                                "apt-get update\n",
+                                "apt-get install -y vim\n",
+                                "apt-get install -y curl\n",
+                                "apt-get install -y python-pip\n",
+                                "apt-get install -y libjson-perl\n",
+                                "apt-get install -y ruby\n",
+                                "pip install awscli\n",
+                                "gem install typhoeus\n",
+                                "gem install rest-client\n",
+                                "mkdir /root/.aws\n",
+                                "apt-get install -y git\n",
+                                "git clone https://github.com/barracudanetworks/waf-automation.git /home/ubuntu/waf-automation/\n",
+                                "cp /home/ubuntu/waf-automation/aws-puppet-waf-hands_on_lab/misc/credentials /root/.aws/\n",
+                                "EOF"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "da42e6a1-070c-4e1b-bf6b-40210514e932"
+                }
+            },
+            "DependsOn": [
+                "Route"
+            ]
+        },
+        "iamrolemetering": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "root",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": "aws-marketplace:MeterUsage",
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "96c0106b-ed5e-4fb0-ac9c-76dcfe0892e7"
+                }
+            }
+        },
+        "iamprofilemetering": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "iamrolemetering"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "24e48d01-f24f-4f7f-beee-bf015fee58fc"
+                }
+            }
+        }
+    },
+    "Parameters": {
+        "InstanceType": {
+            "Description": "PuppetMaster EC2 instance type",
+            "Type": "String",
+            "Default": "m3.xlarge",
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+        "KeyName": {
+            "Description": "Name of an EC2 KeyPair to enable SSH access to the instance.",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        },
+        "appnodeInstanceType": {
+            "Description": "appnode EC2 instance type",
+            "Type": "String",
+            "Default": "t2.micro",
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+        "appnodeKeyName": {
+            "Description": "Name of an EC2 KeyPair to enable SSH access to the instance.",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        },
+        "wafnodeInstanceType": {
+            "Description": "wafnode EC2 instance type",
+            "Type": "String",
+            "Default": "t2.micro",
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+        "wafnodeKeyName": {
+            "Description": "Name of an EC2 KeyPair to enable SSH access to the instance.",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        }
+    },
+    "Mappings": {
+        "AWSInstanceType2Arch": {
+            "m3.xlarge": {
+                "Arch": "HVM64"
+            }
+        },
+        "AWSRegionArch2AMI": {
+            "us-west-2": {
+                "HVM64": "ami-bb0662db"
+            },
+            "us-west-1": {
+                "HVM64": "ami-a58dabc5"
+            },
+            "us-east-2": {
+                "HVM64": "ami-4acceb2f"
+            },
+            "us-east-1": {
+                "HVM64": "ami-9b69198d"
+            }
+        },
+        "appnodeAWSInstanceType2Arch": {
+            "t2.micro": {
+                "Arch": "HVM64"
+            }
+        },
+        "appnodeAWSRegionArch2AMI": {
+            "us-west-2": {
+                "HVM64": "ami-9d04e4e5"
+            },
+            "us-west-1": {
+                "HVM64": "ami-56142f36"
+            },
+            "us-east-2": {
+                "HVM64": "ami-a7aa8ac2"
+            },
+            "us-east-1": {
+                "HVM64": "ami-b391b9c8"
+            }
+        },
+        "wafnodeAWSInstanceType2Arch": {
+            "t2.micro": {
+                "Arch": "HVM64"
+            }
+        },
+        "wafnodeAWSRegionArch2AMI": {
+            "us-west-2": {
+                "HVM64": "ami-9d04e4e5"
+            },
+            "us-west-1": {
+                "HVM64": "ami-56142f36"
+            },
+            "us-east-2": {
+                "HVM64": "ami-a7aa8ac2"
+            },
+            "us-east-1": {
+                "HVM64": "ami-b391b9c8"
+            }
+        }
+    }
+}
