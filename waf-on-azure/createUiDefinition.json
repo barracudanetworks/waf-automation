@@ -1,0 +1,178 @@
+{
+  "handler": "Microsoft.Compute.MultiVm",
+  "version": "0.0.1-preview",
+  "parameters": {
+    "basics": [
+      {
+        "name": "wafvmname",
+        "type": "Microsoft.Common.TextBox",
+        "label": "WAF Instance Host Name",
+        "toolTip": "Provide host name for the newly created instance of Barracuda Web Application Firewall",
+        "defaultValue": "bwaf",
+        "constraints": {
+          "required": true,
+          "regex": "^[A-Za-z0-9]{1,15}$",
+          "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1 to 15 characters."
+        }
+      },
+      {
+        "name": "Password",
+        "type": "Microsoft.Common.PasswordBox",
+        "label": "Password for Web Application Firewall Admin access",
+        "toolTip": "Provide password for WAF Admin UI",
+        "constraints": {
+          "required": true,
+          "regex": "^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\\d\\W])|(?=.*\\W)(?=.*\\d))|(?=.*\\W)(?=.*[A-Z])(?=.*\\d)).{12,72}$",
+          "validationMessage": "Your admin password should be at least 12 characters long"
+        },
+        "options": {
+          "hideConfirmation": true
+        }
+      }
+    ],
+    "steps": [
+      {
+        "name": "DeployConfig",
+        "label": "Deployment Options",
+        "subLabel": {
+          "preValidation": "Define the various deployment options, including VM size and storage",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Deployment Options",
+        "elements": [
+          {
+            "name": "standardVmSize",
+            "type": "Microsoft.Common.DropDown",
+            "label": "WAF Instance Size",
+            "toolTip": "Choose the instance size you require for your deployment",
+            "defaultValue": "Standard_D2",
+            "constraints": {
+              "required": true,
+              "allowedValues": [
+                {
+                  "label": "D-Series Small (Level 1)",
+                  "value": "Standard_D1"
+                },
+                {
+                  "label": "D-Series Medium (Level 5)",
+                  "value": "Standard_D2"
+                },
+                {
+                  "label": "D-Series Large (Level 10)",
+                  "value": "Standard_D3"
+                },
+                {
+                  "label": "D-Series X-Large (Level 15)",
+                  "value": "Standard_D4"
+                }
+                {
+                  "label": "Dv2-Series Small (Level 1)",
+                  "value": "Standard_D1_v2"
+                },
+                {
+                  "label": "Dv2-Series Medium (Level 5)",
+                  "value": "Standard_D2_v2"
+                },
+                {
+                  "label": "Dv2-Series Large (Level 10)",
+                  "value": "Standard_D3_v2"
+                },
+                {
+                  "label": "Dv2-Series X-Large (Level 15)",
+                  "value": "Standard_D4_v2"
+                }
+              ]
+            },
+            "visible": true
+          },
+          {
+            "name": "storageElement",
+            "type": "Microsoft.Storage.StorageAccountSelector",
+            "label": "Storage Account that will be used to store data for this deployment",
+            "toolTip": "Choose Standard_LRS for Standard VM Selections",
+            "defaultValue": {
+              "type": "Standard_LRS"
+            },
+            "options": {
+              "hideExisting": true
+            }
+          },
+          {
+            "name": "vnetSpec",
+            "type": "Microsoft.Network.VirtualNetworkCombo",
+            "label": {
+              "virtualNetwork": "Virtual network to be created for this deployment",
+              "subnets": "Subnets to be used in this deployment"
+            },
+            "toolTip": {
+              "virtualNetwork": "Virtual Network Name",
+              "subnets": "Create a separate for the Barracuda WAF"
+            },
+            "options": {
+              "hideExisting": true
+            },
+            "constraints": {
+              "minAddressPrefixSize": "/24"
+            },
+            "subnets": {
+              "subnet0": {
+                "label": "WAF Subnet",
+                "Subnet\",": null,
+                "constraints": {
+                  "minAddressPrefixSize": "/24",
+                  "minAddressCount": 1,
+                  "requireContiguousAddresses": true
+                }
+              }
+            }
+          },
+          {
+            "name": "dnsSpec",
+            "type": "Microsoft.Network.PublicIpAddressCombo",
+            "label": {
+              "publicIpAddress": "New Public IP address name",
+              "domainNameLabel": "Domain name for accessing the WAF"
+            },
+            "toolTip": {
+              "publicIpAddress": "Only new public IP is currently supported",
+              "domainNameLabel": "WAF UI will be accessible from port 8000 or 8443 of this domain"
+            },
+            "defaultValue": {
+              "publicIpAddressName": "wafpip",
+              "domainNameLabel": "change_me_to_be_unique"
+            },
+            "constraints": {
+              "required": {
+                "publicIpAddressName": true,
+                "domainNameLabel": true
+              }
+            },
+            "options": {
+              "hideDomainNameLabel": false
+            }
+          }
+        ],
+        "osPlatform": "Linux",
+        "imageReference": {
+          "publisher": "barracudanetworks",
+          "offer": "waf",
+          "sku": "byol"
+        }
+      }
+    ],
+    "outputs": {
+      "location": "[location()]",
+      "vmName": "[basics('wafvmname')]",
+      "storageAccountName": "[steps( 'DeployConfig' ).storageElement.name]",
+      "storageAccountType": "[steps('DeployConfig').storageElement.type]",
+      "vmSize": "[steps('DeployConfig').standardVmSize]",
+      "vNETName": "[steps('DeployConfig').vnetSpec.name]",
+      "subnetName": "[steps('DeployConfig').vnetSpec.subnets.subnet0.name]",
+      "dnsNameForIP": "[steps('DeployConfig').dnsSpec.domainNameLabel]",
+      "publicIpAddressName": "[steps('DeployConfig').dnsSpec.name]",
+      "adminPassword": "[basics('Password')]",
+      "subnetPrefix": "[steps('DeployConfig').vnetSpec.subnets.subnet0.addressPrefix]",
+      "addressPrefix": "[steps('DeployConfig').vnetSpec.addressPrefix]"
+    }
+  }
+}

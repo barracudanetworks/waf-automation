@@ -29,15 +29,15 @@
       }
     },
     "storageAccountType": {
-      "defaultValue": "Standard_LRS",
       "type": "string",
+      "defaultValue": "Standard_LRS",
       "metadata": {
         "description": "Type of Storage Account chosen"
       }
     },
     "storageAccountNewOrExisting": {
-      "defaultValue": "Standard_LRS",
       "type": "string",
+      "defaultValue": "new",
       "allowedValues": [
         "new",
         "existing"
@@ -48,12 +48,11 @@
     },
     "storageAccountResourceGroup": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "[resourceGroup().name]",
       "metadata": {
-        "description": "Resource group of existing storage account(if new chosen)"
+        "description": "Resource group of existing storage account(if existing is chosen)"
       }
     },
-
     "dnsNameForIP": {
       "type": "string",
       "metadata": {
@@ -63,8 +62,9 @@
     "publicIPAddressName": {
       "type": "string"
     },
-    "vNETNewOrExisting" : {
+    "vNETNewOrExisting": {
       "type": "string",
+      "defaultValue": "new",
       "allowedValues": [
         "new",
         "existing"
@@ -73,10 +73,11 @@
         "description": "Storage Account chosen new or existing"
       }
     },
-    "vNETResourceGroup" : {
+    "vNETResourceGroup": {
       "type": "string",
+      "defaultValue": "[resourceGroup().name]",
       "metadata": {
-        "description": "VNET Resource Group Name."
+        "description": "VNET Resource Group Name(if an existing VNET is used)."
       }
     },
     "vNETName": {
@@ -120,49 +121,49 @@
         "description": "Number of VM instances (20 or less)."
       }
     },
-    "bootDiagnostics" : {
+    "bootDiagnostics": {
       "type": "bool",
       "defaultValue": true,
       "metadata": {
         "description": "Enable boot diagnostics for the vmss instances."
       }
     },
-    "scaleUpCpu" : {
+    "scaleUpCpu": {
       "type": "string",
       "defaultValue": "85",
       "metadata": {
         "description": "Scale up instance when average CPU utilization crosses this %."
       }
     },
-    "scaleUpNetworkIn" : {
+    "scaleUpNetworkIn": {
       "type": "string",
       "defaultValue": "9175040",
       "metadata": {
         "description": "Scale up instance when network in bytes are more than this."
       }
     },
-    "scaleUpNetworkOut" : {
+    "scaleUpNetworkOut": {
       "type": "string",
       "defaultValue": "9175040",
       "metadata": {
         "description": "Scale up instance when network out bytes are more than this."
       }
     },
-    "scaleDownCpu" : {
+    "scaleDownCpu": {
       "type": "string",
       "defaultValue": "60",
       "metadata": {
         "description": "Scale up instance when average CPU utilization crosses this %."
       }
     },
-    "scaleDownNetworkIn" : {
+    "scaleDownNetworkIn": {
       "type": "string",
       "defaultValue": "5242880",
       "metadata": {
         "description": "Scale up instance when network in bytes are more than this."
       }
     },
-    "scaleDownNetworkOut" : {
+    "scaleDownNetworkOut": {
       "type": "string",
       "defaultValue": "5242880",
       "metadata": {
@@ -202,7 +203,7 @@
     },
     "azureUserId": {
       "type": "string",
-      "defaultValue": "XXX@XXX.onmicrosoft.com",
+      "defaultValue": " ",
       "metadata": {
         "description": "Azure AD user name."
       }
@@ -216,14 +217,14 @@
     },
     "azureClientId": {
       "type": "string",
-      "defaultValue": "xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx",
+      "defaultValue": " ",
       "metadata": {
         "description": "Azure client id for Azure API calls.Refer https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal for more details."
       }
     },
     "azureTenantId": {
       "type": "string",
-      "defaultValue": "xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx",
+      "defaultValue": " ",
       "metadata": {
         "description": "Azure tenant id for Azure API calls."
       }
@@ -238,7 +239,7 @@
     "wafBootstrapMethod": {
       "type": "string",
       "allowedValues": [
-        "NO_BOOTSTRAPPING",
+        "NO_BOOTSTRAPING",
         "BASIC_SERVICE_BOOTSTRAP",
         "BACKUP_BASED_BOOTSTRAP"
       ],
@@ -283,13 +284,11 @@
       }
     },
     "wafServicePort": {
-      "type": "int",
+      "type": "string",
+      "defaultValue": "80",
       "metadata": {
         "description": "WAF service port. HTTP(s) service type not supported.Use WAF UI/Rest API to create any service type that requires a certificate to be uploaded."
-      },
-      "defaultValue": 80,
-      "minValue": 1,
-      "maxValue": 65536
+      }
     },
     "wafServers": {
       "type": "string",
@@ -319,7 +318,7 @@
         "description": "Comma-delimited email addresses where the alerts are also sent"
       }
     },
-    "albHealthProbeProtocol" : {
+    "albHealthProbeProtocol": {
       "type": "string",
       "allowedValues": [
         "tcp",
@@ -330,49 +329,49 @@
         "description": "Health Probe type."
       }
     },
-    "albHealthProbePort" : {
+    "albHealthProbePort": {
       "type": "string",
       "defaultValue": "80",
       "metadata": {
         "description": "Health Probe Port."
       }
     },
-    "albHealthProbePath" : {
+    "albHealthProbePath": {
       "type": "string",
       "defaultValue": "/",
       "metadata": {
         "description": "Health Probe Path for HTTP based probes."
       }
     },
-    "albHealthProbeInterval" : {
+    "albHealthProbeInterval": {
       "type": "string",
       "defaultValue": "10",
       "metadata": {
         "description": "Health Probe time interval between probes."
       }
     },
-    "albHealthProbeUnhealthyThreshold" : {
+    "albHealthProbeUnhealthyThreshold": {
       "type": "string",
       "defaultValue": "5",
       "metadata": {
         "description": "The number of consecutive probe failures that must occur before a virtual machine is marked unhealthy."
       }
     },
-    "albRuleFrontEndPort" : {
+    "albRuleFrontEndPort": {
       "type": "string",
       "defaultValue": "80",
       "metadata": {
         "description": "Frontend port for the incoming requests."
       }
     },
-    "albRuleBackEndPort" : {
+    "albRuleBackEndPort": {
       "type": "string",
       "defaultValue": "80",
       "metadata": {
         "description": "Backend port for forwarding the request to servers."
       }
     },
-    "albRulePersistency" : {
+    "albRulePersistency": {
       "type": "string",
       "allowedValues": [
         "Default",
@@ -386,39 +385,37 @@
     }
   },
   "variables": {
-    "publicIPAddressType": "Static",
     "storageAccountTier": "[replace(parameters('storageAccountType'),'_LRS','')]",
     "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
     "loadBalancerName": "[concat(variables('namingInfix'), 'lb')]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName'))]",
     "natPoolName": "[concat(variables('namingInfix'), 'natpool')]",
+    "natPoolNameHttps": "[concat(variables('namingInfix'), 'natpoolHttps')]",
     "bePoolName": "[concat(variables('namingInfix'), 'bepool')]",
-    "natStartPort": 8000,
-    "natEndPort": 8019,
-    "natBackendPort": 8000,
+    "autoScaleName": "[concat(variables('namingInfix'), 'autoscalewad')]",
     "nicName": "[concat(variables('namingInfix'), 'nic')]",
     "ipConfigName": "[concat(variables('namingInfix'), 'ipconfig')]",
     "frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
     "customEmails": "[split(parameters('wafNotifyEmail'), ',')]",
-    "emptyArray" : [],
-    "sendNotifications" : "[not(empty(parameters('wafNotifyEmail')))]",
+    "emptyArray": [],
+    "sendNotifications": "[not(empty(parameters('wafNotifyEmail')))]",
     "wafClusteringMode": "[if(parameters('azureOverprovisioning'), 'ALL_PEER_METHOD', 'MASTER_SLAVE_METHOD')]",
     "imagePublisher": "barracudanetworks",
     "imageVersion": "latest",
     "imageSKU": "hourly",
-    "imageOffer" : "waf",
+    "imageOffer": "waf",
     "useNewStorageAccount": "[equals(parameters('storageAccountNewOrExisting'), 'new')]",
     "useNewVnet": "[equals(parameters('vNETNewOrExisting'), 'new')]",
-    "storageRG" : "[if(variables('useNewStorageAccount'), resourceGroup().name, parameters('storageAccountResourceGroup'))]",
-    "vNETRG" : "[if(variables('useNewVnet'), resourceGroup().name, parameters('vNETResourceGroup'))]",
+    "vnetID": "[resourceId(parameters('vNETResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vNETName'))]",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]",
     "osType": {
       "publisher": "[variables('imagePublisher')]",
-      "offer":"[variables('imageOffer')]",
+      "offer": "[variables('imageOffer')]",
       "sku": "[variables('imageSKU')]",
       "version": "[variables('imageVersion')]"
     },
-    "imagePlan" : {
+    "imagePlan": {
       "name": "[variables('imageSKU')]",
       "product": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]"
@@ -506,7 +503,7 @@
       "name": "[parameters('publicIPAddressName')]",
       "location": "[parameters('location')]",
       "properties": {
-        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+        "publicIPAllocationMethod": "Static",
         "dnsSettings": {
           "domainNameLabel": "[parameters('dnsNameForIP')]"
         }
@@ -596,36 +593,36 @@
         "loadBalancingRules": [
           {
             "name": "WAFLoadBalanceRule",
-             "properties": {
-                "frontendIPConfiguration": {
-                   "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/frontendIpConfigurations/LoadBalancerFrontend')]"
-                },
-                "backendAddressPool": {
-                   "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/backendAddressPools/',variables('bePoolName'))]"
-                },
-                "probe": {
-                   "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/probes/WAF-Health-Probe')]"
-                },
-                "protocol": "Tcp",
-                "frontendPort": "[parameters('albRuleFrontEndPort')]",
-                "backendPort": "[parameters('albRuleBackEndPort')]",
-                "idleTimeoutInMinutes": 15,
-                "loadDistribution": "[parameters('albRulePersistency')]"
-             }
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(variables('lbID'), '/frontendIpConfigurations/', 'LoadBalancerFrontend')]"
+              },
+              "backendAddressPool": {
+                "id": "[concat(variables('lbID'), '/backendAddressPools/', variables('bePoolName') )]"
+              },
+              "probe": {
+                "id": "[concat(variables('lbID'), '/probes/', 'WAF-Health-Probe')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": "[parameters('albRuleFrontEndPort')]",
+              "backendPort": "[parameters('albRuleBackEndPort')]",
+              "idleTimeoutInMinutes": 15,
+              "loadDistribution": "[parameters('albRulePersistency')]"
+            }
           }
-       ],
-       "probes": [
+        ],
+        "probes": [
           {
-             "properties": {
-                "protocol": "[parameters('albHealthProbeProtocol')]",
-                "port": "[parameters('albHealthProbePort')]",
-                "requestPath": "[if(equals(parameters('albHealthProbeProtocol'),'http'), parameters('albHealthProbePath'), json('null'))]",
-                "intervalInSeconds": "[parameters('albHealthProbeInterval')]",
-                "numberOfProbes": "[parameters('albHealthProbeUnhealthyThreshold')]"
-             },
-             "name": "WAF-Health-Probe"
+            "properties": {
+              "protocol": "[parameters('albHealthProbeProtocol')]",
+              "port": "[parameters('albHealthProbePort')]",
+              "requestPath": "[if(equals(parameters('albHealthProbeProtocol'),'http'), parameters('albHealthProbePath'), json('null'))]",
+              "intervalInSeconds": "[parameters('albHealthProbeInterval')]",
+              "numberOfProbes": "[parameters('albHealthProbeUnhealthyThreshold')]"
+            },
+            "name": "WAF-Health-Probe"
           }
-       ],
+        ],
         "inboundNatPools": [
           {
             "name": "[variables('natPoolName')]",
@@ -634,9 +631,21 @@
                 "id": "[variables('frontEndIPConfigID')]"
               },
               "protocol": "tcp",
-              "frontendPortRangeStart": "[variables('natStartPort')]",
-              "frontendPortRangeEnd": "[variables('natEndPort')]",
-              "backendPort": "[variables('natBackendPort')]"
+              "frontendPortRangeStart": "8000",
+              "frontendPortRangeEnd": "8100",
+              "backendPort": "8000"
+            }
+          },
+          {
+            "name": "[variables('natPoolNameHttps')]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('frontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPortRangeStart": "8443",
+              "frontendPortRangeEnd": "8543",
+              "backendPort": "8443"
             }
           }
         ]
@@ -687,16 +696,19 @@
                       "name": "[variables('ipConfigName')]",
                       "properties": {
                         "subnet": {
-                          "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', variables('vNETRG'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vNETName'), '/subnets/', parameters('subnetName'))]"
+                          "id": "[variables('subnetRef')]"
                         },
                         "loadBalancerBackendAddressPools": [
                           {
-                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/backendAddressPools/', variables('bePoolName'))]"
+                            "id": "[concat(variables('lbID'), '/backendAddressPools/', variables('bePoolName'))]"
                           }
                         ],
                         "loadBalancerInboundNatPools": [
                           {
-                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/', variables('natPoolName'))]"
+                            "id": "[concat(variables('lbID'), '/inboundNatPools/', variables('natPoolName'))]"
+                          },
+                          {
+                            "id": "[concat(variables('lbID'), '/inboundNatPools/', variables('natPoolNameHttps'))]"
                           }
                         ]
                       }
@@ -709,7 +721,7 @@
           "diagnosticsProfile": {
             "bootDiagnostics": {
               "enabled": "[parameters('bootDiagnostics')]",
-              "storageUri": "[reference(resourceId(variables('storageRG'), 'Microsoft.Storage/storageAccounts/', parameters('storageAccountName')), '2017-06-01').primaryEndpoints.blob]"
+              "storageUri": "[reference(resourceId(parameters('storageAccountResourceGroup'), 'Microsoft.Storage/storageAccounts/', parameters('storageAccountName')), '2017-06-01').primaryEndpoints.blob]"
             }
           }
         }
@@ -718,14 +730,14 @@
     {
       "type": "Microsoft.Insights/autoscalesettings",
       "apiVersion": "2015-04-01",
-      "name": "autoscalewad",
+      "name": "[variables('autoScaleName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]"
       ],
       "properties": {
-        "name": "autoscalewad",
-        "targetResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+        "name": "[variables('autoScaleName')]",
+        "targetResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
         "enabled": true,
         "notifications": [
           {
@@ -750,7 +762,7 @@
                 "metricTrigger": {
                   "metricName": "Percentage CPU",
                   "metricNamespace": "",
-                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+                  "metricResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
                   "timeGrain": "PT1M",
                   "statistic": "Average",
                   "timeWindow": "PT15M",
@@ -769,7 +781,7 @@
                 "metricTrigger": {
                   "metricName": "Percentage CPU",
                   "metricNamespace": "",
-                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+                  "metricResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
                   "timeGrain": "PT1M",
                   "statistic": "Average",
                   "timeWindow": "PT60M",
@@ -788,7 +800,7 @@
                 "metricTrigger": {
                   "metricName": "Network In",
                   "metricNamespace": "",
-                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+                  "metricResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
                   "timeGrain": "PT1M",
                   "statistic": "Average",
                   "timeWindow": "PT15M",
@@ -807,7 +819,7 @@
                 "metricTrigger": {
                   "metricName": "Network In",
                   "metricNamespace": "",
-                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+                  "metricResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
                   "timeGrain": "PT1M",
                   "statistic": "Average",
                   "timeWindow": "PT60M",
@@ -826,7 +838,7 @@
                 "metricTrigger": {
                   "metricName": "Network Out",
                   "metricNamespace": "",
-                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+                  "metricResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
                   "timeGrain": "PT1M",
                   "statistic": "Average",
                   "timeWindow": "PT15M",
@@ -845,7 +857,7 @@
                 "metricTrigger": {
                   "metricName": "Network Out",
                   "metricNamespace": "",
-                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', variables('namingInfix'))]",
+                  "metricResourceUri": "[resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix'))]",
                   "timeGrain": "PT1M",
                   "statistic": "Average",
                   "timeWindow": "PT60M",
@@ -867,4 +879,3 @@
     }
   ]
 }
-
