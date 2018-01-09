@@ -45,10 +45,11 @@ class DomainVerifierBarracudaWAF:
                'url': path}
         self.waf_api.create_or_update_object('services/{}/url-acls'.format(self.service_name), acl_name, acl)
 
-        yield
-
-        self.waf_api.basic_request_json('services/{}/url-acls/{}'.format(self.service_name, acl_name), method='DELETE')
-        self.waf_api.basic_request_json('response-pages/' + response_page_name, method='DELETE')
+        try:
+            yield
+        finally:
+            self.waf_api.basic_request_json('services/{}/url-acls/{}'.format(self.service_name, acl_name), method='DELETE')
+            self.waf_api.basic_request_json('response-pages/' + response_page_name, method='DELETE')
 
 
 def apply_certificate_to_waf_service(waf_api, service_name, cert_name, private_key_file, certificate, intermediate_cert):
