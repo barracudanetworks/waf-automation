@@ -38,6 +38,7 @@ def main(argv):
     parser.add_argument("-d", "--domains", nargs="+", required=True, help="List of domain(s) to verify")
     parser.add_argument("--private-key-file", default="domain.key", help="File in which to place/read private key for cert")
     parser.add_argument("--waf-ssl-service", help="Service on WAF to upload resulting SSL certificate to")
+    parser.add_argument("--verify-only", action='store_true', default=False, help="Dry run; verify domains but don't generate certificate")
 
     parser.add_argument("--quiet", action="store_const", const=logging.ERROR, help="Suppress output except for errors")
     parser.add_argument("--staging", action="store_true", help="Use staging instance of Let's Encrypt")
@@ -48,6 +49,11 @@ def main(argv):
     waf_api = BarracudaWAFAPI(args.waf_netloc, args.waf_user, args.waf_password, args.waf_secure)
     verifier = DomainVerifierBarracudaWAF(waf_api, args.waf_service)
     client = ACMEClient(args.account_key, verifier, logging, STAGING_CA if args.staging else DEFAULT_CA)
+
+    if args.verify_only:
+        for domain in args.domains:
+            client.verify_domain(domain)
+        sys.exit(0)
 
     if len(args.domains) <= MAX_DOMAINS_PER_CERT:
         # Get a single cert for all the domains and apply it to the WAF.
@@ -76,7 +82,8 @@ def main(argv):
                     waf_api.upload_signed_certificate(serial_number, private_key, certificate, INTERMEDIATE_CERT)
                     certs.append(dict(name=serial_number, cert=certificate, domains=cert_domains))
 
-        apply_certificates_to_waf_service_with_sni(waf_api, args.waf_ssl_service, certs)
+        if args.waf_ssl_service:
+            apply_certificates_to_waf_service_with_sni(waf_api, args.waf_ssl_service, certs)
 
 
 if __name__ == "__main__": # pragma: no cover
