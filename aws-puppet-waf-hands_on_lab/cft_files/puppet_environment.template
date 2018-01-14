@@ -470,9 +470,6 @@
                                 "pip install awscli\n",
                                 "mkdir /root/.aws\n",
                                 "yum install -y git\n",
-                                "git clone https://github.com/barracudanetworks/waf-automation.git /root/waf-automation/\n",
-                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/credentials /root/.aws/\n",
-                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/config /root/.aws/\n",
                                 "EOF"
                             ]
                         ]
@@ -616,9 +613,6 @@
                                 "pip install awscli\n",
                                 "mkdir /root/.aws\n",
                                 "apt-get install -y git\n",
-                                "git clone https://github.com/barracudanetworks/waf-automation.git /root/waf-automation/\n",
-                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/credentials /root/.aws/\n",
-                                "cp /root/waf-automation/aws-puppet-waf-hands_on_lab/misc/config/root/.aws/\n",
                                 "EOF"
                             ]
                         ]
@@ -725,8 +719,6 @@
                                 "gem install rest-client\n",
                                 "mkdir /root/.aws\n",
                                 "apt-get install -y git\n",
-                                "git clone https://github.com/barracudanetworks/waf-automation.git /home/ubuntu/waf-automation/\n",
-                                "cp /home/ubuntu/waf-automation/aws-puppet-waf-hands_on_lab/misc/credentials /root/.aws/\n",
                                 "EOF"
                             ]
                         ]
@@ -866,7 +858,7 @@
                 "HVM64": "ami-9d04e4e5"
             },
             "us-west-1": {
-                "HVM64": "ami-56142f36"
+                "HVM64": "ami-24606344"
             },
             "us-east-2": {
                 "HVM64": "ami-a7aa8ac2"
@@ -885,7 +877,7 @@
                 "HVM64": "ami-9d04e4e5"
             },
             "us-west-1": {
-                "HVM64": "ami-56142f36"
+                "HVM64": "ami-24606344"
             },
             "us-east-2": {
                 "HVM64": "ami-a7aa8ac2"

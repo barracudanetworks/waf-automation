@@ -9,7 +9,7 @@
         },
         "Subnets": {
             "Type": "List<AWS::EC2::Subnet::Id>",
-            "Description": "The list of SubnetIds in your Virtual Private Cloud (VPC)",
+            "Description": "Select the Private subnets 3 and 4 here",
             "ConstraintDescription": "must be a list of at least two existing subnets associated with at least two different availability zones. They should be residing in the selected Virtual Private Cloud."
         },
         "KeyName": {
