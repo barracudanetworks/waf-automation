@@ -41,7 +41,7 @@ class cudawaf::waf_configuration {
       address_version => 'IPv4',
       status => 'In Service',
       ip_address => '5.5.5.5',
-      service_name => 'httpsApp1',
+      service_name => 'Prod_App',
       port => 80,
       comments => 'Creating the server'
     }    
