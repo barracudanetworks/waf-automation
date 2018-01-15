@@ -547,23 +547,23 @@
                 }
             }
         },
-        "appnode": {
+        "vrsnode": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
                 "InstanceType": {
-                    "Ref": "appnodeInstanceType"
+                    "Ref": "vrsnodeInstanceType"
                 },
                 "ImageId": {
                     "Fn::FindInMap": [
-                        "appnodeAWSRegionArch2AMI",
+                        "vrsnodeAWSRegionArch2AMI",
                         {
                             "Ref": "AWS::Region"
                         },
                         {
                             "Fn::FindInMap": [
-                                "appnodeAWSInstanceType2Arch",
+                                "vrsnodeAWSInstanceType2Arch",
                                 {
-                                    "Ref": "appnodeInstanceType"
+                                    "Ref": "vrsnodeInstanceType"
                                 },
                                 "Arch"
                             ]
@@ -571,12 +571,12 @@
                     ]
                 },
                 "KeyName": {
-                    "Ref": "appnodeKeyName"
+                    "Ref": "vrsnodeKeyName"
                 },
                 "Tags": [
                     {
                         "Key": "Name",
-                        "Value": "appnode"
+                        "Value": "vrsnode"
                     }
                 ],
                 "NetworkInterfaces": [
@@ -602,8 +602,8 @@
                                 "#!/bin/bash -xe\n",
                                 "DOMAIN=cudadevops.com\n",
                                 "##Set the host name\n",
-                                "hostname appnode\n",
-                                "echo appnode > /etc/hostname\n",
+                                "hostname vrsnode\n",
+                                "echo vrsnode > /etc/hostname\n",
                                 "#system updates and installing the packages\n",
                                 "apt-get update\n",
                                 "apt-get install -y vim\n",
@@ -805,13 +805,13 @@
             "Type": "AWS::EC2::KeyPair::KeyName",
             "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
         },
-        "appnodeInstanceType": {
-            "Description": "appnode EC2 instance type",
+        "vrsnodeInstanceType": {
+            "Description": "vrsnode EC2 instance type",
             "Type": "String",
             "Default": "t2.micro",
             "ConstraintDescription": "must be a valid EC2 instance type."
         },
-        "appnodeKeyName": {
+        "vrsnodeKeyName": {
             "Description": "Name of an EC2 KeyPair to enable SSH access to the instance.",
             "Type": "AWS::EC2::KeyPair::KeyName",
             "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
@@ -848,12 +848,12 @@
                 "HVM64": "ami-9b69198d"
             }
         },
-        "appnodeAWSInstanceType2Arch": {
+        "vrsnodeAWSInstanceType2Arch": {
             "t2.micro": {
                 "Arch": "HVM64"
             }
         },
-        "appnodeAWSRegionArch2AMI": {
+        "vrsnodeAWSRegionArch2AMI": {
             "us-west-2": {
                 "HVM64": "ami-9d04e4e5"
             },
