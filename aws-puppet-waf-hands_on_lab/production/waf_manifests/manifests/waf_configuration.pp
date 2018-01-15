@@ -1,4 +1,4 @@
-class barracudawaf {
+class cudawaf::waf_configuration {
 
 # This resource type creates a self signed certificate which will be eventually bound with a service
 
@@ -6,7 +6,7 @@ class barracudawaf {
       ensure => present,
       name  => 'testcert',
       allow_private_key_export =>'Yes',
-      city   =>'san_franscisco,
+      city   =>'san_franscisco',
       common_name=> 'puppet.labs.com',
       country_code => 'US',
       curve_type => 'secp256r1',
@@ -41,7 +41,6 @@ class barracudawaf {
       address_version => 'IPv4',
       status => 'In Service',
       ip_address => '5.5.5.5',
-      hostname => '',
       service_name => 'httpsApp1',
       port => 80,
       comments => 'Creating the server'
@@ -57,4 +56,4 @@ class barracudawaf {
       password       => 'xxxxxxxx'
     }
 }
-}
+
