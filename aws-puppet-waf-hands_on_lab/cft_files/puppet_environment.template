@@ -470,6 +470,8 @@
                                 "pip install awscli\n",
                                 "mkdir /root/.aws\n",
                                 "yum install -y git\n",
+                                "yum install -y gcc\n",
+                                "yum install -y gcc-c++\n",
                                 "EOF"
                             ]
                         ]
@@ -714,9 +716,12 @@
                                 "apt-get install -y python-pip\n",
                                 "apt-get install -y libjson-perl\n",
                                 "apt-get install -y ruby\n",
+                                "apt-add-repository -y ppa:rael-gc/rvm\n",
+                                "apt-get update\n",
+                                "apt-get install rvm\n",
+                                "source /etc/profile.d/rvm.sh\n",
+                                "rvm system\n",
                                 "pip install awscli\n",
-                                "gem install typhoeus\n",
-                                "gem install rest-client\n",
                                 "mkdir /root/.aws\n",
                                 "apt-get install -y git\n",
                                 "EOF"
@@ -855,7 +860,7 @@
         },
         "vrsnodeAWSRegionArch2AMI": {
             "us-west-2": {
-                "HVM64": "ami-9d04e4e5"
+                "HVM64": "ami-9a8631e2"
             },
             "us-west-1": {
                 "HVM64": "ami-24606344"
@@ -874,7 +879,7 @@
         },
         "wafnodeAWSRegionArch2AMI": {
             "us-west-2": {
-                "HVM64": "ami-9d04e4e5"
+                "HVM64": "ami-9a8631e2"
             },
             "us-west-1": {
                 "HVM64": "ami-24606344"
