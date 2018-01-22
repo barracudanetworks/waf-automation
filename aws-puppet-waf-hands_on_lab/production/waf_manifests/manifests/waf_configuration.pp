@@ -16,7 +16,7 @@ class cudawaf::waf_configuration {
       organization_unit => 'devops',
       state => 'california',
     }
-# This resource type creates a HTTPS service using the certificate created above
+# This resource type creates a HTTPS service using the certificate created above. replace the ip address with the ip address of the interface
 
     cudawaf_service { 'https_service':
       ensure        => present,
