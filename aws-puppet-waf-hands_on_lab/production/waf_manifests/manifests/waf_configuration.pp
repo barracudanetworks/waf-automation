@@ -45,7 +45,7 @@ class cudawaf::waf_configuration {
       comments => 'Creating the server'
     }  
 
-# This resource type connects the WAF to the Barracuda Cloud Control
+# This resource type connects the WAF to the Barracuda Cloud Control. Update the username and password field
 
     cudawaf_cloudcontrol { 'WAFCloudControlSettings':
       ensure         => present,
