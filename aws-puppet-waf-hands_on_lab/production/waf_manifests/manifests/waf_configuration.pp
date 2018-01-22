@@ -32,19 +32,18 @@ class cudawaf::waf_configuration {
       comments      => 'This is the production service for the lab',
     }
 
-# This resource type creates a server under the HTTPS service
+# This resource type creates a server under the HTTPS service. Replace the hostname with your specific ALB's FQDN
 
     cudawaf_server { 'http_backend':
       ensure => present,
       name => 'ALB_backend',
-      identifier => 'IP Address',
-      address_version => 'IPv4',
+      identifier => 'Hostname',
       status => 'In Service',
-      ip_address => '5.5.5.5',
+      hostname  => 'www.barracuda.com',
       service_name => 'Prod_App',
       port => 80,
       comments => 'Creating the server'
-    }    
+    }  
 
 # This resource type connects the WAF to the Barracuda Cloud Control
 
