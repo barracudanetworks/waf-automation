@@ -138,8 +138,8 @@ Path: /etc/hosts
 Use a text editor.
 Create a local hosts entry to point the hostname of the Puppet Master to the Private ip address
 
-Installing the puppet agent
-curl –kv <puppetmasterip>:8140/packages/current/install.bash | sudo bash
+## Installing puppet on the agent
+curl –kv puppetmaster-ip:8140/packages/current/install.bash | sudo bash
 
 ## Section B: Launching the Production Network
 
