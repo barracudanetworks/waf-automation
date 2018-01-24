@@ -314,10 +314,14 @@ Sample “device.conf” file
 ```
 ## Command to run on the agent:
 
-1.	For help: # puppet help device
+1.	For help
+```puppet
+puppet help device
+```
 
 2.	To run the puppet device 
-```bash 
+
+```puppet
 puppet device –v --user=root
 ```
 
