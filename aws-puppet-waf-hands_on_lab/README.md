@@ -74,7 +74,7 @@ Path: /etc/puppetlabs/code/environments/
 
 ## Cloning the code
 Go to /home/puppetadmin
-# git clone https://github.com/barracudanetworks/waf-automation.git
+#### git clone https://github.com/barracudanetworks/waf-automation.git
 
 ## Installing the AWS Module
 Path: /etc/puppetlabs/code/environments/production/
