@@ -97,6 +97,24 @@ puppet module install barracuda-cudawaf –environment=production
 ```bash
 sudo cp –r /home/puppetadmin/waf-automation/aws-puppet-waf-hands_on_lab/* /etc/puppetlabs/code/environments/production/modules/cudawaf
 ```
+## Handling Dependencies
+
+### Install Typhoeus
+```bash
+/opt/puppetlabs/bin/puppetserver gem install typhoeus
+```
+
+### Install  rest-client
+```bash
+yum install gcc
+yum install gcc-c++
+/opt/puppetlabs/bin/puppetserver gem install rest-client -v 1.8.0
+```
+### Elevate permissions for the gemspec files
+
+```bash
+chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/*
+```
 
 ### Configure agent-specified node rules as necessary to match the hostnames of the nodes.
 
