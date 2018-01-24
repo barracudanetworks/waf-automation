@@ -219,7 +219,7 @@ The detailed documentation on each of these REST API end points can be found her
 
 ## Puppet Manifest for this Lab
 
-Examples of different kinds of configuration using Puppet manifests:
+The file waf_configuration.pp file includes the resource types shown below. Examples of different kinds of configuration using Puppet manifests:
 
 ### Create a SSL certificate
 ```puppet
