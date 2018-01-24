@@ -12,12 +12,17 @@ Before Importing the CFTs subscribe to the following EC2 images in the AWS marke
  
 1.	EC2 Images to subscribe: 
 Puppet Enterprise (PAYG): https://aws.amazon.com/marketplace/pp/B071YVSBQW?qid=1515932562950&sr=0-1&ref_=srh_res_product_title
+
 Ubuntu 16.04 LTS - Xenial (HVM): https://aws.amazon.com/marketplace/pp/B01JBL2M0O?qid=1515932601469&sr=0-1&ref_=srh_res_product_title
+
 
 2.	Check if you can login to vrs.barracudanetworks.com account with the email address provided by Barracuda Networks
  
 3.	Create an SSH key pair
-For ease of use, create one SSH key pair and use in all CFTs.  For instructions on how to create a key pair, please visit: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+For ease of use, create one SSH key pair and use in all CFTs.  
+
+For instructions on how to create a key pair, please visit: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+
 If you are going to use Putty to connect to your ec2 instance, please follow the instructions mentioned in this article to prepare your system: https://linuxacademy.com/howtoguides/posts/show/topic/17385-use-putty-to-access-ec2-linux-instances-via-ssh-from-windows
  
 4.	Download the CFTs
