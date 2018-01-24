@@ -24,9 +24,13 @@ https://github.com/barracudanetworks/waf-automation/tree/master/aws-puppet-waf-h
 Note: The CFT files used in this lab is designed to work in AWS regions in US West i.e. us-west-1, us-west-2.
 
 ## General Note
+
 •	Use AWS IAM shared key and token and place it in the home directory of the user
+
 •	Create at least one SSH Key pair in the AWS region where the stack will be deployed
+
 •	Download the SSH key to your local computer and lower the permission for the key file.
+
 
 ## Setting up the environment
 
@@ -105,11 +109,17 @@ This section of the lab will be used to launch the base network for workflow lab
 ## Important note:
 
 •	Use AWS IAM shared key and token and place it in the home directory of the user
+
 •	Create at least one SSH Key pair in the AWS region where the stack will be deployed
+
 •	Download the SSH key to your local computer and lower the permission for the key file.
+
 •	Changing the permissions for the SSH private key: 
+
 •	# chmod 400 <privatekey.pem>
+
 •	The firmware version on the Barracuda Web Application Firewall should be v9.1.1.x
+
 
 ### Stack Creation
 Launch Parameters: Choose the default settings.
@@ -131,10 +141,14 @@ Note: This stack creation process takes about 30 minutes to complete.
 ## Barracuda Web Application Firewall
 
 1.	Login Details: http://<publicip>:8000/
+ 
 2.	Username: admin
+
 3.	Password: <EC2 instance ID for this node>
 
+
 Step-1: Accept the End User License Agreement
+
 Step-2: Login
 
 Summary
@@ -242,10 +256,15 @@ These facts are obtained by the agent by connecting to the remote WAF unit
 The Puppet Agent works as a proxy system to connect and apply the manifest on the WAF.
 
 The functions of the Puppet Device subcommand are as follows:
+
 •	Performs the certificate authentication for the WAF nodes
+
 •	Retrieves Facter “facts” from the WAF nodes
+
 •	Sends the facts to the Puppet Master
+
 •	Retrieves the catalog and applies on the WAF node
+
 
 Sample “device.conf” file
 
@@ -257,10 +276,17 @@ Sample “device.conf” file
 ## Command to run on the agent:
 
 1.	For help: # puppet help device
-2.	To run the puppet device # puppet device –v --user=root
+
+2.	To run the puppet device 
+```bash 
+puppet device –v --user=root
+```
+
 
 ## Command to run on the master:
+```puppet
 puppet cert sign <waf_name as mentioned in the device.conf, for e.g waf-1>
+```
 
 ## Reference Links
 
@@ -272,9 +298,7 @@ Barracuda VRS: https://campus.barracuda.com/product/vulnerabilityremediationserv
 
 Barracuda WAF AWS Quick Start Guide: https://campus.barracuda.com/product/webapplicationfirewall/doc/28967064/amazon-web-services/
 
-
-
-
+For support: aravindan@barracuda.com
 
 
 
