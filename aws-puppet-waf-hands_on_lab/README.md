@@ -5,6 +5,8 @@ Barracuda Web Application Firewall provides comprehensive based protection for a
 Puppet Enterprise delivers a unified platform that allows you to both enforce the desired state of your configurations and automatically remediate any unexpected changes, and to automate ad hoc tasks across infrastructure and applications.
 Amazon Web Services offers reliable, scalable, and inexpensive cloud computing services.
 
+![alt text](https://github.com/barracudanetworks/waf-automation/blob/master/aws-puppet-waf-hands_on_lab/Screen%20Shot%202018-01-24%20at%2010.06.57%20AM.png)
+
 ## Before you begin
 Before Importing the CFTs subscribe to the following EC2 images in the AWS marketplace: https://aws.amazon.com/marketplace/?ref=csl_cnslhome_softprods_mphp
  
