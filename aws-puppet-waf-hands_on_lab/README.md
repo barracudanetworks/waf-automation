@@ -95,7 +95,7 @@ puppet module install barracuda-cudawaf –environment=production
 ```
 ## Moving the code to the Puppet environment
 ```bash
-sudo cp –r /home/puppetadmin/waf-automation/aws-puppet-waf-hands_on_lab/* /etc/puppetlabs/code/environments/production/modules/cudawaf
+sudo cp –r /home/puppetadmin/waf-automation/aws-puppet-waf-hands_on_lab/* /etc/puppetlabs/code/environments/production/modules/cudawaf/manifests/
 ```
 ## Handling Dependencies
 
