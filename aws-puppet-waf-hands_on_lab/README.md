@@ -116,7 +116,21 @@ yum install gcc-c++
 chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/*
 ```
 
-### Configure agent-specified node rules as necessary to match the hostnames of the nodes.
+## Configure agent-specified node rules as necessary to match the hostnames of the nodes.
+
+Set up the /opt/puppetlabs/code/environments/production/manifests/site.pp
+
+```puppet
+node <agenthostname>
+{
+include cudawaf::dependency
+}
+
+node <waf>
+{
+include cudawaf::waf_configuration
+}
+```
 
 ## Configuring the Puppet Agent
 Configuring the host name resolution for the Puppet Master
