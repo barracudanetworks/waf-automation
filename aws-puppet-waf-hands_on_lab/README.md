@@ -155,8 +155,6 @@ This section of the lab will be used to launch the base network for workflow lab
 
 #### Important note:
 
-•	Use AWS IAM shared key and token and place it in the home directory of the user
-
 •	Create at least one SSH Key pair in the AWS region where the stack will be deployed
 
 •	Download the SSH key to your local computer and lower the permission for the key file.
@@ -167,9 +165,9 @@ chmod 400 <privatekey.pem>
 
 •	The firmware version on the Barracuda Web Application Firewall should be v9.1.1.x
 
-
 #### Stack Creation
 Launch Parameters: Choose the default settings.
+
 #### WAF recommended instance size: M4 Large
 
 There are 6 Private Subnets in the VPC. These subnets initiate outbound traffic through a NAT gateway. 
@@ -201,29 +199,9 @@ Step-2: Login
 Summary
 In this lab, a Puppet ecosystem comprising a Puppet Master and two Ubuntu based agent nodes were configured in addition to setting up a base network with a different VPC. 
 
-## About the Barracuda WAF Puppet Module
+To read more about the CudaWAF Puppet module, visit: https://forge.puppet.com/barracuda/cudawaf
 
-The following features can be configured using this module:
-1.	Service
-A Virtual Service is a combination of a Virtual IP (VIP) address and a TCP port, which listens and directs the traffic to the intended Service. The resource type for this feature is "cudawaf_service".
-2.	Server
-A server object can be used to configure the networking information of the back-end server to be hosted on the Barracuda Web Application Firewall. Multiple real servers can be added and configured to load balance the incoming traffic for a Service. The resource type for this feature is "cudawaf_server".
-3.	Certificates
-A signed certificate is a digital identity document that enables both server and client to authenticate each other. Certificates are used with HTTPS protocol to encrypt secure information transmitted over the internet. A certificate can be generated or procured from a third-party Certificate Authority (CA). The resource type for this feature is "cudawaf_certificate".
-Generated certificates can be self-signed or signed by a trusted third-party CA. A certificate contains information such as user name, expiration date, a unique serial number assigned to the certificate by a trusted CA, the public key, and the name of the CA that issued the certificate.
-4.	Cloud control 
-A comprehensive cloud-based service that enables administrators to monitor and configure multiple Barracuda Networks products from a single console. The resource type for this feature is "cudawaf_cloudcontrol".
-5.	Rule Group
-Rules are used to configure content-aware switching over incoming web traffic. Rules help analyze an HTTP request headers to make load balancing and caching policy decisions. The resource type for this feature is “cudawaf_rule_group”
-6.	Rule-Group-Server  
-A rule group server object can be used to configure the networking information of the back-end server to be hosted on the Barracuda Web Application Firewall. Multiple real servers can be added and configured to load balance the incoming traffic for a rule group. The resource type for this feature is “cudawaf_rule_group_server”
-
-7.	Security Policy 
-A Security Policy determines what action to take when one or more of the rules match the request. All security policies are global and can be shared among multiple Services configured on the Barracuda Web Application Firewall. The resource type for this feature is “cudawaf_security_policy”
-
-
-
-The detailed documentation on each of these REST API end points can be found here: https://campus.barracuda.com/product/webapplicationfirewall/api
+The detailed documentation on each of the REST API end points for the Barracuda WAF can be found here: https://campus.barracuda.com/product/webapplicationfirewall/api
 
 #### Puppet Manifest for this Lab
 
