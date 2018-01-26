@@ -43,7 +43,7 @@ Note: The CFT files used in this lab is designed to work in AWS regions in US We
 
 This step is divided into two sections i.e. Section A and Section B
 
-Section A: Launching the Puppet Master and Agents
+### Section A: Launching the Puppet Master and Agents
 
 This section of the lab will be used to cover the launch of the Puppet ecosystem which will be used for the demo.
 
@@ -54,7 +54,7 @@ Once the Puppet Environment CFT is imported :
 Note: Do not change the Hostname: If you wish to change the hostname, follow the instructions mentioned here: 
 https://puppet.com/docs/pe/2017.2/ami_intro.html#changing-the-masters-hostname-and-regenerating-certificates
 
-Checking if the services are up:
+### Checking if the services are up:
 
 ``` bash
 /opt/puppetlabs/aws/bin/check_status.sh --wait
@@ -79,44 +79,46 @@ sudo /opt/puppetlabs/aws/bin/set_console_password.sh
 ## Web Login
 
 https://<public_ip> : Username is admin and password is the console password set with the above command
-Creating a new environment
+
+### Creating a new environment
 
 Path: /etc/puppetlabs/code/environments/
 
-## Cloning the code
+### Cloning the code
 Go to /home/puppetadmin
+
 #### git clone https://github.com/barracudanetworks/waf-automation.git
 
-## Installing the AWS Module
+### Installing the AWS Module
 Path: /etc/puppetlabs/code/environments/production/
 
 ```puppet
 puppet module install barracuda-cudawaf –environment=production
 ```
-## Moving the code to the Puppet environment
+### Moving the code to the Puppet environment
 ```bash
 sudo cp –r /home/puppetadmin/waf-automation/aws-puppet-waf-hands_on_lab/waf_manifests/* /etc/puppetlabs/code/environments/production/modules/cudawaf/manifests/
 ```
-## Handling Dependencies
+### Handling Dependencies
 
-### Install Typhoeus
+#### Install Typhoeus
 ```bash
 /opt/puppetlabs/bin/puppetserver gem install typhoeus
 ```
 
-### Install  rest-client
+#### Install  rest-client
 ```bash
 yum install gcc
 yum install gcc-c++
 /opt/puppetlabs/bin/puppetserver gem install rest-client -v 1.8.0
 ```
-### Elevate permissions for the gemspec files
+#### Elevate permissions for the gemspec files
 
 ```bash
 chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/*
 ```
 
-## Configure agent-specified node rules as necessary to match the hostnames of the nodes.
+#### Configure agent-specified node rules as necessary to match the hostnames of the nodes.
 
 Set up the /opt/puppetlabs/code/environments/production/manifests/site.pp
 
@@ -138,14 +140,14 @@ Path: /etc/hosts
 Use a text editor.
 Create a local hosts entry to point the hostname of the Puppet Master to the Private ip address
 
-## Installing puppet on the agent
+#### Installing puppet on the agent
 curl –kv puppetmaster-ip:8140/packages/current/install.bash | sudo bash
 
-## Section B: Launching the Production Network
+#### Section B: Launching the Production Network
 
 This section of the lab will be used to launch the base network for workflow labs that will be covered during the training.
 
-## Important note:
+#### Important note:
 
 •	Use AWS IAM shared key and token and place it in the home directory of the user
 
@@ -160,15 +162,15 @@ This section of the lab will be used to launch the base network for workflow lab
 •	The firmware version on the Barracuda Web Application Firewall should be v9.1.1.x
 
 
-### Stack Creation
+#### Stack Creation
 Launch Parameters: Choose the default settings.
-### WAF recommended instance size: M4 Large
+#### WAF recommended instance size: M4 Large
 
 There are 6 Private Subnets in the VPC. These subnets initiate outbound traffic through a NAT gateway. 
 Use Private Subnets 3 and 4 for the WordPress web tiers
 Use Private Subnets 5 and 6 for the RDS (Create the RDS DB Subnet Group with these subnets)
 
-## Setting up the DB Subnet Group (To install WP)
+#### Setting up the DB Subnet Group (To install WP)
 
 RDS is used to serve as the DB for the WordPress Application. DB subnet group is configured in this step.
 Setting up WordPress
@@ -177,7 +179,7 @@ Import the 3rd CFT wpstack.template
 Note: Make sure the DB Password is an alphanumeric string.
 Note: This stack creation process takes about 30 minutes to complete.
 
-## Barracuda Web Application Firewall
+### Barracuda Web Application Firewall
 
 1.	Login Details: http://<publicip>:8000/
  
@@ -217,7 +219,7 @@ A Security Policy determines what action to take when one or more of the rules m
 
 The detailed documentation on each of these REST API end points can be found here: https://campus.barracuda.com/product/webapplicationfirewall/api
 
-## Puppet Manifest for this Lab
+### Puppet Manifest for this Lab
 
 The file waf_configuration.pp file includes the resource types shown below. Examples of different kinds of configuration using Puppet manifests:
 
@@ -280,7 +282,7 @@ cudawaf_server { 'http_backend':
       password       => 'xxxxxxxx'
     }
 ```
-## Custom Facts for the Barracuda Web Application Firewall
+### Custom Facts for the Barracuda Web Application Firewall
 
 These facts are obtained by the agent by connecting to the remote WAF unit
 •	Firmware version
@@ -312,7 +314,7 @@ Sample “device.conf” file
    type cudawaf
    url http://admin:<password>@<ip_address>:8000/
 ```
-## Command to run on the agent:
+#### Command to run on the agent:
 
 1.	For help
 ```puppet
@@ -326,12 +328,12 @@ puppet device –v --user=root
 ```
 
 
-## Command to run on the master:
+#### Command to run on the master:
 ```puppet
 puppet cert sign <waf_name as mentioned in the device.conf, for e.g waf-1>
 ```
 
-## Reference Links
+#### Reference Links
 
 Barracuda WAF Auto Scaling CFT for “Pay As You Go” instances: https://aws.amazon.com/marketplace/pp/B014GEC526
 
