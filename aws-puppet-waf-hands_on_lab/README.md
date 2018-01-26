@@ -43,13 +43,13 @@ Note: The CFT files used in this lab is designed to work in AWS regions in US We
 
 This step is divided into two sections i.e. Section A and Section B
 
-### Section A: Launching the Puppet Master and Agents
+## Section A: Launching the Puppet Master and Agents
 
 This section of the lab will be used to cover the launch of the Puppet ecosystem which will be used for the demo.
 
 Once the Puppet Environment CFT is imported :
 
-## Configuring the EC2 instance of the Puppet Master 
+### Configuring the EC2 instance of the Puppet Master 
 
 Note: Do not change the Hostname: If you wish to change the hostname, follow the instructions mentioned here: 
 https://puppet.com/docs/pe/2017.2/ami_intro.html#changing-the-masters-hostname-and-regenerating-certificates
@@ -139,7 +139,7 @@ chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/typhoeus-1.*
 chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/rest-client*
 ```
 
-## Configuring the Puppet Agent
+#### Configuring the Puppet Agent
 
 Configuring the host name resolution for the Puppet Master
 Path: /etc/hosts
@@ -149,7 +149,7 @@ Create a local hosts entry to point the hostname of the Puppet Master to the Pri
 #### Installing puppet on the agent
 curl –kv puppetmaster-ip:8140/packages/current/install.bash | sudo bash
 
-#### Section B: Launching the Production Network
+## Section B: Launching the Production Network
 
 This section of the lab will be used to launch the base network for workflow labs that will be covered during the training.
 
