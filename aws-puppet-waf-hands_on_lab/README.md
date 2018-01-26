@@ -215,7 +215,7 @@ A Security Policy determines what action to take when one or more of the rules m
 
 
 
-The detailed documentation on each of these REST API end points can be found here: Barracuda Web Application REST API v3
+The detailed documentation on each of these REST API end points can be found here: https://campus.barracuda.com/product/webapplicationfirewall/api
 
 ## Puppet Manifest for this Lab
 
