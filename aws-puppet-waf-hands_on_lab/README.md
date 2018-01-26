@@ -54,7 +54,7 @@ Once the Puppet Environment CFT is imported :
 Note: Do not change the Hostname: If you wish to change the hostname, follow the instructions mentioned here: 
 https://puppet.com/docs/pe/2017.2/ami_intro.html#changing-the-masters-hostname-and-regenerating-certificates
 
-### Checking if the services are up:
+#### Checking if the services are up:
 
 ``` bash
 /opt/puppetlabs/aws/bin/check_status.sh --wait
@@ -70,60 +70,55 @@ check_status.sh: To set the console password and obtain access, run:
 sudo /opt/puppetlabs/aws/bin/set_console_password.sh
 ```
 
-## Setting the password 
+#### Setting the password 
 
 ```bash
 sudo /opt/puppetlabs/aws/bin/set_console_password.sh
 ```
 
-## Web Login
+#### Web Login
 
 https://<public_ip> : Username is admin and password is the console password set with the above command
 
-### Creating a new environment
+#### Creating a new environment
 
 Path: /etc/puppetlabs/code/environments/
 
-### Cloning the code
+#### Cloning the code
 Go to /home/puppetadmin
 
-#### git clone https://github.com/barracudanetworks/waf-automation.git
+git clone https://github.com/barracudanetworks/waf-automation.git
 
-### Installing the AWS Module
+#### Installing the AWS Module
 Path: /etc/puppetlabs/code/environments/production/
 
 ```puppet
 puppet module install barracuda-cudawaf –environment=production
 ```
-### Moving the code to the Puppet environment
+#### Moving the code to the Puppet environment
 ```bash
 sudo cp –r /home/puppetadmin/waf-automation/aws-puppet-waf-hands_on_lab/waf_manifests/* /etc/puppetlabs/code/environments/production/modules/cudawaf/manifests/
 ```
-### Handling Dependencies
+#### Handling Dependencies
 
-#### Install Typhoeus
+1. Install Typhoeus
 ```bash
 /opt/puppetlabs/bin/puppetserver gem install typhoeus
 ```
 
-#### Install  rest-client
+2. Install  rest-client (Needs gcc and gcc-c++ yum packages as dependencies)
+
 ```bash
 yum install gcc
 yum install gcc-c++
 /opt/puppetlabs/bin/puppetserver gem install rest-client -v 1.8.0
 ```
-#### Elevate permissions for the gemspec files
-
-```bash
-chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/*
-```
-
-#### Configure agent-specified node rules as necessary to match the hostnames of the nodes.
+#### Configure the site.pp file as necessary to match the hostnames of the nodes.
 
 Set up the /opt/puppetlabs/code/environments/production/manifests/site.pp
 
 ```puppet
-node <agenthostname>
+node default
 {
 include cudawaf::dependency
 }
@@ -133,8 +128,19 @@ node <waf>
 include cudawaf::waf_configuration
 }
 ```
+#### Install the gem files using puppet agent gem binary on the Puppet Master
+
+The "puppet agent -t" command will execute the instructions in the dependency.pp if the site.pp file is set for the node 'default' to include 'cudawaf::dependency'
+
+#### Elevate permissions for the gemspec files
+
+```bash
+chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/typhoeus-1.*
+chmod 777 /opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications/rest-client*
+```
 
 ## Configuring the Puppet Agent
+
 Configuring the host name resolution for the Puppet Master
 Path: /etc/hosts
 Use a text editor.
@@ -157,7 +163,7 @@ This section of the lab will be used to launch the base network for workflow lab
 
 •	Changing the permissions for the SSH private key: 
 
-•	# chmod 400 <privatekey.pem>
+chmod 400 <privatekey.pem>
 
 •	The firmware version on the Barracuda Web Application Firewall should be v9.1.1.x
 
@@ -179,7 +185,7 @@ Import the 3rd CFT wpstack.template
 Note: Make sure the DB Password is an alphanumeric string.
 Note: This stack creation process takes about 30 minutes to complete.
 
-### Barracuda Web Application Firewall
+## Barracuda Web Application Firewall
 
 1.	Login Details: http://<publicip>:8000/
  
@@ -219,11 +225,11 @@ A Security Policy determines what action to take when one or more of the rules m
 
 The detailed documentation on each of these REST API end points can be found here: https://campus.barracuda.com/product/webapplicationfirewall/api
 
-### Puppet Manifest for this Lab
+#### Puppet Manifest for this Lab
 
 The file waf_configuration.pp file includes the resource types shown below. Examples of different kinds of configuration using Puppet manifests:
 
-### Create a SSL certificate
+#### Create a SSL certificate
 ```puppet
  cudawaf_certificate { 'selfsigned_cert':
       ensure => present,
@@ -240,7 +246,7 @@ The file waf_configuration.pp file includes the resource types shown below. Exam
       state => 'california',
     }
 ```
-### Create a HTTPS service
+#### Create a HTTPS service
 ```puppet
 cudawaf_service { 'https_service':
       ensure        => present,
@@ -256,7 +262,7 @@ cudawaf_service { 'https_service':
       comments      => 'This is the production service for the lab',
     }
 ```
-### Create the backend server
+#### Create the backend server
 ```puppet
 cudawaf_server { 'http_backend':
       ensure => present,
@@ -272,7 +278,7 @@ cudawaf_server { 'http_backend':
     }
 
 ```
-### Connect WAF to Barracuda Cloud Control
+#### Connect WAF to Barracuda Cloud Control
 ```puppet
   cudawaf_cloudcontrol { 'WAFCloudControlSettings':
       ensure         => present,
@@ -282,7 +288,7 @@ cudawaf_server { 'http_backend':
       password       => 'xxxxxxxx'
     }
 ```
-### Custom Facts for the Barracuda Web Application Firewall
+#### Custom Facts for the Barracuda Web Application Firewall
 
 These facts are obtained by the agent by connecting to the remote WAF unit
 •	Firmware version
@@ -292,7 +298,7 @@ These facts are obtained by the agent by connecting to the remote WAF unit
 •	Model
 •	Product Type
 
-## Puppet Device
+### Puppet Device
 
 The Puppet Agent works as a proxy system to connect and apply the manifest on the WAF.
 
@@ -307,7 +313,7 @@ The functions of the Puppet Device subcommand are as follows:
 •	Retrieves the catalog and applies on the WAF node
 
 
-Sample “device.conf” file
+##### Sample “device.conf” file
 
 ```bash
 [waf-1]
