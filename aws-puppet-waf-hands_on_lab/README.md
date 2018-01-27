@@ -1,13 +1,21 @@
 # Automating Application Security with Barracuda WAF and Puppet on AWS
 
-## Introduction
+### Introduction
 Barracuda Web Application Firewall provides comprehensive based protection for applications deployed in physical, virtual, or public cloud environments. 
 Puppet Enterprise delivers a unified platform that allows you to both enforce the desired state of your configurations and automatically remediate any unexpected changes, and to automate ad hoc tasks across infrastructure and applications.
 Amazon Web Services offers reliable, scalable, and inexpensive cloud computing services.
 
 ![alt text](https://github.com/barracudanetworks/waf-automation/blob/master/aws-puppet-waf-hands_on_lab/Screen%20Shot%202018-01-24%20at%2010.06.57%20AM.png)
 
-## Before you begin
+### How does this solution work
+
+Barracuda WAF can protect web applications from being targeted by attackers. A virtual service is configured to front end the web application, thus ensuring all the traffic targeting the servers are inspected for malicious content.
+
+Barracuda Networks provides a free cloud based centralized management solution called the Barracuda Cloud Control. A free cloud based web application penetration testing framework called the Barracuda Vulnerability Remediation Service is also available to be integrated with the Barracuda WAF. A Cloud Control user can utilize the Barracuda VRS and setup scans for services created on a Cloud Control Managed Barracuda WAF. These scans can also be scheduled and the reports delivered to the email address of the account holder.
+
+The solution ensures that the Barracuda WAF that is being managed in this lab is connected to the Barracuda Cloud Control account specified in the puppet manifest after being configured with an HTTPS service. 
+
+### Before you begin
 Before Importing the CFTs subscribe to the following EC2 images in the AWS marketplace: https://aws.amazon.com/marketplace/?ref=csl_cnslhome_softprods_mphp
  
 1.	EC2 Images to subscribe: 
@@ -310,12 +318,16 @@ puppet help device
 ```puppet
 puppet device –v --user=root
 ```
+When this command is run for the first time, a CSR for the device is sent to the master, and its required that the master sign this csr from the device.
+To complete this step, execute the following command on the Puppet master
 
-
-#### Command to run on the master:
 ```puppet
-puppet cert sign <waf_name as mentioned in the device.conf, for e.g waf-1>
+puppet cert sign waf-1
+
+where waf-1 is the name of the device as defined in /etc/puppetlabs/puppet/device.conf on the puppet agent.
 ```
+
+At this point in time, you may login to the https://vrs.barracudanetworks.com and add a web application. You should be able to update the waf list in the "add web application" widget, which will allow you to select the waf that was previously connected to Cloud Control and thus VRS. You may also modify the scan configuration as necessary.
 
 #### Reference Links
 
