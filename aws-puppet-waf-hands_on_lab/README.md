@@ -49,7 +49,8 @@ Before Importing the CFTs subscribe to the following EC2 images in the AWS marke
 
    This step is divided into two sections i.e. Section A and Section B
 
-### Section A: Launching the Puppet Master and Agents
+### Section A
+   #### Launching the Puppet Master and Agents
 
    This section of the lab will be used to cover the launch of the Puppet ecosystem which will be used for the demo.
 
@@ -164,7 +165,8 @@ This is necessary to:
 puppet agent -t 
 ```
 
-## Section B: Launching the Production Network
+## Section B
+   #### Launching the Production Network
 
 This section of the lab will be used to launch the base network for workflow labs that will be covered during the training.
 
