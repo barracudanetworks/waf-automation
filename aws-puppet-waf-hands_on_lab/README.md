@@ -317,7 +317,7 @@ puppet cert sign waf-1
 where waf-1 is the name of the device as defined in /etc/puppetlabs/puppet/device.conf on the puppet agent.
 ```
 
-At this point in time, you may login to the https://vrs.barracudanetworks.com and add a web application. You should be able to update the waf list in the "add web application" widget, which will allow you to select the waf that was previously connected to Cloud Control and thus VRS. You may also modify the scan configuration as necessary.
+At this point in time, you may login to https://vrs.barracudanetworks.com and add a web application. You should be able to update the waf list in the "add web application" widget, which will allow you to select the waf that was previously connected to Cloud Control and thus VRS. You may also modify the scan configuration as necessary.
 
 #### Reference Links
 
