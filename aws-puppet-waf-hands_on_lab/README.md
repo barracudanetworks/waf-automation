@@ -19,28 +19,29 @@ The solution ensures that the Barracuda WAF that is being managed in this lab is
 Before Importing the CFTs subscribe to the following EC2 images in the AWS marketplace: https://aws.amazon.com/marketplace/?ref=csl_cnslhome_softprods_mphp
  
 1.	EC2 Images to subscribe: 
-   Puppet Enterprise (PAYG): https://aws.amazon.com/marketplace/pp/B071YVSBQW?qid=1515932562950&sr=0-1&ref_=srh_res_product_title
+   
+    Puppet Enterprise (PAYG): https://aws.amazon.com/marketplace/pp/B071YVSBQW?qid=1515932562950&sr=0-1&ref_=srh_res_product_title
 
-   Ubuntu 16.04 LTS - Xenial (HVM): https://aws.amazon.com/marketplace/pp/B01JBL2M0O?qid=1515932601469&sr=0-1&ref_=srh_res_product_title
+    Ubuntu 16.04 LTS - Xenial (HVM): https://aws.amazon.com/marketplace/pp/B01JBL2M0O?qid=1515932601469&sr=0-1&ref_=srh_res_product_title
 
 
 2.	Check if you can login to vrs.barracudanetworks.com account with the email address provided by Barracuda Networks
  
 3.	Create an SSH key pair
-   For ease of use, create one SSH key pair and use in all CFTs.  
+    For ease of use, create one SSH key pair and use in all CFTs.  
 
-   For instructions on how to create a key pair, please visit: 
-   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
+    For instructions on how to create a key pair, please visit: 
+    https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair
 
-   If you are going to use Putty to connect to your ec2 instance, please follow the instructions mentioned in this article to prepare your system: https://linuxacademy.com/howtoguides/posts/show/topic/17385-use-putty-to-access-ec2-linux-instances-via-ssh-from-windows
+    If you are going to use Putty to connect to your ec2 instance, please follow the instructions mentioned in this article to prepare your system: https://linuxacademy.com/howtoguides/posts/show/topic/17385-use-putty-to-access-ec2-linux-instances-via-ssh-from-windows
  
 4.	Download the CFTs
-   https://github.com/barracudanetworks/waf-automation/tree/master/aws-puppet-waf-hands_on_lab/cft_files
+    https://github.com/barracudanetworks/waf-automation/tree/master/aws-puppet-waf-hands_on_lab/cft_files
 
-   Note: The CFT files used in this lab is designed to work in AWS regions in US West i.e. us-west-1, us-west-2.
+    Note: The CFT files used in this lab is designed to work in AWS regions in US West i.e. us-west-1, us-west-2.
 
 5. Create and Activate the Cloud Control Account
-   Create an account on login.barracudanetworks.com ensure that the appliance control permission is granted to the account. For more details visit: https://campus.barracuda.com/product/cloudcontrol/
+    Create an account on login.barracudanetworks.com ensure that the appliance control permission is granted to the account. For more details visit: https://campus.barracuda.com/product/cloudcontrol/
    
 
 ### Setting up the environment
