@@ -154,6 +154,15 @@ Create a local hosts entry to point the hostname of the Puppet Master to the Pri
 #### Installing puppet on the agent
 curl –kv puppetmaster-ip:8140/packages/current/install.bash | sudo bash
 
+#### Run the Puppet agent
+This is necessary to:
+1. To send the CSR to the Puppet master for signing
+2. To retrieve the catalog from the master for the dependency handling
+
+```puppet
+puppet agent -t 
+```
+
 ## Section B: Launching the Production Network
 
 This section of the lab will be used to launch the base network for workflow labs that will be covered during the training.
@@ -277,14 +286,15 @@ The Puppet Agent works as a proxy system to connect and apply the manifest on th
 
 The functions of the Puppet Device subcommand are as follows:
 
-•	Performs the certificate authentication for the WAF nodes
+ •	Performs the certificate authentication for the WAF nodes
 
-•	Retrieves Facter “facts” from the WAF nodes
+ •	Retrieves Facter “facts” from the WAF nodes
 
-•	Sends the facts to the Puppet Master
+ •	Sends the facts to the Puppet Master
 
-•	Retrieves the catalog and applies on the WAF node
+ •	Retrieves the catalog and applies on the WAF node
 
+To implement and use Puppet Device, its required to create a device.conf file. You may create this file in /etc/puppetlabs/puppet/device.conf on the Puppet Agent.
 
  ##### Sample “device.conf” file
 
@@ -301,13 +311,11 @@ puppet help device
 ```
 
 2.	To run the puppet device 
-
 ```puppet
 puppet device –v --user=root
 ```
 When this command is run for the first time, a CSR for the device is sent to the master, and its required that the master sign this csr from the device.
 To complete this step, execute the following command on the Puppet master
-
 ```puppet
 puppet cert sign waf-1
 
