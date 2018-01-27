@@ -274,16 +274,6 @@ cudawaf_server { 'http_backend':
       password       => 'xxxxxxxx'
     }
 ```
-#### Custom Facts for the Barracuda Web Application Firewall
-
-These facts are obtained by the agent by connecting to the remote WAF unit
-•	Firmware version
-•	Serial
-•	Hostname
-•	Time Zone
-•	Model
-•	Product Type
-
 ### Puppet Device
 
 The Puppet Agent works as a proxy system to connect and apply the manifest on the WAF.
@@ -299,13 +289,13 @@ The functions of the Puppet Device subcommand are as follows:
 •	Retrieves the catalog and applies on the WAF node
 
 
-##### Sample “device.conf” file
+ ##### Sample “device.conf” file
 
-```bash
-[waf-1]
-   type cudawaf
-   url http://admin:<password>@<ip_address>:8000/
-```
+ ```bash
+ [waf-1]
+    type cudawaf
+    url http://admin:<password>@<ip_address>:8000/
+ ```
 #### Command to run on the agent:
 
 1.	For help
