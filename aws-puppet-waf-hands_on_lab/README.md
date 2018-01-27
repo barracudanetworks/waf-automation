@@ -41,23 +41,24 @@ Before Importing the CFTs subscribe to the following EC2 images in the AWS marke
     Note: The CFT files used in this lab are designed to work in AWS regions in US West i.e. us-west-1, us-west-2.
 
 5. Create and Activate the Cloud Control Account
-    Create an account on login.barracudanetworks.com ensure that the appliance control permission is granted to the account. For more details visit: https://campus.barracuda.com/product/cloudcontrol/
+    Create an account on login.barracudanetworks.com and ensure that the appliance control permission is granted to the account. 
+    For more details visit: https://campus.barracuda.com/product/cloudcontrol/
    
 
 ### Setting up the environment
 
-This step is divided into two sections i.e. Section A and Section B
+   This step is divided into two sections i.e. Section A and Section B
 
 ### Section A: Launching the Puppet Master and Agents
 
-This section of the lab will be used to cover the launch of the Puppet ecosystem which will be used for the demo.
+   This section of the lab will be used to cover the launch of the Puppet ecosystem which will be used for the demo.
 
-Once the Puppet Environment CFT is imported :
+   Once the Puppet Environment CFT is imported :
 
 ### Configuring the EC2 instance of the Puppet Master 
 
-Note: Do not change the Hostname: If you wish to change the hostname, follow the instructions mentioned here: 
-https://puppet.com/docs/pe/2017.2/ami_intro.html#changing-the-masters-hostname-and-regenerating-certificates
+   Note: Do not change the Hostname: If you wish to change the hostname, follow the instructions mentioned here: 
+   https://puppet.com/docs/pe/2017.2/ami_intro.html#changing-the-masters-hostname-and-regenerating-certificates
 
 #### Checking if the services are up:
 
