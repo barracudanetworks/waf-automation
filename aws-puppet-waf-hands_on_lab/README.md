@@ -38,7 +38,7 @@ Before Importing the CFTs subscribe to the following EC2 images in the AWS marke
 4.	Download the CFTs
     https://github.com/barracudanetworks/waf-automation/tree/master/aws-puppet-waf-hands_on_lab/cft_files
 
-    Note: The CFT files used in this lab is designed to work in AWS regions in US West i.e. us-west-1, us-west-2.
+    Note: The CFT files used in this lab are designed to work in AWS regions in US West i.e. us-west-1, us-west-2.
 
 5. Create and Activate the Cloud Control Account
     Create an account on login.barracudanetworks.com ensure that the appliance control permission is granted to the account. For more details visit: https://campus.barracuda.com/product/cloudcontrol/
