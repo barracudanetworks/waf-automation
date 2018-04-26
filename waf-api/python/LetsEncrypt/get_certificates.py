@@ -62,7 +62,8 @@ def main(argv):
                 certificate = client.get_certificate_for_domains(args.domains, args.private_key_file, csr_file, cert_file)
 
                 if args.waf_ssl_service:
-                    serial_number = client.get_serial_number_from_certificate(cert_file)
+                    # Note: cert name can't start with a number, so prepend 'acme_'.
+                    serial_number = 'acme_' + client.get_serial_number_from_certificate(cert_file)
                     apply_certificate_to_waf_service(waf_api, args.waf_ssl_service, serial_number, args.private_key_file,
                                                      certificate, INTERMEDIATE_CERT)
     else:
@@ -78,7 +79,8 @@ def main(argv):
             with client.tempfile(None) as csr_file:
                 with client.tempfile(None) as cert_file:
                     certificate = client.get_certificate_for_domains(cert_domains, args.private_key_file, csr_file, cert_file)
-                    serial_number = client.get_serial_number_from_certificate(cert_file)
+                    # Note: cert name can't start with a number, so prepend 'acme_'.
+                    serial_number = 'acme_' + client.get_serial_number_from_certificate(cert_file)
                     waf_api.upload_signed_certificate(serial_number, private_key, certificate, INTERMEDIATE_CERT)
                     certs.append(dict(name=serial_number, cert=certificate, domains=cert_domains))
 
