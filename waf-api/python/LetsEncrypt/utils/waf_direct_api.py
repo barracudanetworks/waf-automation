@@ -92,5 +92,11 @@ class BarracudaWAFAPI:
         if intermediate_cert:
             files.append(('intermediary_certificate', ('intermediate.crt', intermediate_cert, 'application/octet-stream')))
 
-        res = self.basic_request_json('certificates?upload=signed', method='POST', data=new_cert, files=files)
+        try:
+            res = self.basic_request_json('certificates?upload=signed', method='POST', data=new_cert, files=files)
+        except WAFAPIHTTPClientError as e:
+            if e.response.status_code == 400 and 'Duplicate certificate name is not allowed.' in e.response.text:
+                # This certificate already exists on the WAF.  Ignore.
+                return cert_name
+            raise
         return res['id']
