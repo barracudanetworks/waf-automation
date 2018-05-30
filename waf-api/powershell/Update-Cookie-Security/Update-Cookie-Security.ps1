@@ -126,10 +126,11 @@ function updateCookiesecurity {
 	return $policyAPIresponse
 }
 	
-$wafIpAddress = "WAF-IP/DOMAIN:PORT"
-$wafUserName = "username" 
-$wafPassword = "password"
-$myPolicy = "default"
+$wafIpAddress = $args[0]
+$wafUserName = $args[1]
+$wafPassword = $args[2]
+$myPolicy = $args[3]
+$configJson = $args[4]
 
 ## Call Login Function and capture AuthToken as variable 
 $wafAuthToken = Login $wafIpAddress $wafUserName $wafPassword
@@ -140,7 +141,7 @@ write-host "wafAuthToken is: " $wafAuthToken
 $global:myHeader = CreateHeader $wafAuthToken
 
 
-$global:policyAPI = readJsonContent "C:\Users\Shruthi\Desktop\cookie-security.json" | ConvertFrom-Json
+$global:policyAPI = readJsonContent $configJson | ConvertFrom-Json
 
 $result = updateCookiesecurity $myPolicy $policyAPI
 
