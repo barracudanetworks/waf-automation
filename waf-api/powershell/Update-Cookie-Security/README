@@ -11,3 +11,5 @@ Steps to run the script
         Password
         Security Policy Name
         location of the JSON config input file
+        
+        Example: ./cookie-security.ps1 “10.1.1.1:8000” “admin” “admin” “sharepoint” “C:\cookie-security.json”
