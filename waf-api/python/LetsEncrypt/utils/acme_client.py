@@ -210,16 +210,19 @@ class ACMEClient:
 
         path = "/.well-known/acme-challenge/{1}".format(domain, token)
         with self.domain_verifier.verify_domain(domain, token, path, keyauthorization):
-            # check that the file is in place
+            # Check that the file is in place before making a request to Let's Encrypt
             wellknown_url = "http://{}/{}".format(domain, path)
             try:
+                # Add some browser-like headers to lessen the chance the request is blocked by an overzealous bot filter
                 headers = {
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
                     "Accept-Encoding": "gzip, deflate",
                     "Accept-Language": "en-US,en;q=0.9,he;q=0.8",
                     "Cache-Control": "max-age=0",
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"}
-                res = requests.get(wellknown_url, headers=headers)
+                # Pass in verify=False because it's possible the HTTP URL will redirect to HTTPS - and by definition the
+                # HTTPS service won't have a valid certificate yet.
+                res = requests.get(wellknown_url, headers=headers, verify=False)
                 res_data = res.text.strip()
                 if res_data != keyauthorization:
                     raise IOError("Data doesn't match.  Expected:\n{}\nReceived:\n{}".format(keyauthorization, res_data))
