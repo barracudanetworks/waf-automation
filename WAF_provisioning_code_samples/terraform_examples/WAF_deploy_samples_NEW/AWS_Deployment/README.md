@@ -10,7 +10,7 @@ The AMI ID is hard coded in the .tf file and may need to be changed to pick up t
 1. AWS Access key and Access secret with valid permissions to provision ec2 instances from the AWS market place 
 2. VPC with atleast 1 subnet, internet gateway and a functioning route table
 3. EC2 Key pair
-4. Security Group
+4. EC2 Security Group
 5. Terraform should be installed on the computer on which the code is run
 
 ### Usage
