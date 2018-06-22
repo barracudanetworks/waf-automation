@@ -3,7 +3,7 @@
 This deployment will provision a BYOL instance of the Barracuda Web Application Firewall in the us-west-2 region
 
 ### Important Note
-The AMI ID is hard coded in the .tf file and may need to be changed to pick up the latest image from the AWS marketplace.
+The AMI ID is hard coded in the .tf file and may need to be changed to pick up the latest image for the desired license option (BYOL, PAYG or Metered) from the AWS marketplace.
 
 ### Pre-Requisites
 
