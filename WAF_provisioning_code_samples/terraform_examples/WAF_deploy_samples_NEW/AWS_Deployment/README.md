@@ -15,9 +15,20 @@ The AMI ID is hard coded in the .tf file and may need to be changed to pick up t
 
 ### Usage
 
+Step 1
+
+Create environment variables for the AWS access key and access secret
+
+`$ export AWS_ACCESS_KEY_ID="anaccesskey"`
+
+`$ export AWS_SECRET_ACCESS_KEY="asecretkey"`
+
+
+Step 2
+
 From the directory in which the file exists:
 
-1. To download the AWS resource
+1. To download the AWS resource (Details: https://www.terraform.io/docs/providers/aws/index.html)
 
 `terraform init`
 
