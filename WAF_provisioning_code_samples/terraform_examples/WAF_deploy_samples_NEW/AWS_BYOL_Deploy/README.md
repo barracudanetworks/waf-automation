@@ -15,16 +15,22 @@ The AMI ID is hard coded in the .tf file and may need to be changed to pick up t
 
 ### Usage
 
-To download the AWS resource
+From the directory in which the file exists:
+
+1. To download the AWS resource
+
 `terraform init`
 
-To create a plan for the provisioning
+2. To create a plan for the provisioning
+
 `terraform plan -out <plan name>`
 
-To apply the plan
+3. To apply the plan
+
 `terraform apply <plan name>`
 
-To destroy the deployment
+4. To destroy the deployment
+
 `terraform destroy`
 
 ### Additional info
