@@ -30,19 +30,19 @@ From the directory in which the file exists:
 
 1. To download the AWS resource (Details: https://www.terraform.io/docs/providers/aws/index.html)
 
-`terraform init`
+`$ terraform init`
 
 2. To create a plan for the provisioning
 
-`terraform plan -out <plan name>`
+`$ terraform plan -out <plan name>`
 
 3. To apply the plan
 
-`terraform apply <plan name>`
+`$ terraform apply <plan name>`
 
 4. To destroy the deployment
 
-`terraform destroy`
+`$ terraform destroy`
 
 ### Additional info
 The code allows for increasing the number of the instances by specifying a value for the count attribute. For example count = "5" will provision 5 instances.
