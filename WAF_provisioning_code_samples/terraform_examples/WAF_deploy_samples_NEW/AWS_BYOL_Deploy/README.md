@@ -1,0 +1,37 @@
+### About this deployment
+
+This deployment will provision a BYOL instance of the Barracuda Web Application Firewall in the us-west-2 region
+
+### Important Note
+The AMI ID is hard coded in the .tf file and may need to be changed to pick up the latest image from the AWS marketplace.
+
+### Pre-Requisites
+
+1. AWS Access key and Access secret with valid permissions to provision ec2 instances from the AWS market place 
+2. VPC with atleast 1 subnet, internet gateway and a functioning route table
+3. EC2 Key pair
+4. Security Group
+5. Terraform should be installed on the computer on which the code is run
+
+### Usage
+
+To download the AWS resource
+`terraform init`
+
+To create a plan for the provisioning
+`terraform plan -out <plan name>`
+
+To apply the plan
+`terraform apply <plan name>`
+
+To destroy the deployment
+`terraform destroy`
+
+### Additional info
+The code allows for increasing the number of the instances by specifying a value for the count attribute. For example count = "5" will provision 5 instances.
+
+### Next steps
+Once the unit is provisioned, you may continue with the configuration by following step6 from this link: https://campus.barracuda.com/product/webapplicationfirewall/doc/41104663/barracuda-cloudgen-waf-deployment-and-quick-start-guide-for-amazon-web-services
+
+
+
