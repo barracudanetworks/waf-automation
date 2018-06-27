@@ -118,7 +118,7 @@ WAF configuration manifest
 With the following manifest, a service with the name “Myservice2” will be created on the WAF under which there will be a content rule called “ContentRule1” and a backend server for the content rule called “rgServer1”. The WAF is also connected to the Barracuda Cloud Control for the administrator to use other additional cloud services available on the Barracuda Cloud Control portal.
 
 ### Manifest
-`
+```puppet
 cudawaf_service  { 'DemoService2':
   ensure            => present,
   name              => 'MyService2',
@@ -156,7 +156,7 @@ cudawaf_rule_group_server  { 'RuleGroupServer-1':
   identifier    => 'Hostname',
   hostname      => 'barracuda.com'
 }
-`
+```
 ### Command to run puppet device
 To connect and configure the Barracuda WAF from the Puppet Agent, use the Puppet Device subcommand. The command to run is as follows:
 `puppet device -v --user=root`
