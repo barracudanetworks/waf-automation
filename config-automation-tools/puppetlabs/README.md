@@ -65,29 +65,40 @@ Handling dependencies is critical to work with the module. We need to install th
 Handling dependencies on the Master
 
 Install typhoeus v1.3.0 and rest-client v1.8.0
+
 `/opt/puppetlabs/bin/puppetserver gem install typhoeus –v 1.3.0`
+
 `/opt/puppetlabs/bin/puppetserver gem install rest-client –v 1.8.0`
 
 Also, install the gems using the puppet agent gem binary:
+
 `/opt/puppetlabs/puppet/bin/gem install typhoeus –v 1.3.0`
+
 `/opt/puppetlabs/puppet/bin/gem install rest-client –v 1.8.0`
 
 Changing the permissions for the gemspec files
 In some cases, external dependencies can cause errors such as "Error in retreiving resource statement" on the Puppet Agent before applying the catalog. Increasing read and execute permissions to the gemspec on the master can help solve this problem.
+
 Default Location of the ‘gemspec’ files
+
 `/opt/puppetlabs/puppet/lib/ruby/gems/2.0.1/specifications`
 
 To change permissions:
+
 `chmod 777 rest-client-1.8.0.gemspec`
 `chmod 777 typhoeus-1.*`
 
 Please note: After you are changing permissions, please remember to restart the puppetserver daemon.
+
 `/opt/puppetlabs/bin/puppetserver stop`
+
 `/opt/puppetlabs/bin/puppetserver start`
 
 Handling dependencies on the Puppet Agent
+
 The best way to handle these is to use the 'Package' resource and run the puppet agent command on the target node. Sample manifest of the Package resource:
-`
+
+```puppet
 package { 'typhoeus' :
   ensure => present,
   provider => 'puppet_gem',
@@ -96,28 +107,39 @@ package { 'typhoeus' :
   ensure => '1.8.0',
   provider => 'puppet_gem',
 }
-`
+```
+
 This manifest can be uploaded to the manifests directory in the cudawaf module. Please note that this directory has to be manually created in the module. For example,
+
 `mkdir /etc/puppetlabs/code/environments/production/modules/cudawaf/manifests/`
+
 Setting up the communication channel on the agent
 To use the module, first configure a Puppet agent that is able to run puppet device. This agent will be used to act as a "proxy system" for the puppet device subcommand. 
+
 Create a ‘device.conf’ file on the Puppet Agent node
 The location of the file is:
+
 `/etc/puppetlabs/puppet/device.conf`
 
 device.conf is organized in INI-like sections, with one section per device: 
 Example "device.conf" file
-`
+
+```puppet
 [waf-1]
    type cudawaf
    url http://admin:<password>@<ip_address>:8000/
-`
+```
+
 The name of each section should be the name that will be used with Puppet device to access the device.
+
 The body of the section should contain a type directive (use cudawaf) and a url directive (which should be an HTTP URL pointing to port 8000 to the device’s interface, typically the WAN interface).
-WAF configuration manifest
+
+### WAF configuration manifest
+
 With the following manifest, a service with the name “Myservice2” will be created on the WAF under which there will be a content rule called “ContentRule1” and a backend server for the content rule called “rgServer1”. The WAF is also connected to the Barracuda Cloud Control for the administrator to use other additional cloud services available on the Barracuda Cloud Control portal.
 
 ### Manifest
+
 ```puppet
 cudawaf_service  { 'DemoService2':
   ensure            => present,
@@ -158,10 +180,14 @@ cudawaf_rule_group_server  { 'RuleGroupServer-1':
 }
 ```
 ### Command to run puppet device
+
 To connect and configure the Barracuda WAF from the Puppet Agent, use the Puppet Device subcommand. The command to run is as follows:
+
 `puppet device -v --user=root`
 
 This command retrieves the credentials configured in the `/etc/puppetlabs/puppet/device.conf` file and sends the information to the Puppet Master to retrieve the Puppet Catalog, containing the instructions for configuring the Barracuda WAF.
+
 After the successful application of the catalog, you should see the verbose output in the terminal about the resources getting created.
+
 You may login to the Barracuda WAF web interface to verify if the configuration has been updated as per the manifest.
 
