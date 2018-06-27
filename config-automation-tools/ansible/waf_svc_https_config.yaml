@@ -6,7 +6,7 @@
 ### when the username and password is provided in the script
 
 ### WAF DETAILS ###
-- hosts: aravindan
+- hosts: localhost
   tasks:
   - name: Set WAF URL
     set_fact:
