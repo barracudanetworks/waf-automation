@@ -6,14 +6,15 @@ Ansible is a configuration automation software. Its popular in the devops commun
 
 To use the code samples, install Ansible on the local system and configure the host inventory file. The sample host inventory file:
 
-`
+```
 [targets]
 
 <hostname>	ansible_connection=local
 
-`
+```
 
 ### Playbooks
+
 Playbooks in Ansible are used to write a set of instructions that are given to a client. Playbook files are created with yaml filetype and need to adhere to the whitespace syntax
 
 To run a particular playbook: `ansible-playbook <playbook-file.yml>`
