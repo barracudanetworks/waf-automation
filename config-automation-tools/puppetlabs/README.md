@@ -134,51 +134,6 @@ The name of each section should be the name that will be used with Puppet device
 
 The body of the section should contain a type directive (use cudawaf) and a url directive (which should be an HTTP URL pointing to port 8000 to the device’s interface, typically the WAN interface).
 
-### WAF configuration manifest
-
-With the following manifest, a service with the name “Myservice2” will be created on the WAF under which there will be a content rule called “ContentRule1” and a backend server for the content rule called “rgServer1”. The WAF is also connected to the Barracuda Cloud Control for the administrator to use other additional cloud services available on the Barracuda Cloud Control portal.
-
-### Manifest
-
-```puppet
-cudawaf_service  { 'DemoService2':
-  ensure            => present,
-  name              => 'MyService2',
-  type              => 'HTTP',
-  ip_address        => '10.11.2.2',
-  port              => 8000,
-  group             => 'default',
-  vsite             => 'default',
-  status            => 'On',
-  address_version   => 'IPv4',
-  comments          => 'Demo service',
-}
- 
-cudawaf_cloudcontrol  {  'CloudControl':
-  ensure            => present,
-  state             => 'not_connected',
-  connect_mode      => 'cloud',
-  username          => 'user@domain.com',
-  password          => 'password'
-}
- 
-cudawaf_rule_group {  'RuleGroup-1':
-  ensure            => present,
-  name              => 'ContentRule1',
-  service_name      => 'MyService2',
-  url_match         => '/testing.html',
-  host_match        => 'www.example.com'
-}
- 
-cudawaf_rule_group_server  { 'RuleGroupServer-1':
-  ensure        => absent,
-  name          => 'rgServer1',
-  service_name  => 'MyService2',
-  rule_group_name => 'ContentRule1',
-  identifier    => 'Hostname',
-  hostname      => 'barracuda.com'
-}
-```
 ### Command to run puppet device
 
 To connect and configure the Barracuda WAF from the Puppet Agent, use the Puppet Device subcommand. The command to run is as follows:
