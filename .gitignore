@@ -6,3 +6,5 @@
 /.vs/VSWorkspaceState.json
 /.vs/waf-automation/v15/.suo
 /waf-on-azure/Powershell/deployment.ps1
+*.suo
+*.config
