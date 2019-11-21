@@ -31,7 +31,7 @@ Pass the following arguments to the script:
   does not exist, the script will generate a new private key and store it here.  You can re-use the same private key
   for renewing existing certificates.
 * `--domains` tells the script which domains you wish to obtain certificates for.  Pass in multiple domains as multiple
-  parameters, i.e. `--domain example.com www.example.com example.co.uk www.example.co.uk`.
+  parameters, i.e. `--domains example.com www.example.com example.co.uk www.example.co.uk`.
 
 ## Important Note: Rate Limiting
 
