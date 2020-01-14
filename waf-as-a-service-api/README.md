@@ -6,7 +6,7 @@ To use the API, you must first have a Barracuda user and a valid WAF-as-a-Servic
 
 ## Logging In
 
-To log in, send a POST request to `https://api.waas.barracudanetworks.com/v1/waasapi/api_login/`.  Send the following parameters:
+To log in, send a POST request to `https://api.waas.barracudanetworks.com/v2/waasapi/api_login/`.  Send the following parameters:
 
 * `email`: Your Barracuda user email.
 * `password`: Your Barracuda user password.
@@ -20,7 +20,7 @@ You may now call other API methods.  Pass in the additional HTTP header `auth-ap
 
 ## Logging Out
 
-You may invalidate the `key` before it expires by sending a POST request to `https://api.waas.barracudanetworks.com/v1/waasapi/api_logout/`.
+You may invalidate the `key` before it expires by sending a POST request to `https://api.waas.barracudanetworks.com/v2/waasapi/api_logout/`.
 
 ## API Methods
 
