@@ -4,7 +4,7 @@ import sys
 from getpass import getpass
 from urllib.parse import urlencode, urljoin
 
-API_BASE = "https://api.waas.barracudanetworks.com/v1/waasapi/"
+API_BASE = "https://api.waas.barracudanetworks.com/v2/waasapi/"
 
 def waas_api_login(email, password):
     res = requests.post(urljoin(API_BASE, 'api_login/'), data=dict(email=email, password=password))
