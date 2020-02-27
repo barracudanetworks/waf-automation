@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import argparse, subprocess, json, os, sys, base64, binascii, time, hashlib, re, copy, textwrap, logging
+import shelve, datetime
 import pprint, tempfile, contextlib
+import requests
+import hashlib
 from urllib.request import urlopen
 
 PRODUCTION_CA = "https://acme-v01.api.letsencrypt.org"
@@ -70,6 +73,9 @@ class ACMEClient:
 
         accountkey_json = json.dumps(self.header['jwk'], sort_keys=True, separators=(',', ':'))
         self.thumbprint = self._b64(hashlib.sha256(accountkey_json.encode('utf8')).digest())
+
+        # Initialize certificate cache
+        self.certificate_cache = shelve.open('_certcache'.join(os.path.splitext(self.account_key)))
 
     @staticmethod
     def _b64(b):
@@ -204,13 +210,23 @@ class ACMEClient:
 
         path = "/.well-known/acme-challenge/{1}".format(domain, token)
         with self.domain_verifier.verify_domain(domain, token, path, keyauthorization):
-            # check that the file is in place
+            # Check that the file is in place before making a request to Let's Encrypt
             wellknown_url = "http://{}/{}".format(domain, path)
             try:
-                resp = urlopen(wellknown_url)
-                resp_data = resp.read().decode('utf8').strip()
-                assert resp_data == keyauthorization
-            except (IOError, AssertionError):
+                # Add some browser-like headers to lessen the chance the request is blocked by an overzealous bot filter
+                headers = {
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+                    "Accept-Encoding": "gzip, deflate",
+                    "Accept-Language": "en-US,en;q=0.9,he;q=0.8",
+                    "Cache-Control": "max-age=0",
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"}
+                # Pass in verify=False because it's possible the HTTP URL will redirect to HTTPS - and by definition the
+                # HTTPS service won't have a valid certificate yet.
+                res = requests.get(wellknown_url, headers=headers, verify=False)
+                res_data = res.text.strip()
+                if res_data != keyauthorization:
+                    raise IOError("Data doesn't match.  Expected:\n{}\nReceived:\n{}".format(keyauthorization, res_data))
+            except IOError:
                 raise ValueError("Couldn't download {}: {}".format(
                     wellknown_url, sys.exc_info()))
 
@@ -238,6 +254,77 @@ class ACMEClient:
                 else:
                     raise ValueError("{0} challenge did not pass: {1}".format(
                         domain, challenge_status))
+
+    def verify_domain_dns_get_challenge(self, domain):
+        # get new challenge
+        code, result = self._send_signed_request(self.CA + "/acme/new-authz", {
+            "resource": "new-authz",
+            "identifier": {"type": "dns", "value": domain},
+        })
+        if code != 201:
+            raise ValueError("Error requesting challenges: {0} {1}".format(code, result))
+        result_json = json.loads(result.decode('utf8'))
+
+        # Have we already completed this challenge?
+        if result_json['status'] == 'valid':
+            return None
+
+        challenge = next(c for c in result_json['challenges'] if c['type'] == "dns-01")
+        token = re.sub(r"[^A-Za-z0-9_\-]", "_", challenge['token'])
+        keyauthorization = "{0}.{1}".format(token, self.thumbprint)
+
+        m = hashlib.sha256()
+        m.update(keyauthorization.encode('latin-1'))
+        txt_record = '_acme-challenge.{}'.format(domain)
+        txt_value = base64.urlsafe_b64encode(m.digest()).decode('latin-1').strip('=')
+
+        return dict(domain=domain, txt_record=txt_record, txt_value=txt_value,
+                    challenge_token=token, challenge_uri=challenge['uri'])
+
+    def verify_domain_dns_fulfil_challenge(self, domain, challenge_token, challenge_uri):
+        token = re.sub(r"[^A-Za-z0-9_\-]", "_", challenge_token)
+        keyauthorization = "{0}.{1}".format(token, self.thumbprint)
+
+        # notify challenge are met
+        code, result = self._send_signed_request(challenge_uri, {
+            "resource": "challenge",
+            "keyAuthorization": keyauthorization,
+        })
+        if code != 202:
+            raise ValueError("Error triggering challenge: {0} {1}".format(code, result))
+
+        # wait for challenge to be verified
+        while True:
+            try:
+                resp = urlopen(challenge_uri)
+                challenge_status = json.loads(resp.read().decode('utf8'))
+            except IOError as e:
+                raise ValueError("Error checking challenge: {0} {1}".format(
+                    e.code, json.loads(e.read().decode('utf8'))))
+            if challenge_status['status'] == "pending":
+                time.sleep(2)
+            elif challenge_status['status'] == "valid":
+                self.log.info("{0} verified!".format(domain))
+                break
+            else:
+                raise ValueError("{0} challenge did not pass: {1}".format(
+                    domain, challenge_status))
+
+    def verify_domain_dns_manual(self, domain):
+        challenge_dict = self.verify_domain_dns_get_challenge(domain)
+        if not challenge_dict:
+            print("{} already verified.".format(domain))
+            return
+
+        print("Please deploy a DNS TXT record under the name")
+        print("{} with the following value:".format(challenge_dict['txt_record']))
+        print("")
+        print(challenge_dict['txt_value'])
+        print("")
+        input("Once this is deployed, press Enter to continue")
+
+        self.verify_domain_dns_fulfil_challenge(domain, challenge_dict['challenge_token'],
+                                                challenge_dict['challenge_uri'])
 
     def sign_csr(self, csr_file):
         self.log.info("Signing certificate...")
@@ -285,23 +372,44 @@ class ACMEClient:
             with open(private_key_file, 'w') as f:
                 f.write(key.decode('latin-1'))
 
-        # Create temporary OpenSSL config file
-        with open('openssl-csr-san-template.cnf', 'r') as f:
-            config_template = f.read()
-        config = config_template.format(domains[0], '#' if len(domains) == 1 else '',
-                                        '\n'.join('DNS.{}={}'.format(i + 1, d) for i, d in enumerate(domains[1:])))
-        with self.tempfile(config) as config_filename:
-            # Create CSR
-            proc = subprocess.Popen(
-                "openssl req -new -batch -sha256 -key {private_key_file} -out {csr_file} -config {config_filename}".format(
-                    private_key_file=private_key_file, csr_file=csr_file, config_filename=config_filename),
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            out, err = proc.communicate()
-            if proc.returncode != 0:
-                raise IOError("OpenSSL return error while creating CSR: {0}".format(err))
+        # Compute hash of private key so we can do cache lookups only on this private key
+        private_key_hash = hashlib.sha1()
+        with open(private_key_file, 'rb') as f:
+            private_key_hash.update(f.read())
 
-        # Get certificate
-        cert = self.get_certificate_from_csr(csr_file)
+        # Let's Encrypt imposes severe rate limits on retrieving the same certificate multiple times in the same week.
+        # Before trying to generate it, check if we've already cached one in the past week.
+        cert = None
+        cache_key = private_key_hash.hexdigest() + '___' + ','.join(sorted(domains))
+        if cache_key in self.certificate_cache:
+            cached_cert = self.certificate_cache[cache_key]
+            if datetime.datetime.now() - cached_cert[0] < datetime.timedelta(days=7):
+                cert = cached_cert[1]
+            else:
+                del self.certificate_cache[cache_key]
+
+        if not cert:
+            # Create temporary OpenSSL config file
+            with open('openssl-csr-san-template.cnf', 'r') as f:
+                config_template = f.read()
+            config = config_template.format(domains[0], '#' if len(domains) == 1 else '',
+                                            '\n'.join('DNS.{}={}'.format(i + 1, d) for i, d in enumerate(domains[1:])))
+            with self.tempfile(config) as config_filename:
+                # Create CSR
+                proc = subprocess.Popen(
+                    "openssl req -new -batch -sha256 -key {private_key_file} -out {csr_file} -config {config_filename}".format(
+                        private_key_file=private_key_file, csr_file=csr_file, config_filename=config_filename),
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                out, err = proc.communicate()
+                if proc.returncode != 0:
+                    raise IOError("OpenSSL return error while creating CSR: {0}".format(err))
+
+            # Get certificate
+            cert = self.get_certificate_from_csr(csr_file)
+
+            # Put certificate in cache
+            self.certificate_cache[cache_key] = (datetime.datetime.now(), cert)
+
         with open(cert_file, 'w') as f:
             f.write(cert)
             f.write(INTERMEDIATE_CERT)

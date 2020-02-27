@@ -1,0 +1,19 @@
+﻿{
+    "cookie-replay-protection-type": "IP",
+    "http-only": "No",
+    "secure-cookie": "No",
+    "cookies-exempted": [
+                             "__utma",
+                             "__utmc",
+                             "__utmz",
+                             "__utmb",
+                             "AuthSuccessURL",
+                             "CTSESSION",
+                             "SMSESSION",
+                             "SMCHALLENGE"
+                        ],
+    "cookie-max-age": 11440,
+    "tamper-proof-mode": "Signed",
+    "allow-unrecognized-cookies": "Custom",
+    "days-allowed": 7
+}

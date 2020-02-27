@@ -1,4 +1,0 @@
-{
-"license1":"5M5xz-418yE-46f22",
-"license2":"abcde-abcde-abcde-abcde"
-}

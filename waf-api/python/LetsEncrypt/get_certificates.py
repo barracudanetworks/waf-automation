@@ -3,7 +3,7 @@
 Allows you to obtain certificates from Let's Encrypt (https://letsencrypt.org/) for domains hosted on a Barracuda
 Web Application Firewall.  Automatically answers Let's Encrypt's challenges using the Web Application Firewall.
 """
-import argparse, subprocess, json, os, sys, base64, binascii, time, hashlib, re, copy, textwrap, logging
+import argparse, subprocess, json, os, sys, base64, binascii, time, hashlib, re, copy, textwrap, logging, shelve
 import pprint, tempfile, contextlib
 from urllib.request import urlopen
 
@@ -35,7 +35,8 @@ def main(argv):
     parser.add_argument("-u", "--waf-user", required=True, help="Login username to your WAF")
     parser.add_argument("-p", "--waf-password", required=True, help="Login password to your WAF")
     parser.add_argument("-s", "--waf-service", required=True, help="Service on your WAF to verify with")
-    parser.add_argument("-d", "--domains", nargs="+", required=True, help="List of domain(s) to verify")
+    parser.add_argument("-d", "--domains", nargs="*", help="List of domain(s) to verify")
+    parser.add_argument("-D", "--domain-file", required=False, help="File to read domain(s) to verify from")
     parser.add_argument("--private-key-file", default="domain.key", help="File in which to place/read private key for cert")
     parser.add_argument("--waf-ssl-service", help="Service on WAF to upload resulting SSL certificate to")
     parser.add_argument("--verify-only", action='store_true', default=False, help="Dry run; verify domains but don't generate certificate")
@@ -46,9 +47,21 @@ def main(argv):
     args = parser.parse_args(argv)
     logging.getLogger().setLevel(args.quiet or logging.getLogger().level)
 
+    if args.domain_file:
+        if not args.domains:
+            args.domains = []
+        with open(args.domain_file, 'r') as f:
+            for line in f:
+                args.domains.append(line.strip())
+
+    if len(args.domains) == 0:
+        raise Exception("Must supply at least one domain.")
+
     waf_api = BarracudaWAFAPI(args.waf_netloc, args.waf_user, args.waf_password, args.waf_secure)
     verifier = DomainVerifierBarracudaWAF(waf_api, args.waf_service)
     client = ACMEClient(args.account_key, verifier, logging, STAGING_CA if args.staging else DEFAULT_CA)
+
+    print("{} domains to process.".format(len(args.domains)))
 
     if args.verify_only:
         for domain in args.domains:
@@ -62,7 +75,8 @@ def main(argv):
                 certificate = client.get_certificate_for_domains(args.domains, args.private_key_file, csr_file, cert_file)
 
                 if args.waf_ssl_service:
-                    serial_number = client.get_serial_number_from_certificate(cert_file)
+                    # Note: cert name can't start with a number, so prepend 'acme_'.
+                    serial_number = 'acme_' + client.get_serial_number_from_certificate(cert_file)
                     apply_certificate_to_waf_service(waf_api, args.waf_ssl_service, serial_number, args.private_key_file,
                                                      certificate, INTERMEDIATE_CERT)
     else:
@@ -73,12 +87,14 @@ def main(argv):
         certs = []
 
         # Get separate certs for each chunk of domains
-        for cert_domains in chunks(args.domains, MAX_DOMAINS_PER_CERT):
+        for i, cert_domains in enumerate(chunks(args.domains, MAX_DOMAINS_PER_CERT)):
             logging.info("Getting certificate for domains: {}".format(cert_domains))
             with client.tempfile(None) as csr_file:
                 with client.tempfile(None) as cert_file:
                     certificate = client.get_certificate_for_domains(cert_domains, args.private_key_file, csr_file, cert_file)
-                    serial_number = client.get_serial_number_from_certificate(cert_file)
+                    # Note: cert name can't start with a number, so prepend 'acme_'.
+                    serial_number = 'acme_' + client.get_serial_number_from_certificate(cert_file)
+                    logging.info("Uploading certificate #{} with name {}".format(i + 1, serial_number))
                     waf_api.upload_signed_certificate(serial_number, private_key, certificate, INTERMEDIATE_CERT)
                     certs.append(dict(name=serial_number, cert=certificate, domains=cert_domains))
 
