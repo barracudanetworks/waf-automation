@@ -1,0 +1,25 @@
+Get Token.  This is a useful little token script, useful if I'm not using postman, because I don't want
+the long token in all my curl commands.  
+
+I cat it out here just so you can see it, copy it if you like, if it may be useful to you.  
+It creates a file named token.txt that I can use with -K in subsequent curl calls.
+
+brett@Azure:~$ cat bwaf_login.txt
+curl http://<my waf>:8000/restapi/v3.1/login -X POST -H Content-Type:application/json -d '{"username": "<some name>", "password": "<some password>"}' > blah.txt
+sed 's/"/ /g' < blah.txt | awk '{print "-u \"" $4 ":\"" }' > token.txt
+
+
+brett@Azure:~$ chmod +X bwaf_login.txt
+
+Now just login like os:
+
+brett@Azure:~$ ./bwaf_login.txt
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   173    0   124  100    49   1031    407 --:--:-- --:--:-- --:--:--  1033
+brett@Azure:~$
+
+Now do use the token.txt file in your curl commands like so:
+
+brett@Azure:~$ curl -K token.txt -X PUT "http://<my waf>:8000/restapi/v3.1/certificates/self-signed-certificate/... blah
+
