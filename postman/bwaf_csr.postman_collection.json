@@ -1,0 +1,400 @@
+{
+	"info": {
+		"_postman_id": "217d1d41-972a-43ca-b834-db35491be72a",
+		"name": "bwaf_csr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Barracuda WAF Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4d27e2c-a601-419c-869e-fb9aa6a1b665",
+						"exec": [
+							"var mydata = pm.response.json();\r",
+							"pm.environment.set(\"token\", mydata.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "nottheactualpassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/login",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all details about a service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/services/{{service}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"services",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create fastfood.com self-signed cert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"fastfood.com-selfsigned\", \n\t\"common_name\": \"fastfood.com\",\n\t\"san_certificate\": [\"DNS:bucks.com\",\"DNS:lakers.com\",\"DNS:rockets.com\"], \n\t\"city\": \"Los_Angeles\", \n\t\"country_code\": \"US\", \"key_size\": \"2048\", \n\t\"key_type\": \"rsa\", \n\t\"allow_private_key_export\": \"No\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/certificates",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"certificates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download CSR (go get it signed by your CA)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"download-type\": \"csr\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/certificates/self-signed-certificate/fastfood.com-selfsigned?operation=download",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"certificates",
+						"self-signed-certificate",
+						"fastfood.com-selfsigned"
+					],
+					"query": [
+						{
+							"key": "operation",
+							"value": "download"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload fastfood.com signed cert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"fastfood.com-signed\",\n    \"signed-certificate\": \"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVEakNDQWZZQ0NRRDhHeWdSZVFLcmtEQU5C Z2txaGtpRzl3MEJBUXNGQURCWU1Rc3dDUVlEVlFRR0V3SlYKVXpFTE1Ba0dBMVVFQ0F3Q1EwRXhJ VEFmQmdOVkJBb01HRWx1ZEdWeWJtVjBJRmRwWkdkcGRITWdVSFI1SUV4MApaREVaTUJjR0ExVUVB d3dRY205dmRDNWxlR0Z0Y0d4bExtTnZiVEFlRncweU1EQXpNamN4T1RRM01EVmFGdzB5Ck1EQTBN all4T1RRM01EVmFNRG94Q3pBSkJnTlZCQVlUQWxWVE1SUXdFZ1lEVlFRSERBdE1iM05mUVc1blpX eGwKY3pFVk1CTUdBMVVFQXd3TVptRnpkR1p2YjJRdVkyOXRNSUlCSWpBTkJna3Foa2lHOXcwQkFR RUZBQU9DQVE4QQpNSUlCQ2dLQ0FRRUFwazBESnQ3eWE1UVR0b3BBNjZLbDVNSW5seXBzNktkTlZT Nmh5Z0pvUEFXNGNucHBqemI5CktKcURhQTBsOGdMN1ZmUjdicU13K1BWYjBxWG9QVjZrbUtKNkVE TTZPT3VNaGtiVzlQNXVsK2poak0xbWw3eWQKV2lXbzZHSDEyZFZvbC9SWldpcTNFL3lZZktIMmJ1 OHA5SlNsNDN3SDE0L0g1RTdLN1ZIM2g5WVJETzFaUytsQgo0ZUxlUG8xb2lJL0RKK1ZVRy9Vc2E1 Y2RmeWE5RkkvTDZhOS9VS3NmdldJVk4wMkh4dko5cXhkSnlpVGhvZ0dDCnFnc3E0YzZvNS8zU0xz QXB3ckpLREgxbXdTNXRrcjNWNHkwbmFiQmMvRmt6Q2RUY3hpUndjbWlLWXBycmV2UWMKVlNURGJ0 a25tcFdidnp2blVpZ1Q0R1dTeHI2VWFnWEozd0lEQVFBQk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJ QwpBUUMzTUNrdlVBWHYyL3UvZDdjNUpKS2NKTHpWZ1l6T1lzSzRTOHZlbmJtbklHZ2YvY3hyZ294 bWxaZXBFTVpvClF0a2dHbEROOVlVcGUyKy9ZbXhrcGtQMk1RMWFWcHRWVHhOTkFHN25Zd2RucVlE Q1VUV0MyVWdQRU9hc2pCNUcKNjZ4TkRsMHF4UHBpbU9FUGZ3cGp4QUFJZ3RBdVBUQUNHdklDR09H dmxtTHlxWG8zTkdDU1VTbG44VXBUL3RPdgpXQmphU2xCK283MElVSXpBL055cjZyRVBPWGdPczd6 VWVVQWhFRUV0ODdGNUlMK2pWRldZK3FQR3hkVVRvL2FHCjFSL2d0R2dVK281MTFOaU52UFVBMFI4 ZHdqYUk2UmR1blZEZVNHQW1DSDd2cXk1K3RTZDZURDB1cFhPZlBkZlUKZnJnR2pSaHJheUtJOTMr emlhdUlVbFRxWlVocWt1ZmlvWnJTVDRSeVFlRDY2a1dtRVJPTjZkeFdMOC92Uk1ZOQp0eVB1RVJt dXpaczFKRlk1Y3kvYWZRTWk1blZhMGpIbkNBMDJrN1psdFJSek11Z3pwSGFzNUcyV3ptWkZ2UTVt Cmk2aXV1M0JrOWRsY1VhelFIL3pTOWRZU3FrNG1pQjJFdDd5SDJyeko1TG90UTVmTXJ1SC82TG9l ekxucGNReGcKeUt1R3ozY1VoQ2dGRHB2aEJSWkk0U0piYUFHS0F0UGY3aHJxdm5tOVAxdktQN0d4 WUNTWFNiTDY5KzZmVExDSApOZUY4U0NTZFo3T3hLK1F5cVBXTUxUaVVlZ2ZCNGNQdytyRk45bHJR UUdrVWhFUlRGbHgzaW1OTkpqUHNJa202CnFJRTVQTUp1YkdWME5MaExOdE5xcllZR25OWHpYYnRx K1pYUHpHTkdxay82dXc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/certificates/signed-certificate/",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"certificates",
+						"signed-certificate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate signed cert to our service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"On\",\n    \"certificate\": \"fastfood.com-signed\",\n    \"enable-sni\": \"Yes\",\n    \"sni-certificate\": [\n        \"fastfood.com-signed\",\n        \"fastfood.com-signed\",\n        \"fastfood.com-signed\",\n        \"hockey.com\",\n        \"hockey.com\",\n        \"hockey.com\"\n    ],\n    \"domain\": [\n        \"bucks.com\",\n        \"lakers.com\",\n        \"rockets.com\",\n        \"sharks.com\",\n        \"flames.com\",\n        \"avalanche.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/services/{{service}}/ssl-security",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"services",
+						"{{service}}",
+						"ssl-security"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all details about a service Copy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/services/{{service}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"services",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "26e2a84f-7bae-41f4-a639-91d78e81880b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c4eed148-3455-4a8b-8308-5b165010a8db",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
