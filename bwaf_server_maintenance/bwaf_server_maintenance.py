@@ -6,7 +6,7 @@ import json
 import base64
 
 if len(sys.argv) < 6:
-    print('usage: bwaf_server_change.py <waf_url (including port)> <username> <password> <server ip> <server port> <action {"In Service" | "Out of Service Maintenance"} >')
+    print('usage: bwaf_server_maintenance.py <waf_url (including port)> <username> <password> <server ip> <server port> <action {"In Service" | "Out of Service Maintenance"} >')
     sys.exit(2)
     
 
