@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "1b8a9156-627d-43f8-b7a8-91becc1ece9c",
+		"name": "barracudawaf_san_sni",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Barracuda WAF Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4d27e2c-a601-419c-869e-fb9aa6a1b665",
+						"exec": [
+							"var mydata = pm.response.json();\r",
+							"pm.environment.set(\"token\", mydata.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "nottheactualpassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/login",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all details about a service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/services/{{service}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"services",
+						"{{service}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create basketball.com cert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"basketball.com\", \n\t\"common_name\": \"basketball.com\", \n\t\"san_certificate\": [\"DNS:bucks.com\",\"DNS:lakers.com\",\"DNS:rockets.com\"], \n\t\"city\": \"Los_Angeles\", \n\t\"country_code\": \"US\", \"key_size\": \"2048\", \n\t\"key_type\": \"rsa\", \n\t\"allow_private_key_export\": \"Yes\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/certificates",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"certificates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create hockey.com cert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"hockey.com\", \n\t\"common_name\": \"hockey.com\", \n\t\"san_certificate\": [\"DNS:avalanche.com\",\"DNS:sharks.com\",\"DNS:panthers.com\"], \n\t\"city\": \"Los_Angeles\", \n\t\"country_code\": \"US\", \"key_size\": \"2048\", \n\t\"key_type\": \"rsa\", \n\t\"allow_private_key_export\": \"Yes\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/certificates",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"certificates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create nba.com cert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"nba.com\", \n\t\"common_name\": \"nba.com\", \n\t\"san_certificate\": [\"DNS:bucks.com\",\"DNS:lakers.com\",\"DNS:rockets.com\"], \n\t\"city\": \"Los_Angeles\", \n\t\"country_code\": \"US\", \"key_size\": \"2048\", \n\t\"key_type\": \"rsa\", \n\t\"allow_private_key_export\": \"Yes\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/certificates",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"certificates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "associate basketball.com and SNI SNA mapping to service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"certificate\": \"basketball.com\",\n    \"sni-certificate\": [\n        \"basketball.com\",\n        \"basketball.com\",\n        \"basketball.com\",\n        \"hockey.com\",\n        \"hockey.com\",\n        \"hockey.com\"\n    ],\n    \"domain\": [\n        \"bucks.com\",\n        \"lakers.com\",\n        \"rockets.com\",\n        \"sharks.com\",\n        \"flames.com\",\n        \"avalanche.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/services/web/ssl-security",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"services",
+						"web",
+						"ssl-security"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "associate nba.com and SNI SNA mapping to service Copy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"certificate\": \"nba.com\",\n    \"sni-certificate\": [\n        \"nba.com\",\n        \"nba.com\",\n        \"nba.com\",\n        \"hockey.com\",\n        \"hockey.com\",\n        \"hockey.com\"\n    ],\n    \"domain\": [\n        \"bucks.com\",\n        \"lakers.com\",\n        \"rockets.com\",\n        \"sharks.com\",\n        \"flames.com\",\n        \"avalanche.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}/restapi/v3.1/services/web/ssl-security",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"restapi",
+						"v3.1",
+						"services",
+						"web",
+						"ssl-security"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "26e2a84f-7bae-41f4-a639-91d78e81880b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c4eed148-3455-4a8b-8308-5b165010a8db",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
