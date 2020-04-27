@@ -21,5 +21,4 @@ brett@Azure:~$
 
 Now do use the token.txt file in your curl commands like so:
 
-brett@Azure:~$ curl -K token.txt -X PUT "http://<my waf>:8000/restapi/v3.1/certificates/self-signed-certificate/... blah
-
+curl -K token.txt -X GET "http://SOMEWAF.eastus.cloudapp.azure.com:8000/restapi/v3.1/services/" | json_pp
