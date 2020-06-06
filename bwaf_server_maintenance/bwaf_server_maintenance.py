@@ -7,6 +7,7 @@ import base64
 
 if len(sys.argv) < 6:
     print('usage: bwaf_server_maintenance.py <waf_url (including port)> <username> <password> <server ip> <server port> <action {"In Service" | "Out of Service Maintenance"} >')
+    print('more usage: if you just want to see a list of services, servers, and rules, put some bogus values in for server ip, server port, and action.')
     sys.exit(2)
     
 
