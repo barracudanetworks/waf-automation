@@ -9,7 +9,7 @@
 # example usage: ./bwaf_login.curl http://1.2.3.4:8000 admin blkajsdflkjasdf
 #
 # explanation: rest api calls to the waf require a valid login token. This script will login, get the token, and write
-# the token to a file named token.txt that can be referenced in subsequent curl commands like this:
+# the token to a file named token.txt that can be referenced in subsequent curl commands shown below.
 # You can grab this file from this github repo like this: wget https://raw.githubusercontent.com/barracudanetworks/waf-automation/master/curl/bwaf_login.curl
 # Once you have this file, you can on linux chmod +x this file, then run it as per the usage and example above.
 #
