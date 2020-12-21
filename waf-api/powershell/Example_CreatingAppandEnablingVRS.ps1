@@ -33,10 +33,9 @@ Write-Host "Now my website is online. I need protection!"
 Write-Host "Building a WAF"
 
 #FQDN that you want the WaaS to respond to. This could be an array.
-$hostnames = "yourname.westeurope.azure.net"
+$hostnames = "mytestapp.com"
 #IP to be protected by WaaS
-$backendip = "x.x.x.x"
-
+$backendip = "mybackendappfqdn.com"
 
 #Provide login creds
 $waas_creds = Get-Credential
@@ -44,12 +43,8 @@ $waas_creds = Get-Credential
 #Login to WaaS
 $waas_token = Login-BarracudaWaaS -credentials $waas_creds 
 
-$apps =  Get-BarracudaWaaS-Application -authkey $authkey.key
 
-
-
-$app1 = New-BarracudaWaaS-Application -authkey $authkey.key -applicationName "APIApp1" -useExistingIP $false -backendIp "$($backendip)" -hostnames @("$($$hostnames)") -httpServicePort 80 -httpsServicePort 443 -maliciousTraffic Passive -backendPort 4444
-$app2 = New-BarracudaWaaS-Application -authkey $authkey.key -applicationName "APIApp2" -useExistingIP $false -backendIp "$($backendip)" -hostnames @("$($$hostnames)") -httpServicePort 80 -httpsServicePort 443 -maliciousTraffic Passive -backendPort 4448
+$app1 = New-BarracudaWaaS-Application -authkey $waas_token.key -applicationName "APIApp1"  -backendIp "$($backendip)" -hostnames @("$($hostnames)") -httpServicePort 80 -httpsServicePort 443 -maliciousTraffic Passive -backendPort 443
 
 
 $components = Get-BarracudaWaaS-Component -authkey $authkey.key -appid $app1.id

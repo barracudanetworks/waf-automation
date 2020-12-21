@@ -35,10 +35,14 @@ function Get-BarracudaWaaS-Accounts{
 
 	try{
 		$results =Invoke-WebRequest -Uri "https://api.waas.barracudanetworks.com/v2/waasapi/accounts/" -Method GET -Headers $header -UseBasicParsing 
-	}catch [System.Net.WebException] {
-                $Error[0] | Get-ExceptionResponse
-                throw   
-            }
+	}catch{
+        if(Test-Json -Json $Error[0].ErrorDetails.Message -ErrorAction SilentlyContinue){
+            $Error[0].ErrorDetails.Message | ConvertFrom-Json
+        }else{
+            $Error[1].ErrorDetails.Message
+        }
+        
+    }
 			
 	#returns to the login.
 	return ($results.Content | ConvertFrom-Json)

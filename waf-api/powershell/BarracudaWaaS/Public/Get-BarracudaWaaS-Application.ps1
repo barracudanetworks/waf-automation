@@ -17,7 +17,7 @@ function Get-BarracudaWaaS-Application{
     [string]$authkey,
     [Parameter(Mandatory=$false,
     ValueFromPipelineByPropertyName=$true)]
-    [string]$appname,
+    [string]$appid,
     [switch]$testbackend    
     )
 
@@ -27,7 +27,7 @@ function Get-BarracudaWaaS-Application{
         
     }
 
-    $url = "https://api.waas.barracudanetworks.com/v2/waasapi/applications/$appname"
+    $url = "https://api.waas.barracudanetworks.com/v2/waasapi/applications/$appid"
     if($testbackend){
         $url = $url + '/backend-ip-test/'
     }
@@ -42,14 +42,23 @@ function Get-BarracudaWaaS-Application{
     }
 
 	try{
-		$results =Invoke-WebRequest -Uri "$($url)" -Method GET -Headers $header -UseBasicParsing 
-	}catch [System.Net.WebException] {
-                $Error[0] | Get-ExceptionResponse
-                throw   
-            }
+        $results =Invoke-WebRequest -Uri "$($url)" -Method GET -Headers $header -UseBasicParsing 
+        
+	}catch{
+        if(Test-Json -Json $Error[0].ErrorDetails.Message -ErrorAction SilentlyContinue){
+            $Error[0].ErrorDetails.Message | ConvertFrom-Json
+        }else{
+            $Error[1].ErrorDetails.Message
+        }
+        
+    }
 			
 
 
-	#returns to the login.
-	return ($results.Content | ConvertFrom-Json).results
+    #returns to the login.
+    if(!$appid){
+        return ($results.Content | ConvertFrom-Json).results
+    }else{
+        return ($results.Content | ConvertFrom-Json)
+    }
 }

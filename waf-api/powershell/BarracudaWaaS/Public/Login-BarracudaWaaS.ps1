@@ -35,9 +35,13 @@ function Login-BarracudaWaaS{
 
 			try{
 				$results =Invoke-WebRequest -Uri "https://api.waas.barracudanetworks.com/v1/waasapi/api_login/" -Method POST -Body $postParams -UseBasicParsing -ErrorAction SilentlyContinue
-			}catch [System.Net.WebException] {
-                $Error[0] | Get-ExceptionResponse
-                throw   
+			}catch{
+                if(Test-Json -Json $Error[0].ErrorDetails.Message -ErrorAction SilentlyContinue){
+                    $Error[0].ErrorDetails.Message | ConvertFrom-Json
+                }else{
+                    $Error[1].ErrorDetails.Message
+                }
+                
             }
 			
 

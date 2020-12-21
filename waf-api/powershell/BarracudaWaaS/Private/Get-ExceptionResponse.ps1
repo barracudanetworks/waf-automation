@@ -7,6 +7,7 @@ function Get-ExceptionResponse {
         $InputObject
     )
 
+
     switch($InputObject.Exception.Response.StatusCode.value__){
          "404" { Write-Error $("{`"code`":$($InputObject.Exception.Response.StatusCode.value__),`"message`":`"$($InputObject.Exception.Response.StatusDescription)`"}" | ConvertFrom-Json -ErrorAction SilentlyContinue) }
          default {  Write-Error $($InputObject.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue) }

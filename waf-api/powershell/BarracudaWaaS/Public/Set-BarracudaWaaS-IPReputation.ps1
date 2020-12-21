@@ -85,9 +85,13 @@ function Set-BarracudaWaaS-IPReputation{
     
 		$results = Invoke-WebRequest -Uri "$($url)" -Method PATCH -Headers $header -Body $json -ContentType "application/json" -UseBasicParsing
 	
-    }catch [System.Net.WebException] {
-                return $error[0].ErrorDetails.Message | ConvertFrom-Json
-                 
+    }catch{
+        if(Test-Json -Json $Error[0].ErrorDetails.Message -ErrorAction SilentlyContinue){
+            $Error[0].ErrorDetails.Message | ConvertFrom-Json
+        }else{
+            $Error[1].ErrorDetails.Message
+        }
+        
     }
 			
 

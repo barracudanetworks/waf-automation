@@ -31,3 +31,4 @@ $iprep | Set-BarracudaWaaS-IPReputation -authkey $waas_token.key -id $iprep.id -
 #The WaaS API will ignore any duplicate IP's in your input
 $postchange = Get-BarracudaWaaS-IPReputation -authkey $waas_token.key -application_id $appid
 
+Write-Output $postchange

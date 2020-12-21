@@ -38,9 +38,13 @@ function Set-BarracudaWaaS-BVRS{
 
 	try{
 		$results =Invoke-WebRequest -Uri "$($url)" -Method POST -Headers $header -UseBasicParsing 
-	}catch [System.Net.WebException] {
-        $Error[0] | Get-ExceptionResponse 
-        throw   
+	}catch{
+        if(Test-Json -Json $Error[0].ErrorDetails.Message -ErrorAction SilentlyContinue){
+            $Error[0].ErrorDetails.Message | ConvertFrom-Json
+        }else{
+            $Error[1].ErrorDetails.Message
+        }
+        
     }
 	
 

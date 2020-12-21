@@ -22,12 +22,12 @@ function Logout-BarracudaWaaS{
         
     }
 
-$header = @{"auth-api" = "$authkey"}
+    $header = @{"auth-api" = "$authkey"}
 
 
 			try{
 				
-				$results =Invoke-WebRequest -Uri "https://api.waas.barracudanetworks.com/v1/waasapi/logout/" -Method GET -Headers $authkey -UseBasicParsing
+				$results =Invoke-WebRequest -Uri "https://api.waas.barracudanetworks.com/v1/waasapi/logout/" -Method GET -Headers $header -UseBasicParsing
 			}catch{
 				Write-Error("Unable to Logout of WaaS API due to " + $_.Exception)
 			}
