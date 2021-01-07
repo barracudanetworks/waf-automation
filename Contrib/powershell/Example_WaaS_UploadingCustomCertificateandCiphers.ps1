@@ -1,3 +1,8 @@
+<#
+This example script demonstrates updating a existing applications HTTPS endpoint to take a custom SSL certificate 
+
+
+#>
 
 Import-Module BarracudaWaaS -Force
 
@@ -18,8 +23,14 @@ $myapp = Get-BarracudaWaaS-Application -authkey $waas_token.key -appid $myappID 
 #Collects the endpoint information of the selected Application
 $endpoint = Get-BarracudaWaaS-Endpoint -authkey $waas_token.key -endpointid $ep | Where-Object -Property ServiceType -eq -Value "HTTPS"
 
-
-
+#Collects the PEM certs
 
 $cert = Get-Content -Path "C:\Users\gallen\OneDrive - Barracuda Networks, Inc\Desktop\cer1.pem" -Raw
 $key = Get-Content -Path "C:\Users\gallen\OneDrive - Barracuda Networks, Inc\Desktop\key1.pem" -Raw
+
+
+#Updates the endpoint, disabling auto cert and replacing with the cert and private key
+
+Set-BarracudaWaaS-Endpoint -authkey $waas_token.key -automaticCertificate $false -replaceCertificate $true -certificate $cert -privateKey $key 
+
+

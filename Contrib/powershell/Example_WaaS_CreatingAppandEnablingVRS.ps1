@@ -1,3 +1,9 @@
+
+<#
+This example script can be used to create a new Application and enable the Vulnerability Remediation Service to scan it.
+
+#>
+
 Function Create-Menu-Choice {
 <#
 .SYNOPSIS
