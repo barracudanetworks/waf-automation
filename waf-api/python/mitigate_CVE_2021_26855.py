@@ -46,6 +46,6 @@ for global_acl in global_acl_list:
         try:
                 r = requests.post(adr_base_url, headers=my_headers, data=global_acl )
                 t = r.text
-                print t
+                print(t)
         except requests.exceptions.RequestException as e:  # This is the correct syntax
                 raise SystemExit(e)
