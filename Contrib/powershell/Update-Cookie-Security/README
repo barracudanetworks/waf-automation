@@ -1,0 +1,15 @@
+This is a utility script that can be used to update a particular security policy's Cookie Security settings.
+
+Steps to run the script
+----------------------------
+
+1. The JSON config data needs to be present under cookie-security.json file (an example is attached along with this script)
+
+2. The script can then be run as .\Update_Cookie_Security.ps1 with the following as command-line arguments
+        WAF IP:Port
+        Username
+        Password
+        Security Policy Name
+        location of the JSON config input file
+        
+        Example: ./Update-Cookie-Security.ps1 “10.1.1.1:8000” “admin” “xxxxxx” “sharepoint” “C:\cookie-security.json”
