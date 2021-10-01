@@ -1,0 +1,52 @@
+{
+    "basePath": "/restapi/v3.2", 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Response Stats API", 
+        "version": "3.2.0"
+    }, 
+    "paths": {
+        "/stats/response-stats": {
+            "get": {
+                "description": "", 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Response Stats", 
+                "tags": [
+                    "Response Stats"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "2.0", 
+    "tags": [
+        {
+            "name": "Response Stats"
+        }
+    ]
+}

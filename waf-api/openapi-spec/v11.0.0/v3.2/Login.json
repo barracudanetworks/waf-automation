@@ -1,0 +1,88 @@
+{
+    "basePath": "/restapi/v3.2", 
+    "definitions": {
+        "Login body": {
+            "properties": {
+                "password": {
+                    "description": "Login password", 
+                    "type": "string"
+                }, 
+                "username": {
+                    "description": "Login username", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "username", 
+                "password"
+            ]
+        }
+    }, 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Login API", 
+        "version": "3.2.0"
+    }, 
+    "paths": {
+        "/login": {
+            "post": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Body Parameter of Login", 
+                        "in": "body", 
+                        "name": "Login", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Login body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "201": {
+                        "description": "Successfully created."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found"
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Login Information", 
+                "tags": [
+                    "Login"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "2.0", 
+    "tags": [
+        {
+            "name": "Login"
+        }
+    ]
+}

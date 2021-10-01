@@ -1,0 +1,270 @@
+{
+    "basePath": "/restapi/v3.2", 
+    "definitions": {
+        "Barracuda Cloud Control body": {
+            "properties": {
+                "connect_mode": {
+                    "description": "Select 'cloud' to connect to the cloud-based service.", 
+                    "enum": [
+                        "cloud"
+                    ], 
+                    "type": "string"
+                }, 
+                "password": {
+                    "description": "Password", 
+                    "type": "string"
+                }, 
+                "state": {
+                    "description": "Connect to Barracuda Cloud Control.", 
+                    "enum": [
+                        "connected", 
+                        "not-connected"
+                    ], 
+                    "type": "string"
+                }, 
+                "username": {
+                    "description": "Username", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "connect_mode", 
+                "state", 
+                "password", 
+                "username"
+            ]
+        }, 
+        "Barracuda WAF Control Center body": {
+            "properties": {
+                "barracuda_control_server": {
+                    "description": "Hostname or IP address of the Barracuda WAF Control Center to which this unit is to be connected.", 
+                    "type": "string"
+                }, 
+                "connect_mode": {
+                    "description": "Select 'local' to connect to a local appliance purchased separately.", 
+                    "enum": [
+                        "local"
+                    ], 
+                    "type": "string"
+                }, 
+                "password": {
+                    "description": "Password", 
+                    "type": "string"
+                }, 
+                "state": {
+                    "description": "Connect to Barracuda WAF Control Center.", 
+                    "enum": [
+                        "connected", 
+                        "not_connected"
+                    ], 
+                    "type": "string"
+                }, 
+                "username": {
+                    "description": "Username", 
+                    "type": "string"
+                }, 
+                "validation_token": {
+                    "description": "The Validation Token that is retrieved from the WAF Control Center.", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "barracuda_control_server", 
+                "connect_mode", 
+                "password", 
+                "username", 
+                "state", 
+                "validation_token"
+            ]
+        }
+    }, 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Cloud Control API", 
+        "version": "3.2.0"
+    }, 
+    "paths": {
+        "/control-center": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of WAF Control Center", 
+                        "in": "body", 
+                        "name": "WAF Control Center", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Barracuda WAF Control Center body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "EDIT Information of Barracuda WAF Control Center Settings", 
+                "tags": [
+                    "Cloud Control"
+                ]
+            }
+        }, 
+        "/control-center  ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Barracuda Cloud Control", 
+                        "in": "body", 
+                        "name": "Barracuda Cloud Control", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Barracuda Cloud Control body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "EDIT Information of Barracuda Cloud Control Settings", 
+                "tags": [
+                    "Cloud Control"
+                ]
+            }
+        }, 
+        "/control-center   ": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "collectionFormat": "multi", 
+                        "description": "", 
+                        "in": "query", 
+                        "items": {
+                            "enum": [
+                                "barracuda_control_server", 
+                                "connect_mode", 
+                                "validation_token", 
+                                "username", 
+                                "state"
+                            ], 
+                            "types": "string"
+                        }, 
+                        "name": "parameters", 
+                        "type": "array"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found"
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Control Center Settings", 
+                "tags": [
+                    "Cloud Control"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "2.0", 
+    "tags": [
+        {
+            "name": "Cloud Control"
+        }
+    ]
+}

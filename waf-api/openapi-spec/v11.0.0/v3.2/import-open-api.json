@@ -1,0 +1,373 @@
+{
+  "swagger": "2.0",
+  "basePath": "/restapi/v3.2",
+  "host": "<WAF-IP/WAF-Domain>:8000",
+  "info": {
+    "termsOfService": "http://barracuda.com",
+    "title": "Import Open API Specifications",
+    "version": "3.2.0"
+  },
+  "paths": {
+    "/ops/import-openapi": {
+      "post": {
+        "description": "Upload OpenAPI",
+        "parameters": [
+          {
+            "description": "Login token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Body Parameter for Upload Open API",
+            "schema": {
+              "$ref": "#/definitions/upload_POST_body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Invalid Request."
+          },
+          "401": {
+            "description": "Invalid Credentials."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Resource Not Found."
+          },
+          "405": {
+            "description": "Method Not Allowed."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "summary": "Upload Open API Based Configuration"
+      }
+    },
+    "/ops/import-openapi ": {
+      "post": {
+        "description": "Download OpenAPI",
+        "parameters": [
+          {
+            "description": "Login token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Body Parameter for Download Open API Configuration",
+            "schema": {
+              "$ref": "#/definitions/download_POST_body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Invalid Request."
+          },
+          "401": {
+            "description": "Invalid Credentials."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Resource Not Found."
+          },
+          "405": {
+            "description": "Method Not Allowed."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "summary": "Download Open API Based Configuration"
+      }
+    },
+    "/ops/import-openapi  ": {
+      "post": {
+        "description": "Apply OpenAPI",
+        "parameters": [
+          {
+            "description": "Login token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Body Parameter for Apply JSON Configuration",
+            "schema": {
+              "$ref": "#/definitions/apply_POST_body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Invalid Request."
+          },
+          "401": {
+            "description": "Invalid Credentials."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Resource Not Found."
+          },
+          "405": {
+            "description": "Method Not Allowed."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "summary": "Apply API Specs Based Configuration"
+      }
+    },
+    "/ops/import-openapi   ": {
+      "post": {
+        "description": "Apply Saved Configuration",
+        "parameters": [
+          {
+            "description": "Login token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Body Parameter to Apply saved JSON Configuration",
+            "schema": {
+              "$ref": "#/definitions/apply_saved_POST_body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Invalid Request."
+          },
+          "401": {
+            "description": "Invalid Credentials."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Resource Not Found."
+          },
+          "405": {
+            "description": "Method Not Allowed."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "summary": "Apply saved API specs based Configuration"
+      }
+    },
+    "/ops/import-openapi    ": {
+      "post": {
+        "description": "Delete existing API Discovery Configuration",
+        "parameters": [
+          {
+            "description": "Login token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Body Parameter for Apply JSON Configuration",
+            "schema": {
+              "$ref": "#/definitions/delete_configuration_POST_body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Invalid Request."
+          },
+          "401": {
+            "description": "Invalid Credentials."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Resource Not Found."
+          },
+          "405": {
+            "description": "Method Not Allowed."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "summary": "Delete API Specs Based Configuration"
+      }
+    }
+  },
+  "definitions": {
+    "upload_POST_body": {
+      "required": [
+        "json-file-content"
+      ],
+      "properties": {
+        "operation": {
+          "description": "Operation type (upload/ download/ apply)",
+          "type": "string",
+          "example": "upload"
+        },
+        "import-file-content": {
+          "description": "Base64 encoded JSON/YAML Based Swagger File",
+          "type": "string",
+          "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+        },
+        "advanced-config": {
+          "description": "Base 64 Encoded JSON file containg advanced configuration",
+          "type": "string",
+          "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+        },
+        "rate_limit_stats": {
+          "description": "Base 64 Encoded JSON file containg rate limit stats",
+          "type": "string",
+          "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+        },
+        "oauth_specs": {
+          "description": "Base 64 Encoded JSON file containg oauth specs",
+          "type": "string",
+          "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+        },
+        "service-name": {
+          "description": "Service name on which config is to be applied",
+          "type": "string",
+          "example": "S1"
+        },
+        "api-spec-name": {
+          "description": "API name by which config will be stored",
+          "type": "string",
+          "example": "Pet_Store"
+        }
+      }
+    },
+    "download_POST_body": {
+      "required": [
+        "json-file-content"
+      ],
+      "properties": {
+        "operation": {
+          "description": "Import Operation type (upload/ download/ apply)",
+          "type": "string",
+          "example": "download"
+        },
+        "import-file-content": {
+          "description": "Base64 encoded JSON Based Config content",
+          "type": "string",
+          "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+        }
+      }
+    },
+    "apply_POST_body": {
+      "required": [
+        "json-file-content"
+      ],
+      "properties": {
+        "operation": {
+          "description": "Import Operation type (upload/ download/ apply)",
+          "type": "string",
+          "example": "apply"
+        },
+        "import-file-content": {
+          "description": "Base64 encoded JSON Based Configuration content",
+          "type": "string",
+          "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+        }
+      }
+    },
+    "apply_saved_POST_body": {
+      "required": [
+        "json-file-content"
+      ],
+      "properties": {
+        "operation": {
+          "description": "Import Operation type (upload/ download/ apply)",
+          "type": "string",
+          "example": "apply"
+        },
+        "service-name": {
+          "description": "Service name on which config is to be applied",
+          "type": "string",
+          "example": "S1"
+        },
+        "api-spec-name": {
+          "description": "API name by which config will be stored",
+          "type": "string",
+          "example": "Pet_Store"
+        }
+      }
+    },
+    "delete_configuration_POST_body": {
+      "required": [
+        "json-file-content"
+      ],
+      "properties": {
+        "operation": {
+          "description": "Import Operation type (upload/ download/ apply)",
+          "type": "string",
+          "example": "apply"
+        },
+        "api-spec-name": {
+          "description": "API name by which config will be stored",
+          "type": "string",
+          "example": "Pet_Store"
+        }
+      }
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "Import Open API Configuration"
+    }
+  ]
+}
+

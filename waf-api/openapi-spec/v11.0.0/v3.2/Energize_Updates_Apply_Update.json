@@ -1,0 +1,96 @@
+{
+    "basePath": "/restapi/v3.2",
+    "definitions": {
+        "Energize Updates Apply Update POST body": {
+            "properties": {
+                "type": {
+                    "description": "Update type",
+                    "enum": [
+                        "attackdef",
+                        "virusdef",
+                        "geoipdef",
+                        "secdef"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type"
+            ]
+        }
+    },
+    "host": "<WAF-IP/WAF-Domain>:8000",
+    "info": {
+        "termsOfService": "http://barracuda.com",
+        "title": "Energize Updates Check for Update API",
+        "version": "3.2.0"
+    },
+    "paths": {
+        "/energize-updates/apply-update": {
+            "post": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Body Parameter of Energize Updates Apply Update",
+                        "in": "body",
+                        "name": "Update Type",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Energize Updates Apply Update POST body"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully completed."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    },
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "POST Information of Energize Updates Apply Update",
+                "tags": [
+                    "Energize Updates Apply Update"
+                ]
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "tags": [
+        {
+            "name": "Energize Updates Apply Update"
+        }
+    ]
+}

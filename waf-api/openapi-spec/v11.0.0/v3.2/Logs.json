@@ -1,0 +1,732 @@
+{
+    "basePath": "/restapi/v3", 
+    "definitions": {
+        "Access Logs body": {
+            "properties": {}
+        }, 
+        "Audit Logs body": {
+            "properties": {}
+        }, 
+        "Network Firewall Logs body": {
+            "properties": {}
+        }, 
+        "System Logs body": {
+            "properties": {}
+        }, 
+        "Web Firewall Logs body": {
+            "properties": {}
+        }
+    }, 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Logs API", 
+        "version": "3.0.0"
+    }, 
+    "paths": {
+        "/logs/access-logs": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ID", 
+                        "in": "query", 
+                        "name": "log_uid", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Time", 
+                        "in": "query", 
+                        "name": "timestamp", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Client IP", 
+                        "in": "query", 
+                        "name": "client_ip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Client Port", 
+                        "in": "query", 
+                        "name": "client_port", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Country", 
+                        "in": "query", 
+                        "name": "country_code", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Client Type", 
+                        "in": "query", 
+                        "name": "client_type", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Proxy IP", 
+                        "in": "query", 
+                        "name": "web_proxyip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Proxy Port", 
+                        "in": "query", 
+                        "name": "web_proxyport", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "User Agent", 
+                        "in": "query", 
+                        "name": "web_useragent", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Authenticated User", 
+                        "in": "query", 
+                        "name": "web_authuser", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Custom Header1", 
+                        "in": "query", 
+                        "name": "web_cusheader1", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Custom Header2", 
+                        "in": "query", 
+                        "name": "web_cusheader2", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Custom Header3", 
+                        "in": "query", 
+                        "name": "web_cusheader3", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ServerIP Port", 
+                        "in": "query", 
+                        "name": "serverip:serverport", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Method", 
+                        "in": "query", 
+                        "name": "method", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Clickjacking", 
+                        "in": "query", 
+                        "name": "click_jacking", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Encrypted URL", 
+                        "in": "query", 
+                        "name": "encrypted_url", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Bytes Sent", 
+                        "in": "query", 
+                        "name": "byte_sent", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Bytes Received", 
+                        "in": "query", 
+                        "name": "byte_recvd", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Host", 
+                        "in": "query", 
+                        "name": "weblog_host", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "URL", 
+                        "in": "query", 
+                        "name": "uri_stem", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Query String", 
+                        "in": "query", 
+                        "name": "query_str", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Time Taken", 
+                        "in": "query", 
+                        "name": "time_taken", 
+                        "required": false, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Access Logs", 
+                "tags": [
+                    "Logs"
+                ]
+            }
+        }, 
+        "/logs/audit-logs": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ID", 
+                        "in": "query", 
+                        "name": "bson_oid", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Time", 
+                        "in": "query", 
+                        "name": "timestamp", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Login IP", 
+                        "in": "query", 
+                        "name": "login_ip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Admin", 
+                        "in": "query", 
+                        "name": "admin_name", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Transaction Type", 
+                        "in": "query", 
+                        "name": "txn_name", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Change Type", 
+                        "in": "query", 
+                        "name": "chg_name", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Object_Type", 
+                        "in": "query", 
+                        "name": "obj_type", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Object_Name", 
+                        "in": "query", 
+                        "name": "obj_name", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Variable", 
+                        "in": "query", 
+                        "name": "variable", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Old Value", 
+                        "in": "query", 
+                        "name": "old_value", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "New Value", 
+                        "in": "query", 
+                        "name": "new_value", 
+                        "required": false, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Audit Logs", 
+                "tags": [
+                    "Logs"
+                ]
+            }
+        }, 
+        "/logs/network-firewall-logs": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ID", 
+                        "in": "query", 
+                        "name": "bson_oid", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Time", 
+                        "in": "query", 
+                        "name": "timestamp", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ACL Name", 
+                        "in": "query", 
+                        "name": "acl_id", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Source IP", 
+                        "in": "query", 
+                        "name": "src_ip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Source Port", 
+                        "in": "query", 
+                        "name": "src_port", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Country", 
+                        "in": "query", 
+                        "name": "country_code", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Destination IP", 
+                        "in": "query", 
+                        "name": "dest_ip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Destination Port", 
+                        "in": "query", 
+                        "name": "dest_port", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Protocol", 
+                        "in": "query", 
+                        "name": "acl_protocol", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ACL Policy", 
+                        "in": "query", 
+                        "name": "acl_action", 
+                        "required": false, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Network Firewall Logs", 
+                "tags": [
+                    "Logs"
+                ]
+            }
+        }, 
+        "/logs/system-logs": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ID", 
+                        "in": "query", 
+                        "name": "bson_oid", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Time", 
+                        "in": "query", 
+                        "name": "timestamp", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Module", 
+                        "in": "query", 
+                        "name": "module_name", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Event ID", 
+                        "in": "query", 
+                        "name": "event_id", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Severity", 
+                        "in": "query", 
+                        "name": "sev_level", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Message", 
+                        "in": "query", 
+                        "name": "log_msg", 
+                        "required": false, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of System Logs", 
+                "tags": [
+                    "Logs"
+                ]
+            }
+        }, 
+        "/logs/web-firewall-logs": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "ID", 
+                        "in": "query", 
+                        "name": "log_uid", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Time", 
+                        "in": "query", 
+                        "name": "timestamp", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Severity", 
+                        "in": "query", 
+                        "name": "sev_level", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Action", 
+                        "in": "query", 
+                        "name": "act_taken", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Attack Description", 
+                        "in": "query", 
+                        "name": "attack_desc", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Attack Category", 
+                        "in": "query", 
+                        "name": "attk_category", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Client IP", 
+                        "in": "query", 
+                        "name": "client_ip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Service IP Port", 
+                        "in": "query", 
+                        "name": "serviceip:serviceport", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Proxy IP", 
+                        "in": "query", 
+                        "name": "wf_proxyip", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Proxy Port", 
+                        "in": "query", 
+                        "name": "wf_proxyport", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Rule", 
+                        "in": "query", 
+                        "name": "rule_id", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "User Agent", 
+                        "in": "query", 
+                        "name": "wf_useragent", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Authenticated User", 
+                        "in": "query", 
+                        "name": "wf_authuser", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Referer", 
+                        "in": "query", 
+                        "name": "referer", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Host", 
+                        "in": "query", 
+                        "name": "apslog_host", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "URL", 
+                        "in": "query", 
+                        "name": "url", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Useragent Version", 
+                        "in": "query", 
+                        "name": "useragent_version", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Country", 
+                        "in": "query", 
+                        "name": "country_code", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Query String", 
+                        "in": "query", 
+                        "name": "query_str", 
+                        "required": false, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Client Type", 
+                        "in": "query", 
+                        "name": "client_type", 
+                        "required": false, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Web Firewall Logs", 
+                "tags": [
+                    "Logs"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "2.0", 
+    "tags": [
+        {
+            "name": "Logs"
+        }
+    ]
+}

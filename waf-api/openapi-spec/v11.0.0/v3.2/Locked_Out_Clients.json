@@ -1,0 +1,214 @@
+{
+    "basePath": "/restapi/v3.2", 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Locked out Clients API", 
+        "version": "3.2.0"
+    }, 
+    "paths": {
+        "/locked-out-clients": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "One or more services - comma separated service names.",
+                        "explode": "false",
+                        "examples": {
+                            "oneService": {
+                                "summary": "Example to get locked out clients for a single service",
+                                "value": [
+                                    "Service-1"
+                                ]
+                            },
+                            "multipleServices": {
+                                "summary": "Example to get locked out clients for multiple services",
+                                "value": [
+                                    "Service-1",
+                                    "Service-2",
+                                    "ProdService"
+                                ]
+                            }
+                        },
+                        "in": "query",
+                        "name": "services",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "style": "form"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "403": {
+                        "description": "Forbidden."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Locked out Clients - Client IPs and Client Fingerprints", 
+                "tags": [
+                    "Locked out Clients"
+                ]
+            },
+            "delete": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "One or more services - comma separated service names.<br>Value 'all-services' has a special meaning and<br>can be used to delete locked out client(s) for all configured services.",
+                        "explode": "false",
+                        "examples": {
+                            "oneService": {
+                                "summary": "Example to delete client(s) from lockout for a single service",
+                                "value": [
+                                    "Service-1"
+                                ]
+                            },
+                            "multipleServices": {
+                                "summary": "Example to delete client(s) from lockout for multiple services",
+                                "value": [
+                                    "Service-1",
+                                    "Service-2",
+                                    "ProdService"
+                                ]
+                            },
+                            "AllServices": {
+                                "summary": "Example to delete client(s) from lockout for all services",
+                                "value": [
+                                    "all-services"
+                                ]
+                            }
+                        }, 
+                        "in": "query",
+                        "name": "services",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "One or more clients - comma separated values of Client IPs or Fingerprints.<br>Value 'all-clients' has a special meaning and<br>can be used to delete all locked out clients.",
+                        "explode": "false",
+                        "examples": {
+                            "oneClientIP": {
+                                "summary": "Example to delete a Client IP from lockout",
+                                "value": [
+                                    "10.11.23.45"
+                                ]
+                            },
+                            "oneClientFP": {
+                                "summary": "Example to delete a Client Fingerprint from lockout",
+                                "value": [
+                                    "f022e76486a907ab3f38b3dfd0423a69"
+                                ]
+                            },
+                            "multipleClients": {
+                                "summary": "Example to delete multiple clients from lockout",
+                                "value": [
+                                    "10.11.23.45",
+                                    "10.11.34.23",
+                                    "f022e76486a907ab3f38b3dfd0423a69"
+                                ]
+                            },
+                            "allClients": {
+                                "summary": "Example to delete all clients from lockout",
+                                "value": [
+                                    "all-clients"
+                                ]
+                            }
+                        },
+                        "in": "query",
+                        "name": "client",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "403": {
+                        "description": "Forbidden."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Remove Client IP(s) and Client Fingerprint(s) from Lockout", 
+                "tags": [
+                    "Locked out Clients"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "3.0", 
+    "tags": [
+        {
+            "name": "Locked out Clients"
+        }
+    ]
+}

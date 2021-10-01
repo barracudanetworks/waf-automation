@@ -1,0 +1,1174 @@
+{
+    "basePath": "/restapi/v3.2", 
+    "definitions": {
+        "Amazon S3 Test Connection body": {
+            "properties": {
+                "amazon-s3-bucket-name": {
+                    "description": "Amazon S3 Bucket Name", 
+                    "type": "string"
+                }, 
+                "amazon-s3-directory-path": {
+                    "description": "Amazon S3 Directory Path", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "Amazon S3"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source"
+            ]
+        }, 
+        "Azure Blob Test Connection body": {
+            "properties": {
+                "azure-storage-access-key": {
+                    "description": "Azure Storage Access Key", 
+                    "type": "string"
+                }, 
+                "azure-storage-account-name": {
+                    "description": "Azure Storage Account Name", 
+                    "type": "string"
+                }, 
+                "azure-storage-blob-path": {
+                    "description": "Azure Storage Blob Path", 
+                    "type": "string"
+                }, 
+                "azure-storage-container-name": {
+                    "description": "Azure Storage Container Name", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "Azure Blob"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source"
+            ]
+        }, 
+        "Backups body": {
+            "properties": {
+                "amazon-s3-bucket-name": {
+                    "description": "Amazon S3 Bucket Name", 
+                    "type": "string"
+                }, 
+                "amazon-s3-directory-path": {
+                    "description": "Amazon S3 Directory Path", 
+                    "type": "string"
+                }, 
+                "azure-storage-access-key": {
+                    "description": "Azure Storage Access Key", 
+                    "type": "string"
+                }, 
+                "azure-storage-account-name": {
+                    "description": "Azure Storage Account Name", 
+                    "type": "string"
+                }, 
+                "azure-storage-blob-path": {
+                    "description": "Azure Storage Blob Path", 
+                    "type": "string"
+                }, 
+                "azure-storage-container-name": {
+                    "description": "Azure Storage Container Name", 
+                    "type": "string"
+                }, 
+                "backup-encryption-key": {
+                    "description": "The Encryption key to be used for encrypting configuration backup(s)", 
+                    "type": "string"
+                }, 
+                "backup-schedule-location": {
+                    "description": "Location where all scheduled backups are to be stored", 
+                    "enum": [
+                        "Amazon S3", 
+                        "Azure Blob", 
+                        "FTP", 
+                        "FTPS", 
+                        "Cloud", 
+                        "SMB"
+                    ], 
+                    "type": "string"
+                }, 
+                "backups-to-keep": {
+                    "description": "Maximum number of backups to keep for each component", 
+                    "type": "string"
+                }, 
+                "cloud-password": {
+                    "description": "Cloud Server Password", 
+                    "type": "string"
+                }, 
+                "cloud-username": {
+                    "description": "Cloud Server Username", 
+                    "type": "string"
+                }, 
+                "day-of-week": {
+                    "default": "Off", 
+                    "description": "Day on which backup to be scheduled", 
+                    "enum": [
+                        "Daily", 
+                        "Off", 
+                        "Sunday", 
+                        "Monday", 
+                        "Tuesday", 
+                        "Wednesday", 
+                        "Thursday", 
+                        "Friday", 
+                        "Saturday"
+                    ], 
+                    "type": "string"
+                }, 
+                "encrypt-backup": {
+                    "description": "Encrypt Backup", 
+                    "enum": [
+                        "Yes", 
+                        "No"
+                    ], 
+                    "type": "string"
+                }, 
+                "exclude-management-interface-configurations": {
+                    "description": "Exclude Management ACLs, VLAN, Routes, Interface from the backup file while restoring", 
+                    "enum": [
+                        "Yes", 
+                        "No"
+                    ], 
+                    "type": "string"
+                }, 
+                "ftp-address": {
+                    "description": "FTP Server Address", 
+                    "type": "string"
+                }, 
+                "ftp-password": {
+                    "description": "FTP Server Password", 
+                    "type": "string"
+                }, 
+                "ftp-path": {
+                    "description": "FTP Server Folder Path", 
+                    "type": "string"
+                }, 
+                "ftp-port": {
+                    "default": "21", 
+                    "description": "FTP Server Port", 
+                    "type": "string"
+                }, 
+                "ftp-username": {
+                    "description": "FTP Server Username", 
+                    "type": "string"
+                }, 
+                "ftps-address": {
+                    "description": "FTPS Server Address", 
+                    "type": "string"
+                }, 
+                "ftps-password": {
+                    "description": "FTPS Server Password", 
+                    "type": "string"
+                }, 
+                "ftps-path": {
+                    "description": "FTPS Server Folder Path", 
+                    "type": "string"
+                }, 
+                "ftps-port": {
+                    "default": "21", 
+                    "description": "FTPS Server Port", 
+                    "type": "string"
+                }, 
+                "ftps-username": {
+                    "description": "FTPS Server Username", 
+                    "type": "string"
+                }, 
+                "hour-of-day": {
+                    "description": "Hour of the day at which backup to be scheduled", 
+                    "type": "string"
+                }, 
+                "minute-of-hour": {
+                    "description": "Minute of the hour at which backup to be scheduled", 
+                    "type": "string"
+                }, 
+                "smb-address": {
+                    "description": "SMB Server Address", 
+                    "type": "string"
+                }, 
+                "smb-password": {
+                    "description": "SMB Server Password", 
+                    "type": "string"
+                }, 
+                "smb-path": {
+                    "description": "SMB Server Folder Path", 
+                    "type": "string"
+                }, 
+                "smb-port": {
+                    "default": "445", 
+                    "description": "SMB Server Port", 
+                    "type": "string"
+                }, 
+                "smb-username": {
+                    "description": "SMB Server Username", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "Amazon S3", 
+                        "Azure Blob", 
+                        "FTP", 
+                        "FTPS", 
+                        "Cloud", 
+                        "SMB"
+                    ], 
+                    "type": "string"
+                }, 
+                "use-ntlm": {
+                    "description": "Use NTLMv2", 
+                    "enum": [
+                        "Yes", 
+                        "No"
+                    ], 
+                    "type": "string"
+                }
+            }
+        }, 
+        "Cloud Test Connection body": {
+            "properties": {
+                "cloud-password": {
+                    "description": "Cloud Server Password", 
+                    "type": "string"
+                }, 
+                "cloud-username": {
+                    "description": "Cloud Server Username", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "Cloud"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source"
+            ]
+        }, 
+        "FTP Test Connection body": {
+            "properties": {
+                "ftp-address": {
+                    "description": "FTP Server Address", 
+                    "type": "string"
+                }, 
+                "ftp-password": {
+                    "description": "FTP Server Password", 
+                    "type": "string"
+                }, 
+                "ftp-path": {
+                    "description": "FTP Server Folder Path", 
+                    "type": "string"
+                }, 
+                "ftp-port": {
+                    "default": "21", 
+                    "description": "FTP Server Port", 
+                    "type": "string"
+                }, 
+                "ftp-username": {
+                    "description": "FTP Server Username", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "FTP"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source"
+            ]
+        }, 
+        "FTPS Test Connection body": {
+            "properties": {
+                "ftps-address": {
+                    "description": "FTPS Server Address", 
+                    "type": "string"
+                }, 
+                "ftps-password": {
+                    "description": "FTPS Server Password", 
+                    "type": "string"
+                }, 
+                "ftps-path": {
+                    "description": "FTPS Server Folder Path", 
+                    "type": "string"
+                }, 
+                "ftps-port": {
+                    "default": "21", 
+                    "description": "FTPS Server Port", 
+                    "type": "string"
+                }, 
+                "ftps-username": {
+                    "description": "FTPS Server Username", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "FTPS"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source"
+            ]
+        }, 
+        "Get Remote Backups body": {
+            "properties": {
+                "server-type": {
+                    "description": "Remote Server Type", 
+                    "enum": [
+                        "FTP", 
+                        "FTPS", 
+                        "Cloud", 
+                        "SMB"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "server-type"
+            ]
+        }, 
+        "Local Restore Backups body": {
+            "properties": {
+                "file-content": {
+                    "description": "File content in Base 64 string format", 
+                    "type": "string"
+                }, 
+                "filename": {
+                    "description": "Name of the file to be restored", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Restore Backup from Local Device", 
+                    "enum": [
+                        "Local"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source", 
+                "filename", 
+                "file-content"
+            ]
+        }, 
+        "Manual Backups body": {
+            "properties": {
+                "destination": {
+                    "description": "Manual Backup Location", 
+                    "enum": [
+                        "Amazon S3", 
+                        "Azure Blob", 
+                        "FTP", 
+                        "FTPS", 
+                        "Cloud", 
+                        "Local", 
+                        "SMB"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "destination"
+            ]
+        }, 
+        "Restore Backups body": {
+            "properties": {
+                "filename": {
+                    "description": "Name of the file to be restored", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Remote Server where the Backup has to be restored from", 
+                    "enum": [
+                        "FTP", 
+                        "FTPS", 
+                        "Cloud", 
+                        "SMB"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source", 
+                "filename"
+            ]
+        }, 
+        "SMB Test Connection body": {
+            "properties": {
+                "smb-address": {
+                    "description": "SMB Server Address", 
+                    "type": "string"
+                }, 
+                "smb-password": {
+                    "description": "SMB Server Password", 
+                    "type": "string"
+                }, 
+                "smb-path": {
+                    "description": "SMB Server Folder Path", 
+                    "type": "string"
+                }, 
+                "smb-port": {
+                    "default": "445", 
+                    "description": "SMB Server Port", 
+                    "type": "string"
+                }, 
+                "smb-username": {
+                    "description": "SMB Server Username", 
+                    "type": "string"
+                }, 
+                "source": {
+                    "description": "Type of Remote Server", 
+                    "enum": [
+                        "SMB"
+                    ], 
+                    "type": "string"
+                }, 
+                "use-ntlm": {
+                    "description": "Use NTLMv2", 
+                    "enum": [
+                        "Yes", 
+                        "No"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "source"
+            ]
+        }
+    }, 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Backups API", 
+        "version": "3.2.0"
+    }, 
+    "paths": {
+        "/backup": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "FETCH Information of Backups", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup  ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Update Backup Settings", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Backups body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Update Backup Settings", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/generate-encryptionkey": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "GET Encryption Key", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/get-remote-backup": {
+            "get": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Get Remote Backups", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Get Remote Backups body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "List Backups Stored on the Remote", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/manual-backup": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Manual Backups", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Manual Backups body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Manual Backup", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/restore-backup": {
+            "post": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Restore Backups", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Restore Backups body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Restore Backup from the Remote Servers", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/restore-backup ": {
+            "post": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Restore Backups", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Local Restore Backups body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Restore Backup from the Local Device", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/test-connection": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of FTP Test Connection", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/FTP Test Connection body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Test Connection to the FTP Server", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/test-connection ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of FTPS Test Connection", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/FTPS Test Connection body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Test Connection to the FTPS Server", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/test-connection  ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of SMB Test Connection", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/SMB Test Connection body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Test Connection to the SMB Server", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/test-connection   ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Cloud Test Connection", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Cloud Test Connection body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Test Connection to the Cloud ", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/test-connection    ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Amazon S3 Test Connection", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Amazon S3 Test Connection body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Test Connection to Amazon S3", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }, 
+        "/backup/test-connection     ": {
+            "put": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "Body Parameter of Azure Blob Test Connection", 
+                        "in": "body", 
+                        "name": "Backups", 
+                        "required": "true", 
+                        "schema": {
+                            "$ref": "#/definitions/Azure Blob Test Connection body"
+                        }, 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    }, 
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Test Connection to Azure Blob", 
+                "tags": [
+                    "Backups"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "2.0", 
+    "tags": [
+        {
+            "name": "Backups"
+        }
+    ]
+}
