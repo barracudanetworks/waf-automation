@@ -1,0 +1,729 @@
+{
+    "basePath": "/restapi/v3.2",
+    "components": {
+        "schemas": {}
+    },
+    "definitions": {
+        "Service POST body": {
+            "properties": {
+                "address-version": {
+                    "default": "",
+                    "description": "Version",
+                    "enum": [
+                        "IPv4",
+                        "IPv6"
+                    ],
+                    "type": "string"
+                },
+                "app-id": {
+                    "description": "Service App Id",
+                    "maximum": 63,
+                    "type": "string"
+                },
+                "certificate": {
+                    "description": "Certificate",
+                    "enum": [
+                        ""
+                    ],
+                    "type": "string"
+                },
+                "comments": {
+                    "default": "",
+                    "description": "Comments",
+                    "type": "string"
+                },
+                "ecdsa-certificate": {
+                    "description": "ECDSA Certificate",
+                    "enum": [
+                        ""
+                    ],
+                    "type": "string"
+                },
+                "group": {
+                    "description": "Service Group",
+                    "maximum": 64,
+                    "type": "string"
+                },
+                "ip-address": {
+                    "description": "VIP",
+                    "type": "string"
+                },
+                "mask": {
+                    "description": "Mask",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Web Application Name",
+                    "maximum": 64,
+                    "type": "string"
+                },
+                "port": {
+                    "default": "",
+                    "description": "Port",
+                    "maxmium": 65535,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "secure-site-domain": {
+                    "description": "Secure Site Domain",
+                    "example": [],
+                    "schema": {
+                        "items": [],
+                        "type": "array"
+                    },
+                    "type": "string"
+                },
+                "session-timeout": {
+                    "default": "",
+                    "description": "Session Timeout",
+                    "maxmium": 86400,
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "status": {
+                    "default": "",
+                    "description": "Status",
+                    "enum": [
+                        "On",
+                        "Off"
+                    ],
+                    "type": "string"
+                },
+                "type": {
+                    "default": "",
+                    "description": "Type",
+                    "enum": [
+                        "HTTP",
+                        "HTTPS",
+                        "Instant SSL",
+                        "Redirect Service",
+                        "Custom",
+                        "Custom SSL",
+                        "FTP",
+                        "FTP SSL"
+                    ],
+                    "type": "string"
+                },
+                "vsite": {
+                    "description": "Vsite",
+                    "maximum": 64,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "Service PUT body": {
+            "properties": {
+                "app-id": {
+                    "description": "Service App Id",
+                    "maximum": 63,
+                    "type": "string"
+                },
+                "certificate": {
+                    "description": "Certificate",
+                    "enum": [
+                        ""
+                    ],
+                    "type": "string"
+                },
+                "comments": {
+                    "default": "",
+                    "description": "Comments",
+                    "type": "string"
+                },
+                "dps-enabled": {
+                    "default": "",
+                    "description": "Enable Active DDoS Prevention",
+                    "enum": [
+                        "Yes",
+                        "No"
+                    ],
+                    "type": "string"
+                },
+                "ecdsa-certificate": {
+                    "description": "ECDSA Certificate",
+                    "enum": [
+                        ""
+                    ],
+                    "type": "string"
+                },
+                "enable-access-logs": {
+                    "default": "",
+                    "description": "Enable Access Logs",
+                    "enum": [
+                        "Yes",
+                        "No"
+                    ],
+                    "type": "string"
+                },
+                "enable-loopback-adapter": {
+                    "default": "",
+                    "description": "DSR mode",
+                    "enum": [
+                        "Yes",
+                        "No"
+                    ],
+                    "type": "string"
+                },
+                "ip-address": {
+                    "description": "VIP",
+                    "type": "string"
+                },
+                "mask": {
+                    "description": "Mask",
+                    "type": "string"
+                },
+                "port": {
+                    "default": "",
+                    "description": "Port",
+                    "maxmium": 65535,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "secure-site-domain": {
+                    "description": "Secure Site Domain",
+                    "example": [],
+                    "schema": {
+                        "items": [],
+                        "type": "array"
+                    },
+                    "type": "string"
+                },
+                "session-timeout": {
+                    "default": "",
+                    "description": "Session Timeout",
+                    "maxmium": 86400,
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "status": {
+                    "default": "",
+                    "description": "Status",
+                    "enum": [
+                        "On",
+                        "Off"
+                    ],
+                    "type": "string"
+                },
+                "type": {
+                    "default": "",
+                    "description": "Type",
+                    "enum": [
+                        "HTTP",
+                        "HTTPS",
+                        "Instant SSL",
+                        "Redirect Service",
+                        "Custom",
+                        "Custom SSL",
+                        "FTP",
+                        "FTP SSL"
+                    ],
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "host": "<WAF-IP/WAF-Domain>:8000",
+    "info": {
+        "termsOfService": "http://barracuda.com",
+        "title": "Service API",
+        "version": "3.2.0"
+    },
+    "paths": {
+        "/services": {
+            "get": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "Website Profile",
+                                "URL Optimizer",
+                                "URL ACLs",
+                                "IP Reputation",
+                                "URL Profile",
+                                "HTTP Request Rewrite",
+                                "Parameter Optimizer",
+                                "URL Translation",
+                                "WaaS Provisioning Info",
+                                "Provisioning Info",
+                                "SSL Security",
+                                "Supply Chain",
+                                "XML Protected URL",
+                                "Adaptive Profiling",
+                                "Rule Group",
+                                "SSL OCSP",
+                                "Instant SSL",
+                                "FTP",
+                                "Comment Spam",
+                                "SSL CRL",
+                                "SSL Client Authentication",
+                                "Referer Spam",
+                                "HTTP Response Rewrite",
+                                "Web Socket Policy",
+                                "Access Rule",
+                                "Service",
+                                "Form Spam",
+                                "JSON Profile",
+                                "WaaS Account Details",
+                                "Compression",
+                                "Advanced Configuration",
+                                "Adaptive Profiling Rule",
+                                "Session Tracking",
+                                "Caching",
+                                "Load Balancing",
+                                "Captcha Settings",
+                                "DDoS Policy",
+                                "Slow Client Attack Prevention",
+                                "Mask Sensitive Data",
+                                "Server",
+                                "Secure Browsing",
+                                "Exception Profiling",
+                                "Response Body Rewrite",
+                                "Clickjacking",
+                                "Domain Info",
+                                "Basic Security",
+                                "URL Encryption",
+                                "Allow or Deny Client",
+                                "URL Policy",
+                                "Authentication",
+                                "Authorization Policy",
+                                "Advanced Client Analysis",
+                                "Header ACL"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "groups",
+                        "type": "array"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "operational"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "category",
+                        "type": "array"
+                    },
+                    {
+                        "description": "",
+                        "in": "query",
+                        "name": "limit",
+                        "type": "integer"
+                    },
+                    {
+                        "description": "",
+                        "in": "query",
+                        "name": "offset",
+                        "type": "integer"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "address-version",
+                                "app-id",
+                                "certificate",
+                                "comments",
+                                "ecdsa-certificate",
+                                "enable-access-logs",
+                                "enable-loopback-adapter",
+                                "group",
+                                "ip-address",
+                                "mask",
+                                "name",
+                                "port",
+                                "secure-site-domain",
+                                "session-timeout",
+                                "status",
+                                "type",
+                                "vsite"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "parameters",
+                        "type": "array"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "FETCH Information of Service",
+                "tags": [
+                    "Service"
+                ]
+            }
+        },
+        "/services ": {
+            "post": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Body Parameter of Service",
+                        "in": "body",
+                        "name": "Service",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Service POST body"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully created."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    },
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "ADD Information of Service",
+                "tags": [
+                    "Service"
+                ]
+            }
+        },
+        "/services/{Web Application Name}": {
+            "get": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Web Application Name of Service",
+                        "in": "path",
+                        "name": "Web Application Name",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "Website Profile",
+                                "URL Optimizer",
+                                "URL ACLs",
+                                "IP Reputation",
+                                "URL Profile",
+                                "HTTP Request Rewrite",
+                                "Parameter Optimizer",
+                                "URL Translation",
+                                "WaaS Provisioning Info",
+                                "Provisioning Info",
+                                "SSL Security",
+                                "Supply Chain",
+                                "XML Protected URL",
+                                "Adaptive Profiling",
+                                "Rule Group",
+                                "SSL OCSP",
+                                "Instant SSL",
+                                "FTP",
+                                "Comment Spam",
+                                "SSL CRL",
+                                "SSL Client Authentication",
+                                "Referer Spam",
+                                "HTTP Response Rewrite",
+                                "Web Socket Policy",
+                                "Access Rule",
+                                "Service",
+                                "Form Spam",
+                                "JSON Profile",
+                                "WaaS Account Details",
+                                "Compression",
+                                "Advanced Configuration",
+                                "Adaptive Profiling Rule",
+                                "Session Tracking",
+                                "Caching",
+                                "Load Balancing",
+                                "Captcha Settings",
+                                "DDoS Policy",
+                                "Slow Client Attack Prevention",
+                                "Mask Sensitive Data",
+                                "Server",
+                                "Secure Browsing",
+                                "Exception Profiling",
+                                "Response Body Rewrite",
+                                "Clickjacking",
+                                "Domain Info",
+                                "Basic Security",
+                                "URL Encryption",
+                                "Allow or Deny Client",
+                                "URL Policy",
+                                "Authentication",
+                                "Authorization Policy",
+                                "Advanced Client Analysis",
+                                "Header ACL"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "groups",
+                        "type": "array"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "operational"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "category",
+                        "type": "array"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "address-version",
+                                "app-id",
+                                "certificate",
+                                "comments",
+                                "ecdsa-certificate",
+                                "enable-access-logs",
+                                "enable-loopback-adapter",
+                                "group",
+                                "ip-address",
+                                "mask",
+                                "name",
+                                "port",
+                                "secure-site-domain",
+                                "session-timeout",
+                                "status",
+                                "type",
+                                "vsite"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "parameters",
+                        "type": "array"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "FETCH Information of Service",
+                "tags": [
+                    "Service"
+                ]
+            }
+        },
+        "/services/{Web Application Name} ": {
+            "put": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Web Application Name of Service",
+                        "in": "path",
+                        "name": "Web Application Name",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Body Parameter of Service",
+                        "in": "body",
+                        "name": "Service",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Service PUT body"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    },
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "EDIT Information of Service",
+                "tags": [
+                    "Service"
+                ]
+            }
+        },
+        "/services/{Web Application Name}  ": {
+            "delete": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Web Application Name of Service",
+                        "in": "path",
+                        "name": "Web Application Name",
+                        "required": "true",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "DELETE Information of Service",
+                "tags": [
+                    "Service"
+                ]
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "tags": [
+        {
+            "name": "Service"
+        }
+    ]
+}

@@ -1,0 +1,151 @@
+{
+    "basePath": "/restapi/v3.2",
+    "host": "<WAF-IP/WAF-Domain>:8000",
+    "info": {
+      "termsOfService": "http://barracuda.com",
+      "title": "Export JSON based Configuration API",
+      "version": "3.2.0"
+    },
+    "paths": {
+      "/ops/export-configuration": {
+        "post": {
+          "description": "",
+          "parameters": [
+            {
+              "description": "Login token",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": "Body Parameter of JSON Export(Full)",
+              "name": "JSON Export",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Full_Export_POST_body"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation."
+            },
+            "400": {
+              "description": "Invalid Request."
+            },
+            "401": {
+              "description": "Invalid Credentials."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "Resource Not Found."
+            },
+            "405": {
+              "description": "Method Not Allowed."
+            },
+            "500": {
+              "description": "Internal Server Error."
+            }
+          },
+          "summary": "Export JSON based Complete(Full) Configuration",
+          "tags": [
+            "Export JSON Configuration"
+          ]
+        }
+      },
+      "/ops/export-configuration ": {
+        "post": {
+          "description": "",
+          "parameters": [
+            {
+              "description": "Login token",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "required": true,
+              "description": "Body Parameter of JSON Export(Partial)",
+              "schema": {
+                "$ref": "#/definitions/Partial_Export_POST_body"
+              },
+              "name": "JSON Export"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation."
+            },
+            "400": {
+              "description": "Invalid Request."
+            },
+            "401": {
+              "description": "Invalid Credentials."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "Resource Not Found."
+            },
+            "405": {
+              "description": "Method Not Allowed."
+            },
+            "500": {
+              "description": "Internal Server Error."
+            }
+          },
+          "summary": "Export JSON based Partial(Only Changes) Configuration",
+          "tags": [
+            "Export JSON Configuration"
+          ]
+        }
+      }
+    },
+    "definitions": {
+      "Full_Export_POST_body": {
+        "required": [
+          "backup-type"
+        ],
+        "properties": {
+          "backup-type": {
+            "description": "JSON Export type",
+            "type": "string",
+            "example": "full"
+          }
+        }
+      },
+      "Partial_Export_POST_body": {
+        "required": [
+          "backup-type",
+          "name"
+        ],
+        "properties": {
+          "backup-type": {
+            "description": "JSON Export type",
+            "type": "string",
+            "example": "partial"
+          },
+          "name": {
+            "description": "Configuration Checkpoint name for Partial(Only Changes) Export",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "schemes": [
+      "http"
+    ],
+    "swagger": "2.0",
+    "tags": [
+      {
+        "name": "Export JSON Configuration"
+      }
+    ]
+  }

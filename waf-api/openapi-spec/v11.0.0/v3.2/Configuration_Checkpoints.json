@@ -1,0 +1,225 @@
+{
+    "basePath": "/restapi/v3.2",
+    "host": "<WAF-IP/WAF-Domain>:8000",
+    "info": {
+      "termsOfService": "http://barracuda.com",
+      "title": "JSON based Configuration Checkpoints API",
+      "version": "3.2.0"
+    },
+    "paths": {
+      "/configuration-checkpoints/{Checkpoint Name}": {
+        "get": {
+          "summary": "FETCH Information of Configuration Checkpoint",
+          "tags": [
+            "JSON Configuration Checkpoints"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "required": true,
+              "name": "Authorization",
+              "type": "string",
+              "description": "Login token"
+            },
+            {
+              "required": true,
+              "in": "path",
+              "description": "Name of Configuration Checkpoint",
+              "name": "Checkpoint Name",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation."
+            },
+            "400": {
+              "description": "Invalid Request."
+            },
+            "401": {
+              "description": "Invalid Credentials."
+            },
+            "404": {
+              "description": "Resource Not Found."
+            },
+            "405": {
+              "description": "Method Not Allowed."
+            },
+            "500": {
+              "description": "Internal Server Error."
+            }
+          },
+          "description": ""
+        }
+      },
+      "/configuration-checkpoints": {
+        "get": {
+          "description": "",
+          "parameters": [
+            {
+              "description": "Login token",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation."
+            },
+            "400": {
+              "description": "Invalid Request."
+            },
+            "401": {
+              "description": "Invalid Credentials."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "Resource Not Found."
+            },
+            "405": {
+              "description": "Method Not Allowed."
+            },
+            "500": {
+              "description": "Internal Server Error."
+            }
+          },
+          "summary": "FETCH Information of Configuration Checkpoints",
+          "tags": [
+            "JSON Configuration Checkpoints"
+          ]
+        },
+        "post": {
+          "description": "",
+          "parameters": [
+            {
+              "description": "Login token",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "required": true,
+              "description": "Body Parameter of Configuration Checkpoint",
+              "schema": {
+                "$ref": "#/definitions/Configuration_Checkpoint_POST_body"
+              },
+              "name": "Checkpoint"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation."
+            },
+            "400": {
+              "description": "Invalid Request."
+            },
+            "401": {
+              "description": "Invalid Credentials."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "Resource Not Found."
+            },
+            "405": {
+              "description": "Method Not Allowed."
+            },
+            "500": {
+              "description": "Internal Server Error."
+            }
+          },
+          "summary": "CREATE JSON based Configuration Checkpoint",
+          "tags": [
+            "JSON Configuration Checkpoints"
+          ]
+        }
+      },
+      "/configuration-checkpoints/{Checkpoint Name} ": {
+        "delete": {
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "JSON Configuration Checkpoints"
+          ],
+          "summary": "DELETE Information of Configuration Checkpoint",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "Authorization",
+              "description": "Login token",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "name": "Checkpoint Name",
+              "description": "Name of Configuration Checkpoint",
+              "required": true,
+              "in": "path"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully deleted."
+            },
+            "400": {
+              "description": "Invalid Request."
+            },
+            "401": {
+              "description": "Invalid Credentials."
+            },
+            "404": {
+              "description": "Resource Not Found."
+            },
+            "405": {
+              "description": "Method Not Allowed."
+            },
+            "500": {
+              "description": "Internal Server Error."
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Configuration_Checkpoint_POST_body": {
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "description": "Configuration Checkpoint name",
+            "type": "string"
+          },
+          "comment": {
+            "description": "Configuration Checkpoint comment",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "schemes": [
+      "http"
+    ],
+    "swagger": "2.0",
+    "tags": [
+      {
+        "name": "JSON Configuration Checkpoints"
+      }
+    ]
+  }

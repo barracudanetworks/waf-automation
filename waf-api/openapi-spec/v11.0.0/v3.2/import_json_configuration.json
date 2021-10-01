@@ -1,0 +1,137 @@
+{
+    "swagger": "2.0",
+    "basePath": "/restapi/v3.2",
+    "host": "<WAF-IP/WAF-Domain>:8000",
+    "info": {
+        "termsOfService": "http://barracuda.com",
+        "title": "Restore/Test JSON based Configuration API",
+        "version": "3.2.0"
+    },
+    "paths": {
+        "/ops/import-configuration": {
+            "post": {
+                "description": "Restore/Test JSON based Configuration",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in":"body",
+                        "name": "body",
+                        "required": true,
+                        "description":"Body Parameter for JSON Restore",
+                        "schema":{
+                           "$ref":"#/definitions/Restore_JSON_POST_body"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Restore JSON based Configuration",
+                "tags": [
+                    "Import JSON Configuration"
+                ]
+            }
+        },
+        "/ops/running-tasks": {
+            "get": {
+                "description": "Fetch status for Running tasks",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Task Id for job status to be checked",
+                        "name": "job_id",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Status for running jobs",
+                "tags": [
+                    "Import JSON Configuration"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Restore_JSON_POST_body": {
+            "required":[
+                "json-file-content"
+            ],
+            "properties":{
+                "operation": {
+                    "description":"JSON Operation type (restore/Test)",
+                    "type":"string",
+                    "example": "Test"
+                },
+                "json-file-content": {
+                    "description":"Base64 encoded JSON Configuration File",
+                    "type":"string",
+                    "example": "J5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjog"
+                }
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "tags": [
+        {
+            "name": "Import JSON Configuration"
+        }
+    ]
+}

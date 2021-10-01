@@ -1,0 +1,61 @@
+{
+    "basePath": "/restapi/v3.2", 
+    "host": "<WAF-IP/WAF-Domain>:8000", 
+    "info": {
+        "termsOfService": "http://barracuda.com", 
+        "title": "Logout API", 
+        "version": "3.2.0"
+    }, 
+    "paths": {
+        "/logout": {
+            "delete": {
+                "description": "", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": "true", 
+                        "type": "string"
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "202": {
+                        "description": "Successfully deleted."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource not found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "Logout Information", 
+                "tags": [
+                    "Logout"
+                ]
+            }
+        }
+    }, 
+    "schemes": [
+        "http"
+    ], 
+    "swagger": "2.0", 
+    "tags": [
+        {
+            "name": "Logout"
+        }
+    ]
+}

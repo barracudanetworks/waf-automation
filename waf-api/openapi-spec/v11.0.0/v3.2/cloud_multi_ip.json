@@ -1,0 +1,542 @@
+{
+	"swagger": "2.0",
+	"basePath": "/restapi/v3.2",
+	"host": "<WAF-IP/WAF-Domain>:8000",
+	"info": {
+		"termsOfService": "http://barracuda.com",
+		"title": "Cloud Multi IP",
+		"version": "3.2.0"
+	},
+	"paths": {
+		"/system ": {
+			"put": {
+				"description": "Enable Multi IP",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter for Enable AWS Multi",
+						"schema": {
+							"$ref": "#/definitions/Enable_multi_IP"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Enable Multi IP",
+				"tags": [
+					"AWS"
+				]
+			}
+		},
+		"/system/azure-config": {
+			"put": {
+				"description": "Azure Configuration AD : [ Username/ Password ]",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter for Azure Configuration with AD",
+						"schema": {
+							"$ref": "#/definitions/Azure_Config_AD"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Aure Configuration with User AD : [ Username/ Password ]",
+				"tags": [
+					"Azure"
+				]
+			}
+		},
+		"/system/azure-config ": {
+			"put": {
+				"description": "Azure Configuration with Azure Service Principles",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter for Azure Configuration with ASP",
+						"schema": {
+							"$ref": "#/definitions/Azure_Config_ASP"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Azure Configuration with Service Principles",
+				"tags": [
+					"Azure"
+				]
+			}
+		},
+		"/system": {
+			"put": {
+				"description": "Enable Multi IP",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter for Enable Azure Multi IP",
+						"schema": {
+							"$ref": "#/definitions/Enable_multi_IP"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Enable Multi IP",
+				"tags": [
+					"Azure"
+				]
+			}
+		},
+		"/services": {
+			"post": {
+				"description": "Create a service using ( Allocate IP ) option",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter to Create a service using ( Allocate IP ) option",
+						"schema": {
+							"$ref": "#/definitions/Allocate_IP"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Create a service using ( Allocate IP ) option",
+				"tags": [
+					"Add Service"
+				]
+			}
+		},
+		"/services ": {
+			"post": {
+				"description": "Create a service using ( Enter IP ) option",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter to Create a service using ( Enter IP ) option",
+						"schema": {
+							"$ref": "#/definitions/Enter_IP"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Create a service using ( Enter IP ) option",
+				"tags": [
+					"Add Service"
+				]
+			}
+		},
+		"/services  ": {
+			"post": {
+				"description": "Create a service using ( System IP Address ) option",
+				"parameters": [{
+						"description": "Login token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"description": "Body Parameter to Create a service using ( System IP Address ) option",
+						"schema": {
+							"$ref": "#/definitions/System_IP"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation."
+					},
+					"400": {
+						"description": "Invalid Request."
+					},
+					"401": {
+						"description": "Invalid Credentials."
+					},
+					"403": {
+						"description": "Forbidden."
+					},
+					"404": {
+						"description": "Resource Not Found."
+					},
+					"405": {
+						"description": "Method Not Allowed."
+					},
+					"500": {
+						"description": "Internal Server Error."
+					}
+				},
+				"summary": "Create a service using (  System IP Address ) option",
+				"tags": [
+					"Add Service"
+				]
+			}
+		}	
+	},
+
+	"definitions": {
+		"Enable_multi_IP": {
+			"required": [
+				"json-file-content"
+			],
+			"properties": {
+				"enable-multi-ip": {
+					"description": "Enable Multi IP",
+					"type": "string",
+					"example": "Yes"
+				}
+			}
+		},
+		"Azure_Config_AD": {
+			"required": [
+				"json-file-content"
+			],
+			"properties": {
+				"azure-cloud-type": {
+					"description": "Azure Cloud Type",
+					"type": "string",
+					"example": "Azure Public Cloud"
+				},
+				"subscription-id": {
+					"description": "Subscription ID",
+					"type": "string",
+					"example": "Subscription ID"
+				},
+				"user-id": {
+					"description": "User ID",
+					"type": "string",
+					"example": "XXX@cudazure.onmicrosoft.com",
+					"format": "email"
+				},
+				"user-password": {
+					"description": "User password",
+					"type": "string",
+					"example": "XXXXXX",
+					"format": "password"
+				},
+				"resource-group": {
+					"description": "Resource Group",
+					"type": "string",
+					"example": "Resource Group Name"
+				},
+				"login-choice": {
+					"description": "Azure Login Choice",
+					"type": "string",
+					"example": "AD User/Password"
+				}
+			}
+		},
+		"Azure_Config_ASP": {
+			"required": [
+				"json-file-content"
+			],
+			"properties": {
+				"azure-cloud-type": {
+					"description": "Azure Cloud Type",
+					"type": "string",
+					"example": "Azure Public Cloud"
+				},
+				"subscription-id": {
+					"description": "Subscription Type",
+					"type": "string",
+					"example": "Subscription ID"
+				},
+				"client-id": {
+					"description": "Client ID",
+					"type": "string",
+					"example": "XXX@cudazure.onmicrosoft.com",
+					"format": "email"
+				},
+				"tenant-id": {
+					"description": "Tenant ID",
+					"type": "string",
+					"example": "XXXXXX",
+					"format": "password"
+				},
+				"secret-key": {
+					"description": "Secret Key",
+					"type": "string",
+					"example": "Resource Group Name"
+				},
+				"resource-group": {
+					"description": "Resource group",
+					"type": "string",
+					"example": "Resource Group Name"
+				},
+				"login-choice": {
+					"description": "Azure login choice",
+					"type": "string",
+					"example": "Service Principal"
+				}
+			}
+		},
+		"Allocate_IP": {
+			"required": [
+				"json-file-content"
+			],
+			"properties": {
+				"name": {
+					"description": "service name",
+					"type": "string",
+					"example": "testserv1"
+				},
+				"type": {
+					"description": "service type",
+					"type": "string",
+					"example": "HTTP"
+				},
+				"port": {
+					"description": "service port",
+					"type": "string",
+					"example": "80"
+				},
+				"cloud-ip-select": {
+					"description": "cloud ip select",
+					"type": "string",
+					"example": "Allocate New IP"
+				}
+			}
+		},
+		"Enter_IP": {
+			"required": [
+				"json-file-content"
+			],
+			"properties": {
+				"name": {
+					"description": "service name",
+					"type": "string",
+					"example": "testserv1"
+				},
+				"type": {
+					"description": "service type",
+					"type": "string",
+					"example": "HTTP"
+				},
+				"port": {
+					"description": "service port",
+					"type": "string",
+					"example": "80"
+				},
+				"cloud-ip-select": {
+					"description": "cloud ip select",
+					"type": "string",
+					"example": "Enter IP Address"
+				},
+				"ip-address": {
+					"description": "IP Address",
+					"type": "string",
+					"example": "10.8.6.10"
+				}
+			}
+		},
+		"System_IP": {
+			"required": [
+				"json-file-content"
+			],
+			"properties": {
+				"name": {
+					"description": "service name",
+					"type": "string",
+					"example": "testserv1"
+				},
+				"type": {
+					"description": "service type",
+					"type": "string",
+					"example": "HTTP"
+				},
+				"port": {
+					"description": "service port",
+					"type": "string",
+					"example": "80"
+				},
+				"cloud-ip-select": {
+					"description": "cloud ip select",
+					"type": "string",
+					"example": "System IP Address"
+				}
+			}
+		}		
+	},
+	"schemes": [
+		"http"
+	]
+}

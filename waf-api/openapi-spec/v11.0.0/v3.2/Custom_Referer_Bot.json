@@ -1,0 +1,257 @@
+{
+    "basePath": "/restapi/v3.2",
+    "components": {
+        "schemas": {}
+    },
+    "definitions": {
+        "Custom Referer Bot POST body": {
+            "properties": {
+                "name": {
+                    "description": "Attack Data Type Name",
+                    "maximum": 64,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        }
+    },
+    "host": "<WAF-IP/WAF-Domain>:8000",
+    "info": {
+        "termsOfService": "http://barracuda.com",
+        "title": "Custom Referer Bot API",
+        "version": "3.2.0"
+    },
+    "paths": {
+        "/bot-spam-types": {
+            "post": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Body Parameter of Custom Referer Bot",
+                        "in": "body",
+                        "name": "Custom Referer Bot",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Custom Referer Bot POST body"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully created."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "406": {
+                        "description": "JSON Data not acceptable."
+                    },
+                    "415": {
+                        "description": "Invalid JSON data specified."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "ADD Information of Custom Referer Bot",
+                "tags": [
+                    "Custom Referer Bot"
+                ]
+            }
+        },
+        "/bot-spam-types ": {
+            "get": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "name"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "parameters",
+                        "type": "array"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "FETCH Information of Custom Referer Bot",
+                "tags": [
+                    "Custom Referer Bot"
+                ]
+            }
+        },
+        "/bot-spam-types/{Attack Data Type Name}": {
+            "delete": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Attack Data Type Name of Custom Referer Bot",
+                        "in": "path",
+                        "name": "Attack Data Type Name",
+                        "required": "true",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "DELETE Information of Custom Referer Bot",
+                "tags": [
+                    "Custom Referer Bot"
+                ]
+            }
+        },
+        "/bot-spam-types/{Attack Data Type Name} ": {
+            "get": {
+                "description": "",
+                "parameters": [
+                    {
+                        "description": "Login token",
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Attack Data Type Name of Custom Referer Bot",
+                        "in": "path",
+                        "name": "Attack Data Type Name",
+                        "required": "true",
+                        "type": "string"
+                    },
+                    {
+                        "collectionFormat": "multi",
+                        "description": "",
+                        "in": "query",
+                        "items": {
+                            "enum": [
+                                "name"
+                            ],
+                            "types": "string"
+                        },
+                        "name": "parameters",
+                        "type": "array"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "401": {
+                        "description": "Invalid Credentials."
+                    },
+                    "404": {
+                        "description": "Resource Not Found."
+                    },
+                    "405": {
+                        "description": "Method Not Allowed."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "FETCH Information of Custom Referer Bot",
+                "tags": [
+                    "Custom Referer Bot"
+                ]
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "tags": [
+        {
+            "name": "Custom Referer Bot"
+        }
+    ]
+}

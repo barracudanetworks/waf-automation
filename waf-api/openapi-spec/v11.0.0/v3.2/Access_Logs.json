@@ -1,0 +1,1097 @@
+{
+    "components": {
+        "schemas": {
+            "authenticated-userFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "authenticated-user", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "bytes-receivedFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "bytes-received", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "bytes-sentFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "bytes-sent", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "clickjackingFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "clickjacking", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "client-fingerprintFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "client-fingerprint", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "client-ipFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "client-ip", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "client-portFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "client-port", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "client-risk-scoreFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "client-risk-score", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "client-typeFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "client-type", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "example": [
+                            "Good", 
+                            "Allow-list Bot", 
+                            "Fake Bot", 
+                            "Bot", 
+                            "Attack Bot", 
+                            "Attack", 
+                            "Blocklisted Category", 
+                            "Unknown"
+                        ], 
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "countryFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "country", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "custom-header1FilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "custom-header1", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "custom-header2FilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "custom-header2", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "custom-header3FilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "custom-header3", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "custom-header4FilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "custom-header4", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "custom-header5FilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "custom-header5", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "custom-header6FilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "custom-header6", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "encrypted-urlFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "encrypted-url", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "hostFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "host", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "idFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "id", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "methodFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "method", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "proxy-ipFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "proxy-ip", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "proxy-portFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "proxy-port", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "query-stringFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "query-string", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "risk-scoreFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "risk-score", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "server-ipFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "server-ip", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "server-portFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "server-port", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "service-app-idFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "service-app-id", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "service-ipFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "service-ip", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "service-portFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "service-port", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "time-takenFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "time-taken", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "greater than", 
+                            "greater than or equal to", 
+                            "less than", 
+                            "less than or equal to", 
+                            "in the range", 
+                            "in (comma-separated)", 
+                            "not in (comma-separated)"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "timeFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "time", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "Time Range"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "urlFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "url", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }, 
+            "user-agentFilterBody": {
+                "properties": {
+                    "field": {
+                        "default": "user-agent", 
+                        "type": "string"
+                    }, 
+                    "operators": {
+                        "enum": [
+                            "is equal to", 
+                            "not equal to", 
+                            "regexp", 
+                            "not regexp"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "values": {
+                        "items": {
+                            "type": "string"
+                        }, 
+                        "type": "array"
+                    }
+                }, 
+                "type": "object"
+            }
+        }
+    }, 
+    "info": {
+        "termsOfService": "http://<waf-ip:port>/restapi/v3.2", 
+        "title": "Access Logs", 
+        "version": "3.2.0"
+    }, 
+    "openapi": "3.0.0", 
+    "paths": {
+        "/access-logs": {
+            "get": {
+                "description": "GET information of Access Logs", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": true, 
+                        "schema": {
+                            "type": "string"
+                        }
+                    }, 
+                    {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/timeFilterBody"
+                                    }, 
+                                    "type": "array"
+                                }
+                            }
+                        }, 
+                        "description": "Filters as JSON object string", 
+                        "in": "query", 
+                        "name": "filters"
+                    }, 
+                    {
+                        "description": "Parameters as CSV", 
+                        "explode": false, 
+                        "in": "query", 
+                        "name": "parameters", 
+                        "schema": {
+                            "items": {
+                                "enum": [
+                                    "clickjacking", 
+                                    "web-firewall-matched", 
+                                    "proxy-port", 
+                                    "profile-matched", 
+                                    "client-fingerprint", 
+                                    "certificate-user", 
+                                    "client-type", 
+                                    "version", 
+                                    "cookie", 
+                                    "custom-header5", 
+                                    "custom-header4", 
+                                    "proxy-ip", 
+                                    "server-port", 
+                                    "client-risk-score", 
+                                    "country", 
+                                    "risks", 
+                                    "referrer", 
+                                    "login", 
+                                    "url", 
+                                    "query-string", 
+                                    "bytes-sent", 
+                                    "time-taken", 
+                                    "bytes-received", 
+                                    "server-ip", 
+                                    "client-ip", 
+                                    "session-id", 
+                                    "response-type", 
+                                    "time", 
+                                    "custom-header2", 
+                                    "service-app-id", 
+                                    "risk-score", 
+                                    "client-port", 
+                                    "server-time", 
+                                    "authenticated-user", 
+                                    "service-name", 
+                                    "protected", 
+                                    "protocol", 
+                                    "encrypted-url", 
+                                    "host", 
+                                    "user-agent", 
+                                    "service-ip", 
+                                    "cached", 
+                                    "custom-header3", 
+                                    "custom-header1", 
+                                    "id", 
+                                    "custom-header6", 
+                                    "method", 
+                                    "service-port"
+                                ], 
+                                "type": "string"
+                            }, 
+                            "type": "array"
+                        }, 
+                        "style": "form"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "GET information of Access Logs", 
+                "tags": [
+                    "Access Logs API"
+                ]
+            }
+        }, 
+        "/access-logs/{id}": {
+            "get": {
+                "description": "GET information of Access Logs", 
+                "parameters": [
+                    {
+                        "description": "Login token", 
+                        "in": "header", 
+                        "name": "Authorization", 
+                        "required": true, 
+                        "schema": {
+                            "type": "string"
+                        }
+                    }, 
+                    {
+                        "description": "id of Access Logs", 
+                        "in": "path", 
+                        "name": "id", 
+                        "required": true, 
+                        "schema": {
+                            "type": "string"
+                        }
+                    }, 
+                    {
+                        "description": "Parameters as CSV", 
+                        "explode": false, 
+                        "in": "query", 
+                        "name": "parameters", 
+                        "schema": {
+                            "items": {
+                                "enum": [
+                                    "clickjacking", 
+                                    "web-firewall-matched", 
+                                    "proxy-port", 
+                                    "profile-matched", 
+                                    "client-fingerprint", 
+                                    "certificate-user", 
+                                    "client-type", 
+                                    "version", 
+                                    "cookie", 
+                                    "custom-header5", 
+                                    "custom-header4", 
+                                    "proxy-ip", 
+                                    "server-port", 
+                                    "client-risk-score", 
+                                    "country", 
+                                    "risks", 
+                                    "referrer", 
+                                    "login", 
+                                    "url", 
+                                    "query-string", 
+                                    "bytes-sent", 
+                                    "time-taken", 
+                                    "bytes-received", 
+                                    "server-ip", 
+                                    "client-ip", 
+                                    "session-id", 
+                                    "response-type", 
+                                    "time", 
+                                    "custom-header2", 
+                                    "service-app-id", 
+                                    "risk-score", 
+                                    "client-port", 
+                                    "server-time", 
+                                    "authenticated-user", 
+                                    "service-name", 
+                                    "protected", 
+                                    "protocol", 
+                                    "encrypted-url", 
+                                    "host", 
+                                    "user-agent", 
+                                    "service-ip", 
+                                    "cached", 
+                                    "custom-header3", 
+                                    "custom-header1", 
+                                    "id", 
+                                    "custom-header6", 
+                                    "method", 
+                                    "service-port"
+                                ], 
+                                "type": "string"
+                            }, 
+                            "type": "array"
+                        }, 
+                        "style": "form"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }, 
+                    "400": {
+                        "description": "Invalid Request."
+                    }, 
+                    "401": {
+                        "description": "Invalid Credentials."
+                    }, 
+                    "404": {
+                        "description": "Resource Not Found."
+                    }, 
+                    "405": {
+                        "description": "Method Not Allowed."
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }, 
+                "summary": "GET information of Access Logs", 
+                "tags": [
+                    "Access Logs API"
+                ]
+            }
+        }
+    }
+}
