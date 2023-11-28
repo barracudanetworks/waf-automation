@@ -1,0 +1,598 @@
+{
+	"info": {
+		"name": "Automation - Hardening",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PATCH",
+			"item": [
+				{
+					"name": "URL Protection security",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"max_content_length\": null,\r\n    \"max_parameters\": 60,\r\n    \"sql_injection\": \"normal\",\r\n    \"os_command_injection\": \"normal\",\r\n    \"cross_site_scripting\": \"normal\",\r\n    \"remote_file_inclusion\": \"normal\",\r\n    \"ldap_injection\": \"normal\",\r\n    \"python_php_attacks\": \"normal\",\r\n    \"http_specific_injection\": \"normal\",\r\n    \"apache_struts_attacks\": \"normal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/url_protection/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"url_protection",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameter Protection security",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"maximum_parameter_value_length\": 10000,\r\n    \"maximum_upload_file_size\": 10024,\r\n    \"sql_injection\": \"normal\",\r\n    \"os_command_injection\": \"normal\",\r\n    \"cross_site_scripting\": \"normal\",\r\n    \"remote_file_inclusion\": \"normal\",\r\n    \"ldap_injection\": \"normal\",\r\n    \"python_php_attacks\": \"normal\",\r\n    \"http_specific_injection\": \"normal\",\r\n    \"apache_struts_attacks\": \"normal\",\r\n    \"directory_traversal\": \"normal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/parameter_protection/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"parameter_protection",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Limits Increase",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"enabled\": true,\r\n    \"max_request_length\": 32768,\r\n    \"max_request_line_length\": 4096,\r\n    \"max_url_length\": 4096,\r\n    \"max_query_length\": 4096,\r\n    \"max_number_of_cookies\": 40,\r\n    \"max_cookie_name_length\": 64,\r\n    \"max_cookie_value_length\": 4096,\r\n    \"max_number_of_headers\": 40,\r\n    \"max_header_name_length\": 32,\r\n    \"max_header_value_length\": 1024\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/request_limits/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"request_limits",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Rewrite HSTS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"hsts\",\r\n        \"sequence_number\": 1,\r\n        \"action\": \"Insert Header\",\r\n        \"header\": \"Strict-Transport-Security\",\r\n        \"old_value\": \"*\",\r\n        \"rewrite_value\": \"max-age=31536000; includeSubDomains\",\r\n        \"condition\": \"*\",\r\n        \"continue_processing\": true,\r\n        \"comments\": \"This header insert is for HSTS enforcement.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/response_rewrite/rules/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"response_rewrite",
+								"rules",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Endpoints - Cipher security",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{        \r\n        \"cipher_suite_name\": \"custom\",\r\n        \"custom_ciphers\": [\r\n            \"ECDHE-ECDSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-RSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-ECDSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-RSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-ECDSA-CHACHA20-POLY1305\",\r\n            \"ECDHE-RSA-CHACHA20-POLY1305\",\r\n            \"DHE-RSA-AES128-GCM-SHA256\",\r\n            \"DHE-RSA-AES256-GCM-SHA384\",\r\n            \"DHE-RSA-CHACHA20-POLY1305\",\r\n            \"TLS_AES_128_GCM_SHA256\",\r\n            \"TLS_CHACHA20_POLY1305_SHA256\",\r\n            \"TLS_AES_256_GCM_SHA384\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/endpoints/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"endpoints",
+								""
+							]
+						},
+						"description": "Endpoints"
+					},
+					"response": []
+				},
+				{
+					"name": "Endpoints - TLS Security",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"https\": {\r\n        \"enable_tls_1\": false,\r\n        \"enable_tls_1_1\": false,\r\n        \"enable_tls_1_2\": true,\r\n        \"enable_tls_1_3\": true,\r\n        \"enable_ssl_3\": false,\r\n        \"cipher_suite_name\": \"custom\",\r\n        \"custom_ciphers\": [\r\n            \"ECDHE-ECDSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-RSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-ECDSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-RSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-ECDSA-CHACHA20-POLY1305\",\r\n            \"ECDHE-RSA-CHACHA20-POLY1305\",\r\n            \"DHE-RSA-AES128-GCM-SHA256\",\r\n            \"DHE-RSA-AES256-GCM-SHA384\",\r\n            \"DHE-RSA-CHACHA20-POLY1305\",\r\n            \"TLS_AES_128_GCM_SHA256\",\r\n            \"TLS_CHACHA20_POLY1305_SHA256\",\r\n            \"TLS_AES_256_GCM_SHA384\"]\r\n            }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/endpoints/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"endpoints",
+								""
+							]
+						},
+						"description": "Endpoints"
+					},
+					"response": []
+				},
+				{
+					"name": "Response Status Off",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cloak_status_code\": false,\r\n    \"status_codes_to_pass_through\": [\r\n        404\r\n    ],\r\n    \"cloak_sensitive_headers\": true,\r\n    \"headers_to_cloak\": [\r\n        \"Server\",\r\n        \"X-AspNet-Version\",\r\n        \"X-Powered-By\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/response_cloaking/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"response_cloaking",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Basic Security Mode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/basic_security/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"basic_security",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "URL Protection security",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"max_content_length\": null,\r\n    \"max_parameters\": 60,\r\n    \"sql_injection\": \"normal\",\r\n    \"os_command_injection\": \"normal\",\r\n    \"cross_site_scripting\": \"normal\",\r\n    \"remote_file_inclusion\": \"normal\",\r\n    \"ldap_injection\": \"normal\",\r\n    \"python_php_attacks\": \"normal\",\r\n    \"http_specific_injection\": \"normal\",\r\n    \"apache_struts_attacks\": \"normal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/url_protection/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"url_protection",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Parameter Protection security",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"maximum_parameter_value_length\": 10000,\r\n    \"maximum_upload_file_size\": 10024,\r\n    \"sql_injection\": \"normal\",\r\n    \"os_command_injection\": \"normal\",\r\n    \"cross_site_scripting\": \"normal\",\r\n    \"remote_file_inclusion\": \"normal\",\r\n    \"ldap_injection\": \"normal\",\r\n    \"python_php_attacks\": \"normal\",\r\n    \"http_specific_injection\": \"normal\",\r\n    \"apache_struts_attacks\": \"normal\",\r\n    \"directory_traversal\": \"normal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/parameter_protection/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"parameter_protection",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Limits Increase",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"enabled\": true,\r\n    \"max_request_length\": 32768,\r\n    \"max_request_line_length\": 4096,\r\n    \"max_url_length\": 4096,\r\n    \"max_query_length\": 4096,\r\n    \"max_number_of_cookies\": 40,\r\n    \"max_cookie_name_length\": 64,\r\n    \"max_cookie_value_length\": 4096,\r\n    \"max_number_of_headers\": 40,\r\n    \"max_header_name_length\": 32,\r\n    \"max_header_value_length\": 1024\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/request_limits/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"request_limits",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Rewrite HSTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"hsts\",\r\n        \"sequence_number\": 1,\r\n        \"action\": \"Insert Header\",\r\n        \"header\": \"Strict-Transport-Security\",\r\n        \"old_value\": \"*\",\r\n        \"rewrite_value\": \"max-age=31536000; includeSubDomains\",\r\n        \"condition\": \"*\",\r\n        \"continue_processing\": true,\r\n        \"comments\": \"This header insert is for HSTS enforcement.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/response_rewrite/rules/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"response_rewrite",
+								"rules",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Endpoints - Cipher security",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{        \r\n        \"cipher_suite_name\": \"custom\",\r\n        \"custom_ciphers\": [\r\n            \"ECDHE-ECDSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-RSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-ECDSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-RSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-ECDSA-CHACHA20-POLY1305\",\r\n            \"ECDHE-RSA-CHACHA20-POLY1305\",\r\n            \"DHE-RSA-AES128-GCM-SHA256\",\r\n            \"DHE-RSA-AES256-GCM-SHA384\",\r\n            \"DHE-RSA-CHACHA20-POLY1305\",\r\n            \"TLS_AES_128_GCM_SHA256\",\r\n            \"TLS_CHACHA20_POLY1305_SHA256\",\r\n            \"TLS_AES_256_GCM_SHA384\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/endpoints/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"endpoints",
+								""
+							]
+						},
+						"description": "Endpoints"
+					},
+					"response": []
+				},
+				{
+					"name": "Endpoints - TLS Security",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"https\": {\r\n        \"enable_tls_1\": false,\r\n        \"enable_tls_1_1\": false,\r\n        \"enable_tls_1_2\": true,\r\n        \"enable_tls_1_3\": true,\r\n        \"enable_ssl_3\": false,\r\n        \"cipher_suite_name\": \"custom\",\r\n        \"custom_ciphers\": [\r\n            \"ECDHE-ECDSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-RSA-AES128-GCM-SHA256\",\r\n            \"ECDHE-ECDSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-RSA-AES256-GCM-SHA384\",\r\n            \"ECDHE-ECDSA-CHACHA20-POLY1305\",\r\n            \"ECDHE-RSA-CHACHA20-POLY1305\",\r\n            \"DHE-RSA-AES128-GCM-SHA256\",\r\n            \"DHE-RSA-AES256-GCM-SHA384\",\r\n            \"DHE-RSA-CHACHA20-POLY1305\",\r\n            \"TLS_AES_128_GCM_SHA256\",\r\n            \"TLS_CHACHA20_POLY1305_SHA256\",\r\n            \"TLS_AES_256_GCM_SHA384\"]\r\n            }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/endpoints/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"endpoints",
+								""
+							]
+						},
+						"description": "Endpoints"
+					},
+					"response": []
+				},
+				{
+					"name": "Response Status Off",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cloak_status_code\": false,\r\n    \"status_codes_to_pass_through\": [\r\n        404\r\n    ],\r\n    \"cloak_sensitive_headers\": true,\r\n    \"headers_to_cloak\": [\r\n        \"Server\",\r\n        \"X-AspNet-Version\",\r\n        \"X-Powered-By\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.waas.barracudanetworks.com/v4/waasapi/applications/{{appName}}/response_cloaking/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"waas",
+								"barracudanetworks",
+								"com"
+							],
+							"path": [
+								"v4",
+								"waasapi",
+								"applications",
+								"{{appName}}",
+								"response_cloaking",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "YourBearerTokenHere",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "appName",
+			"value": "www.example.com",
+			"type": "string"
+		}
+	]
+}
