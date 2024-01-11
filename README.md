@@ -1,40 +1,14 @@
-# DevOps with Barracuda Web Application Firewall
-
 # Introduction
 
-Organisations are adopting infrastructure as Code to be more agile to business requirements. Configuration automation solutions such as Puppet have been leaders in this space and have successfully migrated applications from conventional development practices. At the same time, the challenges that organisations have been facing from external threats has been growing exponentially. The challenge is to enhance proven security best practices to be adopted to the agility of the application development lifecycle. Barracuda Web Application Firewall (WAF) has been a long-standing cloud enabled security solution for application security needs. [Click here to learn more about the Barracuda Web Application Firewall](https://campus.barracuda.com/product/webapplicationfirewall/) 
+This repository contains information about REST API support for Barracuda WAF and Barracuda WAF-As-A-Service and code samples to show how to use these APIs.
 
-![alt](https://www.barracuda.com/assets/img/sections/programs/azure/img_app-security_diagram1.png)
-
-
-This space will include details about how common DevOps practices/tools can be used with the Barracuda Web Applications Firewall product with primary focus on public cloud platforms like AWS and Microsoft Azure.
-
-# Provisioning and Deployment
-### Amazon Web Services
-##### Single instance deployments
-1. Ansible: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/blob/master/WAF_provisioning_code_samples/ansible_examples/waf_ec2.yml)
-2. Puppet: [Deploying Barracuda Web Application Firewall on AWS](https://github.com/barracudanetworks/waf-automation/tree/master/WAF_provisioning_code_samples/puppet_examples/aws/modules/profiles)
-3. Terraform: [Deploying Barracuda WAF on AWS](https://github.com/barracudanetworks/waf-automation/tree/master/WAF_provisioning_code_samples/terraform_examples)
-##### CFT for Autoscaling deployments
-1. [BYOL Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/BYOLAutoScaling/)
-2. [PAYG Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/73007159/)
-3. [Metered Auto Scaling](https://campus.barracuda.com/product/webapplicationfirewall/article/display/BWAFv76/68361418/)
-### Microsoft Azure
-##### Template based deployments
-1. Ansible: [Deploying Barracuda WAF on Azure](https://github.com/barracudanetworks/waf-automation/tree/master/WAF_provisioning_code_samples/ansible_examples)
-2. Puppet: [Deploying Barracuda Web Application Firewall on Azure](https://github.com/barracudanetworks/waf-automation/tree/master/WAF_provisioning_code_samples/puppet_examples/azureinfra)
 # REST API
-##### REST API v1
-[Documentation](https://campus.barracuda.com/product/webapplicationfirewall/article/WAF/RESTAPI/)
+
 ##### REST API v3
 [Documentation](https://campus.barracuda.com/product/webapplicationfirewall/api) `NEW`
 
-# Vulnerability Remediation Service
-##### Ruby script for connecting to VRS and setting up a scan
-1. AWS - [Ruby script for connecting to VRS and setting up a scan for an AWS instance](https://github.com/barracudanetworks/waf-automation/blob/master/VRS/ruby-vrs-aws.rb)
-2. Azure - [Ruby script for connecting to VRS and setting up a scan for an Azure instance](https://github.com/barracudanetworks/waf-automation/blob/master/VRS/ruby-vrs-azure.rb)
-# Workflow Samples
-Using the code samples in this repo, organizations can build devops workflows in their networks. The following are some of the devops workflows that can be created:
+# Automation Workflow
+Using the code samples in this repo, organizations can build devops workflows. The following are some of the devops workflows that can be created:
 
 ### 1. Application + Security Lifecycle Management
 In this workflow, the objective is to introduce security into the application deployment in a seamless way. REST API can be used to configure the service, link the WAF to Barracuda Cloud control, as well as to enable the advanced security controls. For further security fine tuning, Barracuda VRS can be leveraged. This workflow can be automated using configuration management tools like Puppet, Ansible and Chef. The workflow is shown with a schematic diagram below:
