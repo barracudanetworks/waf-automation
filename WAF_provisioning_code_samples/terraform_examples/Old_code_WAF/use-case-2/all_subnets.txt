@@ -1,2 +1,0 @@
-subnet-53cbfb1a
-terraform-demo-subnet
