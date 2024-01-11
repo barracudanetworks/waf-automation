@@ -2,10 +2,13 @@
 
 This repository contains information about REST API support for Barracuda WAF and Barracuda WAF-As-A-Service and code samples to show how to use these APIs.
 
-# REST API
+# WAF REST API
 
 ##### REST API v3
-[Documentation](https://campus.barracuda.com/product/webapplicationfirewall/api) `NEW`
+[Documentation](https://campus.barracuda.com/product/webapplicationfirewall/api)
+
+# WAF-As-A-Service REST API
+[README](https://github.com/barracudanetworks/waf-automation/blob/master/waf-as-a-service-api/README.md)
 
 # Automation Workflow
 Using the code samples in this repo, organizations can build devops workflows. The following are some of the devops workflows that can be created:
