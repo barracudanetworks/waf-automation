@@ -7,6 +7,7 @@ This repository contains information about REST API support for Barracuda WAF an
 ##### REST API v3 and later versions
 1. [Documentation](https://campus.barracuda.com/product/webapplicationfirewall/api)
 2. [Accessing the WAF API - Curl Examples](https://campus.barracuda.com/doc/73698479/)
+3. [OpenAPI Spec and Scripts](https://github.com/barracudanetworks/waf-automation/tree/master/waf-api)
 
 # WAF-As-A-Service REST API
 1. [README](https://github.com/barracudanetworks/waf-automation/blob/master/waf-as-a-service-api/README.md)
