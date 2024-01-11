@@ -8,3 +8,5 @@
 /waf-on-azure/Powershell/deployment.ps1
 *.suo
 *.config
+**/.DS_Store
+
